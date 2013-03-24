@@ -2,20 +2,22 @@ package com.taskmanager;
 
 import java.text.DateFormat;
 import java.util.Date;
-import android.view.Gravity;
-import android.view.View.OnClickListener;
-import android.os.Bundle;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 public class MainActivity extends Activity implements OnClickListener {
 	
 	DatabaseAdapter dbAdapter;
@@ -28,8 +30,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		dbAdapter = new DatabaseAdapter(getApplicationContext());
 		
+		
+		
 		//get the instance of all buttons
 		TextView currentDate = (TextView) findViewById(R.id.dvu_header);
+		
 		Button dayBtn = (Button) findViewById(R.id.day_btn);		
 		Button weekBtn = (Button) findViewById(R.id.week_btn);
 		Button monthBtn = (Button) findViewById(R.id.month_btn);
@@ -41,6 +46,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
 		currentDate.setText(currentDateTimeString);
 		
+		String[] string_array = {"12:00 Doctor appointment", "14:15 NAF", "18:00 MSP meeting"};
+	
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, string_array);
+		
+		ListView listView = (ListView) findViewById(R.id.hour_slots);
+		listView.setAdapter(adapter);
+		
 		//adding action listener of buttons
 		dayBtn.setOnClickListener(this);
 		weekBtn.setOnClickListener(this);
@@ -50,6 +62,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	}	
 
 	@Override
+	
 	public void onClick(View v) {
 		
 		String message = "";
@@ -81,7 +94,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						
 					if(inserted > 0)
 					{
-						DisplayToast("Successfully Saved "+inserted);
+						DisplayToast("Successfully Saved " + inserted);
 						//Toast.makeText(getApplicationContext(), "Successfully Saved "+inserted, Toast.LENGTH_SHORT).show();
 						etTitle.setText("");
 						etBody.setText("");
