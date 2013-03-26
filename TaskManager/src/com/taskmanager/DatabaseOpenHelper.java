@@ -11,6 +11,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	
 	public static final String TABLE_SQL = "CREATE TABLE " + TABLE_NAME
 			+ "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ "datetime TEXT, "
 			+ "title TEXT, "
 			+ "body TEXT);";
 	

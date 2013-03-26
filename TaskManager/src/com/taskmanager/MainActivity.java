@@ -1,7 +1,9 @@
 package com.taskmanager;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -11,6 +13,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +25,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener {
 	
 	DatabaseAdapter dbAdapter;
-	EditText etTitle, etBody;
+	EditText etTitle, etBody, etTime;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +49,43 @@ public class MainActivity extends Activity implements OnClickListener {
 		//Current date for display in the day view
 		String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
 		currentDate.setText(currentDateTimeString);
+
+		dbAdapter.Open();
+		Cursor curs = dbAdapter.getAllEventsForDayView();
 		
-		String[] string_array = {"12:00 Doctor appointment", "14:15 NAF", "18:00 MSP meeting"};
+		List<String> arrayDB = new ArrayList<String>(); 
+		if(curs.moveToFirst())
+	    {
+	        do
+	        {
+	            //Call displayItem method in below
+	            String time = curs.getString(0);
+	            //String formatted_time = String.format("%2s", time);
+	            String title = curs.getString(1);
+	            
+	            arrayDB.add(time.substring(0, 2) +"  " + title);
+	        } while (curs.moveToNext());
+	    }
+		
+		dbAdapter.Close();
+		//String[] string_array = {"01", "02", "03", "04", "05", "06", "07", "08 Doctor appointment", "09 NAF", "10 MSP meeting", "11", "12", "13", ""};
 	
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, string_array);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayDB);
 		
 		ListView listView = (ListView) findViewById(R.id.hour_slots);
 		listView.setAdapter(adapter);
+		
+        listView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                    long id) {
+               
+                String item = ((TextView)view).getText().toString();
+               
+                Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+               
+            }
+        });
 		
 		//adding action listener of buttons
 		dayBtn.setOnClickListener(this);
@@ -75,6 +109,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			dialog.setTitle("Create a new Task");
 			
 			// set the custom dialog components - editText and button
+			etTime = (EditText) dialog.findViewById(R.id.etTime);
 			etTitle = (EditText) dialog.findViewById(R.id.etTitle);
 			etBody = (EditText) dialog.findViewById(R.id.etNote);
 						
@@ -87,10 +122,10 @@ public class MainActivity extends Activity implements OnClickListener {
 				public void onClick(View v) {
 					String title = etTitle.getText().toString();
 					String body = etBody.getText().toString();
-						
+					String time = etTime.getText().toString();
 					dbAdapter.Open();
-					
-					long inserted = dbAdapter.InsertNote(title, body);
+
+					long inserted = dbAdapter.InsertNote(time, title, body);
 						
 					if(inserted > 0)
 					{

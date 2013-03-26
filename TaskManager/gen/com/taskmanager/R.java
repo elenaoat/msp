@@ -16,22 +16,24 @@ public final class R {
         public static final int ic_settings=0x7f020002;
     }
     public static final class id {
-        public static final int add_event=0x7f070003;
-        public static final int cancel_btn=0x7f07000c;
-        public static final int day_btn=0x7f070006;
+        public static final int add_event=0x7f070004;
+        public static final int cancel_btn=0x7f07000e;
+        public static final int day_btn=0x7f070007;
         public static final int dvu_header=0x7f070001;
-        public static final int etNote=0x7f07000a;
-        public static final int etTitle=0x7f070009;
-        public static final int footer1=0x7f070002;
+        public static final int etNote=0x7f07000c;
+        public static final int etTime=0x7f07000a;
+        public static final int etTitle=0x7f07000b;
+        public static final int footer1=0x7f070003;
+        public static final int hour_slots=0x7f070002;
         public static final int main_layout=0x7f070000;
-        public static final int menu_settings=0x7f07000f;
-        public static final int month_btn=0x7f070008;
-        public static final int month_layout=0x7f07000d;
-        public static final int save_btn=0x7f07000b;
-        public static final int settings_btn=0x7f070004;
-        public static final int show_btn=0x7f070005;
-        public static final int week_btn=0x7f070007;
-        public static final int week_layout=0x7f07000e;
+        public static final int menu_settings=0x7f070011;
+        public static final int month_btn=0x7f070009;
+        public static final int month_layout=0x7f07000f;
+        public static final int save_btn=0x7f07000d;
+        public static final int settings_btn=0x7f070005;
+        public static final int show_btn=0x7f070006;
+        public static final int week_btn=0x7f070008;
+        public static final int week_layout=0x7f070010;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

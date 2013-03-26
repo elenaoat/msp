@@ -23,20 +23,25 @@ public class DatabaseAdapter {
 	{
 		database.close();
 	}
-	
-	public long InsertNote(String title, String body)
+	public long InsertNote(String datetime, String title, String body)
 	{
+
 		ContentValues values = new ContentValues();
+		values.put("datetime", datetime);
 		values.put("title", title);
 		values.put("body", body);
 		return database.insert("events", "", values);		
 	}
 	
 	public Cursor getAllEvents() {
-		return database.query("events", new String[] {"_id", "title", "body"},
+		return database.query("events", new String[] {"_id", "datetime", "title", "body"},
 		null, null, null, null, null);
 	}
-	
+
+	public Cursor getAllEventsForDayView() {
+		return database.query("events", new String[] {"datetime", "title"},
+		null, null, null, null, null);
+	}	
 	public Cursor getOneEvent(long id) {
 		return database.query("events", null, "_id=" + id,
 		null, null, null, null);

@@ -7,14 +7,21 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
+        <EditText
+            android:id="@+id/etTime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             >
 
+            <requestFocus />
+        </EditText>
         <EditText
             android:id="@+id/etTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_title" >
 
-            <requestFocus />
+            
         </EditText>
 
         <EditText
