@@ -58,19 +58,19 @@ public class MainActivity extends Activity implements OnClickListener {
 	    {
 	        do
 	        {
-	            //Call displayItem method in below
-	            String time = curs.getString(0);
-	            //String formatted_time = String.format("%2s", time);
+	           
+	            String time = curs.getString(0);	           
 	            String title = curs.getString(1);
 	            
+	            //SHould be changed to (12, 13) in case the date field will be represented as dd-mm-yyyy hh:mm:ss
 	            arrayDB.add(time.substring(0, 2) +"  " + title);
 	        } while (curs.moveToNext());
 	    }
 		
 		dbAdapter.Close();
-		//String[] string_array = {"01", "02", "03", "04", "05", "06", "07", "08 Doctor appointment", "09 NAF", "10 MSP meeting", "11", "12", "13", ""};
+		String[] string_array = {"01  fhghghgh", "02  tyhh", "03 yyhhyj", "04 yyhjh", "05 yhjhh", "06 tyhyh", "07 ghgh", "08 Doctor appointment", "09 NAF", "10 MSP meeting", "11", "12", "13", ""};
 	
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayDB);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, string_array);
 		
 		ListView listView = (ListView) findViewById(R.id.hour_slots);
 		listView.setAdapter(adapter);
