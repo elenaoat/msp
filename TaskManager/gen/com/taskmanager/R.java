@@ -17,30 +17,39 @@ public final class R {
     }
     public static final class id {
         public static final int add_event=0x7f070004;
-        public static final int cancel_btn=0x7f07000e;
+        public static final int cancel_btn=0x7f070016;
         public static final int day_btn=0x7f070007;
         public static final int dvu_header=0x7f070001;
-        public static final int etNote=0x7f07000c;
-        public static final int etTime=0x7f07000a;
-        public static final int etTitle=0x7f07000b;
+        public static final int etNote=0x7f070014;
+        public static final int etTime=0x7f070012;
+        public static final int etTitle=0x7f070013;
         public static final int footer1=0x7f070003;
         public static final int hour_slots=0x7f070002;
         public static final int main_layout=0x7f070000;
-        public static final int menu_settings=0x7f070011;
+        public static final int menu_settings=0x7f070019;
         public static final int month_btn=0x7f070009;
-        public static final int month_layout=0x7f07000f;
-        public static final int save_btn=0x7f07000d;
+        public static final int month_layout=0x7f070017;
+        public static final int save_btn=0x7f070015;
         public static final int settings_btn=0x7f070005;
         public static final int show_btn=0x7f070006;
+        public static final int task1=0x7f07000b;
+        public static final int task2=0x7f07000d;
+        public static final int task3=0x7f07000f;
+        public static final int task4=0x7f070011;
+        public static final int text1=0x7f07000a;
+        public static final int text2=0x7f07000c;
+        public static final int text3=0x7f07000e;
+        public static final int text4=0x7f070010;
         public static final int week_btn=0x7f070008;
-        public static final int week_layout=0x7f070010;
+        public static final int week_layout=0x7f070018;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int bottom_bar=0x7f030001;
-        public static final int event_dialog=0x7f030002;
-        public static final int month_vu=0x7f030003;
-        public static final int week_vu=0x7f030004;
+        public static final int custom=0x7f030002;
+        public static final int event_dialog=0x7f030003;
+        public static final int month_vu=0x7f030004;
+        public static final int week_vu=0x7f030005;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;
@@ -51,11 +60,19 @@ public final class R {
         public static final int cancel_btn=0x7f040008;
         public static final int day_btn=0x7f040004;
         public static final int dvu_header=0x7f04000b;
+        public static final int half_past=0x7f04000f;
         public static final int hint_body=0x7f04000a;
         public static final int hint_title=0x7f040009;
+        public static final int meeting=0x7f040012;
         public static final int menu_settings=0x7f040002;
         public static final int month_btn=0x7f040006;
         public static final int mvu_header=0x7f04000d;
+        public static final int noon=0x7f040011;
+        /**  <string name="settings_btn">Andro Tasker</string>
+    <string name="add_btn">Andro Tasker</string>  
+         */
+        public static final int quarter_past=0x7f04000e;
+        public static final int quarter_to=0x7f040010;
         public static final int save_btn=0x7f040007;
         public static final int today_btn=0x7f040003;
         public static final int week_btn=0x7f040005;

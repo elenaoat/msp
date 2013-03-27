@@ -23,6 +23,12 @@
     
     <!-- <string name="settings_btn">Andro Tasker</string>
     <string name="add_btn">Andro Tasker</string>  -->
+    <string name="quarter_past">15</string>
+    <string name="half_past">30</string>
+    <string name="quarter_to">45</string>
+    <string name="noon">12</string>
+    <string name="meeting">msp meeting</string>
+   
     
 
 </resources>
