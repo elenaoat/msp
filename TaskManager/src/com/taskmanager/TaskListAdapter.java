@@ -21,22 +21,36 @@ public class TaskListAdapter extends ArrayAdapter<Task>{
 		this.data = data;
 	}
 	
-/*	@Override
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		View row = convertView;
+		TaskHolder holder = null;
 		
 		if (row == null){
 			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 			row = inflater.inflate(layoutResId, parent, false);
 			
+			holder = new TaskHolder();
+			holder.text = (TextView)row.findViewById(R.id.text);
+			holder.task = (TextView)row.findViewById(R.id.task); 
+			
+			row.setTag(holder);
+		} else {
+			holder = (TaskHolder)row.getTag();
 		}
+		
+		Task t = data[position];
+		holder.task.setText(t.task);
+		holder.text.setText(t.time);
+		
+		return row;
 	}
-	*/
+
 	
 	static class TaskHolder
 	{
-		TextView text1;
-		TextView task1, task2, task3, task4;
+		TextView text;
+		TextView task;
 	}
 }

@@ -69,8 +69,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		dbAdapter.Close();
 		String[] string_array = {"01  fhghghgh", "02  tyhh", "03 yyhhyj", "04 yyhjh", "05 yhjhh", "06 tyhyh", "07 ghgh", "08 Doctor appointment", "09 NAF", "10 MSP meeting", "11", "12", "13", ""};
-	
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, string_array);
+
+		Task[] t_array = new Task[] {
+				new Task("01", ""),
+				new Task("02", ""),
+				new Task("03", ""),
+				new Task("04", ""),
+				new Task("05", ""),	
+				new Task("06", ""),
+				new Task("07", "gym")				
+		};
+		
+		TaskListAdapter adapter = new TaskListAdapter(this, R.layout.custom_simple, t_array);
 		
 		ListView listView = (ListView) findViewById(R.id.hour_slots);
 		listView.setAdapter(adapter);
