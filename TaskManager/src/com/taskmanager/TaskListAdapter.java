@@ -21,7 +21,7 @@ public class TaskListAdapter extends ArrayAdapter<Task>{
 		this.data = data;
 	}
 	
-	@Override
+/*	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		View row = convertView;
@@ -32,7 +32,7 @@ public class TaskListAdapter extends ArrayAdapter<Task>{
 			
 		}
 	}
-	
+	*/
 	
 	static class TaskHolder
 	{
