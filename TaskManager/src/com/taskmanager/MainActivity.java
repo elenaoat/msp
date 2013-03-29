@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.util.Date;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -43,14 +42,22 @@ public class MainActivity extends Activity implements OnClickListener {
 		ImageButton showBtn = (ImageButton) findViewById(R.id.show_btn);
 
 		// Current date for display in the day view
-		String currentDateTimeString = DateFormat.getDateInstance().format(
-				new Date());
-		currentDate.setText(currentDateTimeString);
-
+		Intent in = getIntent();
+		String dateString = in.getStringExtra("currentDay");
 		
+		String currentDateTimeString = DateFormat.getDateInstance(DateFormat.LONG).format(new Date());
+		if(dateString == null)
+		{
+			currentDate.setText(currentDateTimeString);
+		}
+		else
+		{
+			currentDate.setText(dateString);
+		}
+				
 		
 		//initial hour slots without tasks
-		Task[] t_array = new Task[] {
+		final Task[] t_array = new Task[] {
 				new Task("01", ""), new Task("02", ""), new Task("03", ""),
 				new Task("04", ""), new Task("05", ""), new Task("06", ""),
 				new Task("07", ""), new Task("08", ""), new Task("09", ""),
@@ -90,6 +97,16 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		ListView listView = (ListView) findViewById(R.id.hour_slots);
 		listView.setAdapter(adapter);
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), t_array[position].time, Toast.LENGTH_SHORT).show();
+			}			
+		});
 
 
 
@@ -107,8 +124,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		String message = "";
 		// action of adding a task
 		if (v.getId() == R.id.add_event) {
-			// custom dialog
-
 			Intent intent = new Intent(this, NewTaskActivity.class);
 			startActivity(intent);
 			/*			final Dialog dialog = new Dialog(this);
@@ -189,8 +204,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			// weekIntent.putExtra("message", message);
 			startActivity(weekIntent);
 		} else if (v.getId() == R.id.month_btn) {
-			Intent monthIntent = new Intent(getBaseContext(),
-					MonthViewActivity.class);
+			Intent monthIntent = new Intent(getBaseContext(), MonthViewActivity.class);
 			startActivity(monthIntent);
 		}
 	}

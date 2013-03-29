@@ -11,19 +11,17 @@
         android:orientation="horizontal"
         android:layout_alignParentTop="true" >
 
-        <Button
-            android:id="@+id/btnPrev"
-            style="?android:attr/buttonStyleSmall"
+        <ImageButton
+        	android:id="@+id/prevWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Prev" />
+            android:src="@android:drawable/ic_media_previous" />
 
-        <Button
-            android:id="@+id/btnNext"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Next" />
+        <ImageButton
+	        android:id="@+id/nextMonth"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@android:drawable/ic_media_next" />
 
         <TextView
             android:id="@+id/weekHeaderTxt"

@@ -10,7 +10,11 @@
         android:id="@+id/dvu_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/darker_gray"
+        android:background="@android:color/black" />
 
    
     <ListView
