@@ -2,17 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/week_layout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp" >
+    android:layout_height="fill_parent" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/weekHeader"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_alignParentTop="true" >
 
+        <Button
+            android:id="@+id/btnPrev"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prev" />
+
+        <Button
+            android:id="@+id/btnNext"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next" />
+
         <TextView
+            android:id="@+id/weekHeaderTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -21,12 +35,44 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
+    
+    <LinearLayout
+        android:id="@+id/weekDays"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/weekHeader"
+        android:weightSum="100" >
+        
+        
+    </LinearLayout>
+    
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weekDays"
+        android:layout_above="@+id/footer1" >
+        <LinearLayout
+        	android:id="@+id/weekDaysDetails"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="vertical"        
+        	android:weightSum="100" >
+        
+        
+    	</LinearLayout>
+    </ScrollView>
+    
+    
+    
+ 
     <include
         android:id="@+id/footer1"
         layout="@layout/bottom_bar"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
+
+    
 
 </RelativeLayout>

@@ -1,27 +1,28 @@
 package com.taskmanager;
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class WeekViewActivity extends Activity implements OnClickListener  {
-
+	private LinearLayout lLayout, cLayout;
+	private TextView tView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);		
 		super.setContentView(R.layout.week_vu);
 		
-//		Bundle extras = getIntent().getExtras();
-//		if(extras !=null)
-//		{
-//			Toast.makeText(getApplicationContext(), extras.getShort("message"), Toast.LENGTH_SHORT).show();
-//		}
 		
 		
 		Button dayBtn = (Button) findViewById(R.id.day_btn);		
@@ -33,6 +34,102 @@ public class WeekViewActivity extends Activity implements OnClickListener  {
 		weekBtn.setOnClickListener(this);
 		monthBtn.setOnClickListener(this);
 		addBtn.setOnClickListener(this);
+		
+		Calendar c1 = Calendar.getInstance();
+
+	    //first day of week
+	    c1.set(Calendar.DAY_OF_WEEK, c1.getFirstDayOfWeek());
+
+	    int year1 = c1.get(Calendar.YEAR);
+	    int month1 = c1.get(Calendar.MONTH)+1;
+	    int day1 = c1.get(Calendar.DAY_OF_MONTH);
+
+	    //last day of week
+	    c1.set(Calendar.DAY_OF_WEEK, 7);
+//	    c1.add(Calendar.WEEK_OF_YEAR, 1);
+
+	    int year7 = c1.get(Calendar.YEAR);
+	    int month7 = c1.get(Calendar.MONTH) + 1;
+	    int day7 = c1.get(Calendar.DAY_OF_MONTH) + 1;
+	    
+	    tView = (TextView) findViewById(R.id.weekHeaderTxt);
+	    tView.setText("Week " + c1.get(Calendar.WEEK_OF_YEAR) + " : " + day1 + "/" + month1 + "/" + year1 + " - " + day7 + "/" + month7 + "/" + year7);
+		
+		lLayout = (LinearLayout) findViewById(R.id.weekDays);
+		
+		tView = new TextView(this);
+		tView.setText("TIMES");
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+			    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		params.weight = 11;
+		tView.setLayoutParams(params);
+		
+		lLayout.addView(tView);
+		
+		int day, month;
+		
+		for(int i = 0; i < 7; i ++)
+		{
+			c1.set(Calendar.DAY_OF_WEEK, i+2);
+//		    c1.add(Calendar.WEEK_OF_YEAR, 1);
+
+		    month = c1.get(Calendar.MONTH) + 1;
+		    day = c1.get(Calendar.DAY_OF_MONTH);
+			
+			
+			tView = new TextView(this);
+			tView.setText(" " + day + "/" + month);
+			params = new LinearLayout.LayoutParams(
+				    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			params.weight = 13;
+			tView.setLayoutParams(params);
+			tView.setBackgroundResource(R.drawable.rect_shape);
+			
+			lLayout.addView(tView);
+		}
+		
+		//details of week
+		lLayout = (LinearLayout) findViewById(R.id.weekDaysDetails);
+		
+		LinearLayout.LayoutParams cParams = new LinearLayout.LayoutParams(
+			    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		
+		for(int p = 0; p < 24; p++)
+		{
+			cLayout = new LinearLayout(this);
+			cLayout.setOrientation(LinearLayout.HORIZONTAL);
+			cParams.weight = 100;
+			cLayout.setLayoutParams(cParams);
+			
+			
+			tView = new TextView(this);
+			if(p < 10)
+				tView.setText("0" + p + ":00");
+			else
+				tView.setText(p + ":00");
+
+			LinearLayout.LayoutParams tParams = new LinearLayout.LayoutParams(
+				    LayoutParams.WRAP_CONTENT, 60);
+			tParams.weight = 9;
+			tView.setLayoutParams(tParams);
+			
+			cLayout.addView(tView);
+			
+			for(int q = 0; q < 7; q++)
+			{
+				tView = new TextView(this);
+				tView.setText("");
+				tParams = new LinearLayout.LayoutParams(
+					    LayoutParams.WRAP_CONTENT, 60);
+				tParams.weight = 13;
+				tView.setLayoutParams(tParams);
+				tView.setBackgroundResource(R.drawable.round_rect_shape);
+				
+				cLayout.addView(tView);
+			}
+			
+			lLayout.addView(cLayout);
+		}
 	}
 	
 	@Override
@@ -42,23 +139,21 @@ public class WeekViewActivity extends Activity implements OnClickListener  {
 		if(v.getId()==R.id.add_event)
 		{
 			message = "Add Event button clicked";
-			Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-			
+			Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();			
 		}
 		else if(v.getId()==R.id.day_btn)
 		{
-			Intent dayIntent = new Intent(getBaseContext(), MainActivity.class);                      
+			Intent dayIntent = new Intent(getBaseContext(), MainActivity.class);
 			startActivity(dayIntent);
 		}
 		else if(v.getId()==R.id.week_btn)
 		{
 			message = "You are in the week view";
-			Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-			
+			Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();			
 		}
 		else if(v.getId()==R.id.month_btn)
 		{
-			Intent monthIntent = new Intent(getBaseContext(), MonthViewActivity.class);                      
+			Intent monthIntent = new Intent(getBaseContext(), MonthViewActivity.class);
 			startActivity(monthIntent);
 		}
 	}
