@@ -42,7 +42,7 @@ public final class R {
         public static final int week_header_shape=0x7f020009;
     }
     public static final class id {
-        public static final int action_settings=0x7f090029;
+        public static final int action_settings=0x7f09002a;
         public static final int add_event=0x7f090007;
         public static final int calendar=0x7f090020;
         public static final int calendar_day_gridcell=0x7f090009;
@@ -54,16 +54,15 @@ public final class R {
         public static final int etTime=0x7f090015;
         public static final int etTitle=0x7f090016;
         public static final int footer1=0x7f090003;
-        public static final int from_time_picker=0x7f090021;
         public static final int hour_slots=0x7f090002;
         public static final int main_layout=0x7f090000;
-        public static final int menu_settings=0x7f090028;
+        public static final int menu_settings=0x7f090029;
         public static final int month_btn=0x7f090006;
         public static final int month_layout=0x7f09001a;
         public static final int nextMonth=0x7f09001e;
         public static final int num_events_per_day=0x7f09000a;
         public static final int prevMonth=0x7f09001c;
-        public static final int prevWeek=0x7f090024;
+        public static final int prevWeek=0x7f090025;
         public static final int save_btn=0x7f090018;
         public static final int selectedDayMonthYear=0x7f09001b;
         public static final int show_btn=0x7f090008;
@@ -77,13 +76,15 @@ public final class R {
         public static final int text2=0x7f09000d;
         public static final int text3=0x7f09000f;
         public static final int text4=0x7f090011;
-        public static final int weekDays=0x7f090026;
-        public static final int weekDaysDetails=0x7f090027;
-        public static final int weekHeader=0x7f090023;
+        public static final int time_picker_from=0x7f090021;
+        public static final int time_picker_to=0x7f090022;
+        public static final int weekDays=0x7f090027;
+        public static final int weekDaysDetails=0x7f090028;
+        public static final int weekHeader=0x7f090024;
         public static final int weekHeaderNames=0x7f09001f;
-        public static final int weekHeaderTxt=0x7f090025;
+        public static final int weekHeaderTxt=0x7f090026;
         public static final int week_btn=0x7f090005;
-        public static final int week_layout=0x7f090022;
+        public static final int week_layout=0x7f090023;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

@@ -125,6 +125,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		// action of adding a task
 		if (v.getId() == R.id.add_event) {
 			Intent intent = new Intent(this, NewTaskActivity.class);
+			
 			startActivity(intent);
 			/*			final Dialog dialog = new Dialog(this);
 			dialog.setContentView(R.layout.event_dialog);
