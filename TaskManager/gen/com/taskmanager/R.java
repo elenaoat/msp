@@ -54,6 +54,7 @@ public final class R {
         public static final int etTime=0x7f090015;
         public static final int etTitle=0x7f090016;
         public static final int footer1=0x7f090003;
+        public static final int from_time_picker=0x7f090021;
         public static final int hour_slots=0x7f090002;
         public static final int main_layout=0x7f090000;
         public static final int menu_settings=0x7f090029;
@@ -76,8 +77,7 @@ public final class R {
         public static final int text2=0x7f09000d;
         public static final int text3=0x7f09000f;
         public static final int text4=0x7f090011;
-        public static final int time_picker_from=0x7f090021;
-        public static final int time_picker_to=0x7f090022;
+        public static final int to_time_picker=0x7f090022;
         public static final int weekDays=0x7f090027;
         public static final int weekDaysDetails=0x7f090028;
         public static final int weekHeader=0x7f090024;

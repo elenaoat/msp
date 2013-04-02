@@ -18,24 +18,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/from" >
+                android:text="@string/from"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold" >
             </TextView>
-            <!--
-                  <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pick_time"
-                android:id="@+id/from_time_picker"
-                android:onClick="showTimePickerDialog"
-                />
-            -->
 
-            <TimePicker
-                android:id="@+id/time_picker_from"
+            <Button
+                android:id="@+id/from_time_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3" >
-            </TimePicker>
+                android:layout_weight="1"
+                android:background="@android:color/black"
+                android:focusable="true"
+                android:onClick="chooseTime"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" >
+            </Button>
         </LinearLayout>
 
         <LinearLayout
@@ -45,37 +43,43 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="@string/to" >
+                android:layout_weight="1"
+                android:text="@string/to"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold" >
             </TextView>
 
-            <TimePicker
-                android:id="@+id/time_picker_to"
+            <Button
+                android:id="@+id/to_time_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2" >
-            </TimePicker>
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:onClick="chooseTime" />
         </LinearLayout>
 
-        <LinearLayout 
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <EditText
-            android:id="@+id/etTitle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_title" >
-        </EditText>
+            android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/etNote"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_body" />
-		</LinearLayout>
-        
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_title" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/etNote"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_body" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,6 +90,7 @@
                 android:id="@+id/save_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="save"
                 android:text="@string/save_btn" />
 
             <Button

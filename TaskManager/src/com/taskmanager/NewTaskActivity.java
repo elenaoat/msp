@@ -2,88 +2,82 @@ package com.taskmanager;
 
 import java.util.Calendar;
 
-import android.app.Dialog;
+import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class NewTaskActivity extends FragmentActivity implements
-		OnClickListener {
+public class NewTaskActivity extends Activity {
 	private DatabaseAdapter dbAdapter;
 	private EditText etTitle, etBody, etTime;
-	private Button saveBtn, cancelBtn;
-	private TimePicker tp, tt;
+	private Button saveBtn, cancelBtn, fromBtn, toBtn;
+
 	private DateTime from, to;
+	private DateTime dt = new DateTime(0, 0);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.newtask_activity);
 
-		
-		tp = (TimePicker) findViewById(R.id.time_picker_from);
-		tt = (TimePicker) findViewById(R.id.time_picker_to);
-		tp.setIs24HourView(true);
-		tt.setIs24HourView(true);
-/*		tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-			
-			@Override
-			public void onTimeChanged(TimePicker view, int hourOfDay, int min) {
-				updateDisplay(hourOfDay, min, view);
-
-			}
-		});
-		tt.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-			
-			@Override
-			public void onTimeChanged(TimePicker view, int hourOfDay, int min) {
-				updateDisplay(hourOfDay, min, view);
-
-			}
-		});
-*/
-	//	setCurrentTime();
-		dbAdapter = new DatabaseAdapter(getApplicationContext());
-
+		fromBtn = (Button) findViewById(R.id.from_time_picker);
+		toBtn = (Button) findViewById(R.id.to_time_picker);
 		etTime = (EditText) findViewById(R.id.etTime);
 		etTitle = (EditText) findViewById(R.id.etTitle);
 		etBody = (EditText) findViewById(R.id.etNote);
 
 		saveBtn = (Button) findViewById(R.id.save_btn);
 		cancelBtn = (Button) findViewById(R.id.cancel_btn);
+		setCurrentTime();
+		dbAdapter = new DatabaseAdapter(getApplicationContext());
+	}
 
-		saveBtn.setOnClickListener(this);
-		cancelBtn.setOnClickListener(this);
+	// Button click -> display TimePickerDialog
+	public void chooseTime(View v) {
+
+		final Calendar c = Calendar.getInstance();
+		int hour = c.get(Calendar.HOUR_OF_DAY);
+		int minute = c.get(Calendar.MINUTE);
+		switch (v.getId()) {
+		case R.id.from_time_picker:
+			roundMinute(hour, minute, from);
+			new TimePickerDialog(this, new CustomOnTimeSetListener((Button) v),
+					from.getHour(), from.getMinute(), true).show();
+			break;
+
+		case R.id.to_time_picker:
+			roundMinute(hour, minute, to);
+			new TimePickerDialog(this, new CustomOnTimeSetListener((Button) v),
+					to.getHour(), to.getMinute(), true).show();
+			break;
+		}
 
 	}
 
 	public void setCurrentTime() {
 
-		
 		final Calendar cal = Calendar.getInstance();
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
 		int minute = cal.get(Calendar.MINUTE);
 
+		from = new DateTime(0, 0);
+		to = new DateTime(0, 0);
+
 		roundMinute(hour, minute, from);
-		roundMinute(hour + 1, minute, to);
-		tp.setCurrentHour(from.getHour());
-		tp.setCurrentMinute(from.getMinute());
-		tt.setCurrentHour(to.getHour());
-		tt.setCurrentMinute(to.getMinute());
+		roundMinute(hour, minute, to);
+		fromBtn.setText(Integer.toString(from.getHour()) + ":"
+				+ padMinute(from.getMinute()));
+		toBtn.setText(Integer.toString(to.getHour()) + ":"
+				+ padMinute(to.getMinute()));
 	}
 
 	public void roundMinute(int hourOfDay, int min, DateTime f) {
-		f.setMinute(min);
 		f.setHour(hourOfDay);
 		if (min <= 7) {
 			f.setMinute(0);
@@ -99,16 +93,13 @@ public class NewTaskActivity extends FragmentActivity implements
 		}
 	}
 
-	/*public void updateDisplay(int hourOfDay, int min, TimePicker time_picker) {
-		DateTime t = new DateTime(hourOfDay, min);
-		roundMinute(hourOfDay, min, t);
-		time_picker.setCurrentHour(t.getHour());
-		time_picker.setCurrentMinute(t.getMinute());
-	}*/
-
-	public void showTimePickerDialog(View v) {
-		DialogFragment newFragment = new TimePickerFragment();
-		newFragment.show(getSupportFragmentManager(), "timePicker");
+	public StringBuffer padMinute(int minute) {
+		StringBuffer strBuff = new StringBuffer();
+		strBuff.append(minute);
+		if (Integer.toString(minute).length() == 1) {
+			strBuff.append("0");
+		}
+		return strBuff;
 	}
 
 	@Override
@@ -118,58 +109,58 @@ public class NewTaskActivity extends FragmentActivity implements
 		return true;
 	}
 
-	public static class TimePickerFragment extends DialogFragment implements
-			TimePickerDialog.OnTimeSetListener {
+	public void save(View view) {
 
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			// Use the current time as the default values for the picker
-			final Calendar c = Calendar.getInstance();
-			int hour = c.get(Calendar.HOUR_OF_DAY);
-			int minute = c.get(Calendar.MINUTE);
+		String title = etTitle.getText().toString();
+		String body = etBody.getText().toString();
 
-			// Create a new instance of TimePickerDialog and return it
-			return new TimePickerDialog(getActivity(), this, hour, minute,
-					DateFormat.is24HourFormat(getActivity()));
-		}
-
-		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-			// Button tp = (Button) findViewById(R.id.from_time_picker);
-			// Do something with the time chosen by the user
-		}
-	}
-
-	@Override
-	public void onClick(View view) {
-		// TODO Auto-generated method stub
-		if (view == saveBtn) {
-			String title = etTitle.getText().toString();
-			String body = etBody.getText().toString();
-			String time = etTime.getText().toString();
+		if ((from.getHour() > to.getHour())
+				|| ((from.getHour() == to.getHour()) && (from.getMinute() >= to
+						.getMinute()))) {
+			displayToast("You have inserted incorrect times");
+		} else {
 			dbAdapter.Open();
 
-			long inserted = dbAdapter.InsertNote(time, title, body);
+			long inserted = dbAdapter.InsertNote(
+					Integer.toString(from.getHour()), title, body);
 
 			if (inserted > 0) {
-				DisplayToast("Successfully Saved " + inserted);
+				displayToast("Successfully Saved " + inserted);
 				etTitle.setText("");
 				etBody.setText("");
 			} else {
-				DisplayToast("Insertion failed");
+				displayToast("Insertion failed");
 			}
 
 			dbAdapter.Close();
-		} else if (view == cancelBtn) {
-
 		}
 	}
 
-	public void DisplayToast(String message) {
+	public void displayToast(String message) {
 		Toast toast = Toast.makeText(getApplicationContext(), message,
 				Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL,
 				0, 0);
 		toast.show();
 	}
+
+	class CustomOnTimeSetListener implements TimePickerDialog.OnTimeSetListener {
+		private Button btn;
+
+		public CustomOnTimeSetListener(Button v) {
+			this.btn = v;
+		}
+
+		@Override
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			roundMinute(hourOfDay, minute, dt);
+			StringBuffer sb = new StringBuffer();
+			sb.append(Integer.toString(dt.getHour()));
+			sb.append(":");
+			sb.append(padMinute(dt.getMinute()));
+			btn.setText(sb);
+		}
+
+	}
+
 }
