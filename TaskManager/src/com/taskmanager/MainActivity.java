@@ -76,12 +76,12 @@ public class MainActivity extends Activity implements OnClickListener {
 				new Task("15:00", ""), new Task("15:15", ""), new Task("15:30", ""), new Task("15:45", ""),
 				new Task("16:00", ""), new Task("16:15", ""), new Task("16:30", ""), new Task("16:45", ""),
 				new Task("17:00", ""), new Task("17:15", ""), new Task("17:30", ""), new Task("17:45", ""),
-				new Task("18:00", ""),
-				new Task("19:00", ""), 
-				new Task("20:00", ""), 
-				new Task("21:00", ""),
-				new Task("22:00", ""), 
-				new Task("23:00", "")
+				new Task("18:00", ""), new Task("18:15", ""), new Task("18:30", ""), new Task("18:45", ""),
+				new Task("19:00", ""), new Task("19:15", ""), new Task("19:30", ""), new Task("19:45", ""),
+				new Task("20:00", ""), new Task("20:15", ""), new Task("20:30", ""), new Task("20:45", ""),
+				new Task("21:00", ""), new Task("21:15", ""), new Task("21:30", ""), new Task("21:45", ""),
+				new Task("22:00", ""), new Task("22:15", ""), new Task("22:30", ""), new Task("22:45", ""),
+				new Task("23:00", ""), new Task("23:15", ""), new Task("23:30", ""), new Task("23:45", ""),
 				
 		};
 		
@@ -92,14 +92,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (curs.moveToFirst()) {
 			do {
 
-				String time = curs.getString(curs.getColumnIndex("datetime")).substring(0, 2);
+				String time = curs.getString(curs.getColumnIndex("datetime")).substring(0, 4);
 				String title = curs.getString(curs.getColumnIndex("title"));
 
 				// SHould be changed to (12, 13) in case the date field will be
 				// represented as dd-mm-yyyy hh:mm:ss
 			//	arrayDB.add(time.substring(0, 2) + "  " + title);
 				
-				for(int i=0; i<24; i++){
+				for(int i=0; i<96; i++){
 					if (t_array[i].time.equals(time)){
 						t_array[i].task = title;
 					}
