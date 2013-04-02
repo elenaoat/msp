@@ -58,14 +58,31 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		//initial hour slots without tasks
 		final Task[] t_array = new Task[] {
-				new Task("01", ""), new Task("02", ""), new Task("03", ""),
-				new Task("04", ""), new Task("05", ""), new Task("06", ""),
-				new Task("07", ""), new Task("08", ""), new Task("09", ""),
-				new Task("10", ""), new Task("11", ""), new Task("12", ""),
-				new Task("13", ""), new Task("14", ""), new Task("15", ""),
-				new Task("16", ""), new Task("17", ""), new Task("18", ""),
-				new Task("19", ""), new Task("20", ""), new Task("21", ""),
-				new Task("22", ""), new Task("23", ""), new Task("00", "")
+				new Task("00:00", ""), new Task("00:15", ""), new Task("00:30", ""), new Task("00:45", ""),
+				new Task("01:00", ""), new Task("01:15", ""), new Task("01:30", ""), new Task("01:45", ""),
+				new Task("02:00", ""), new Task("02:15", ""), new Task("02:30", ""), new Task("02:45", ""),
+				new Task("03:00", ""), new Task("03:15", ""), new Task("03:30", ""), new Task("03:45", ""),
+				new Task("04:00", ""), new Task("04:15", ""), new Task("04:30", ""), new Task("04:45", ""),
+				new Task("05:00", ""), new Task("05:15", ""), new Task("05:30", ""), new Task("05:45", ""),
+				new Task("06:00", ""), new Task("06:15", ""), new Task("06:30", ""), new Task("06:45", ""),
+				new Task("07:00", ""), new Task("07:15", ""), new Task("07:30", ""), new Task("07:45", ""),
+				new Task("08:00", ""), new Task("08:15", ""), new Task("08:30", ""), new Task("08:45", ""),
+				new Task("09:00", ""), new Task("09:15", ""), new Task("09:30", ""), new Task("09:45", ""),
+				new Task("10:00", ""), new Task("10:15", ""), new Task("10:30", ""), new Task("10:45", ""),
+				new Task("11:00", ""), new Task("11:15", ""), new Task("11:30", ""), new Task("11:45", ""),
+				new Task("12:00", ""), new Task("12:15", ""), new Task("12:30", ""), new Task("12:45", ""),
+				new Task("13:00", ""), new Task("13:15", ""), new Task("13:30", ""), new Task("13:45", ""),
+				new Task("14:00", ""), new Task("14:15", ""), new Task("14:30", ""), new Task("14:45", ""),
+				new Task("15:00", ""), new Task("15:15", ""), new Task("15:30", ""), new Task("15:45", ""),
+				new Task("16:00", ""), new Task("16:15", ""), new Task("16:30", ""), new Task("16:45", ""),
+				new Task("17:00", ""), new Task("17:15", ""), new Task("17:30", ""), new Task("17:45", ""),
+				new Task("18:00", ""),
+				new Task("19:00", ""), 
+				new Task("20:00", ""), 
+				new Task("21:00", ""),
+				new Task("22:00", ""), 
+				new Task("23:00", "")
+				
 		};
 		
 		dbAdapter.Open();
@@ -103,8 +120,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
-				// TODO Auto-generated method stub
-				Toast.makeText(getApplicationContext(), t_array[position].time, Toast.LENGTH_SHORT).show();
+				
+				//Toast.makeText(getApplicationContext(), t_array[position].time, Toast.LENGTH_SHORT).show();
 			}			
 		});
 
@@ -188,16 +205,16 @@ public class MainActivity extends Activity implements OnClickListener {
 			if (c.moveToFirst()) {
 				do {
 					// Call displayItem method in below
-					DisplayItem(c);
+					displayItem(c);
 				} while (c.moveToNext());
 			} else {
-				DisplayToast("No item found");
+				displayToast("No item found");
 			}
 
 			dbAdapter.Close();
 		} else if (v.getId() == R.id.day_btn) {
 			message = "You are in the day view";
-			DisplayToast(message);
+			displayToast(message);
 		} else if (v.getId() == R.id.week_btn) {
 			Intent weekIntent = new Intent(getBaseContext(),
 					WeekViewActivity.class);
@@ -210,14 +227,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	public void DisplayItem(Cursor c) {
+	public void displayItem(Cursor c) {
 		String message = "id: " + c.getString(0) + "\n" + "title: "
 				+ c.getString(1) + "\n" + "description: " + c.getString(2);
-		DisplayToast(message);
+		displayToast(message);
 
 	}
 
-	public void DisplayToast(String message) {
+	public void displayToast(String message) {
 		Toast toast = Toast.makeText(getApplicationContext(), message,
 				Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL,
@@ -225,3 +242,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		toast.show();
 	}
 }
+
+
+//TODO LIST
+/* 
+ * BUG when going to a day from month view and then selecting day view, it says you are already in the day view
+There should be some home view and day view separately
+* Update data in the view once there is new task inserted
+
+*/

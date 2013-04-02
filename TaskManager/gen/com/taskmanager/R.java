@@ -42,60 +42,62 @@ public final class R {
         public static final int week_header_shape=0x7f020009;
     }
     public static final class id {
-        public static final int action_settings=0x7f09002a;
+        public static final int action_settings=0x7f09002b;
         public static final int add_event=0x7f090007;
         public static final int calendar=0x7f090020;
-        public static final int calendar_day_gridcell=0x7f090009;
-        public static final int cancel_btn=0x7f090019;
+        public static final int calendar_day_gridcell=0x7f09000b;
+        public static final int cancel_btn=0x7f09000a;
         public static final int currentMonth=0x7f09001d;
         public static final int day_btn=0x7f090004;
         public static final int dvu_header=0x7f090001;
-        public static final int etNote=0x7f090017;
-        public static final int etTime=0x7f090015;
-        public static final int etTitle=0x7f090016;
+        public static final int etNote=0x7f090019;
+        public static final int etTime=0x7f090017;
+        public static final int etTitle=0x7f090018;
         public static final int footer1=0x7f090003;
+        public static final int footer2=0x7f090023;
         public static final int from_time_picker=0x7f090021;
         public static final int hour_slots=0x7f090002;
         public static final int main_layout=0x7f090000;
-        public static final int menu_settings=0x7f090029;
+        public static final int menu_settings=0x7f09002a;
         public static final int month_btn=0x7f090006;
         public static final int month_layout=0x7f09001a;
         public static final int nextMonth=0x7f09001e;
-        public static final int num_events_per_day=0x7f09000a;
+        public static final int num_events_per_day=0x7f09000c;
         public static final int prevMonth=0x7f09001c;
-        public static final int prevWeek=0x7f090025;
-        public static final int save_btn=0x7f090018;
+        public static final int prevWeek=0x7f090026;
+        public static final int save_btn=0x7f090009;
         public static final int selectedDayMonthYear=0x7f09001b;
         public static final int show_btn=0x7f090008;
-        public static final int task=0x7f090014;
-        public static final int task1=0x7f09000c;
-        public static final int task2=0x7f09000e;
-        public static final int task3=0x7f090010;
-        public static final int task4=0x7f090012;
-        public static final int text=0x7f090013;
-        public static final int text1=0x7f09000b;
-        public static final int text2=0x7f09000d;
-        public static final int text3=0x7f09000f;
-        public static final int text4=0x7f090011;
+        public static final int task=0x7f090016;
+        public static final int task1=0x7f09000e;
+        public static final int task2=0x7f090010;
+        public static final int task3=0x7f090012;
+        public static final int task4=0x7f090014;
+        public static final int text=0x7f090015;
+        public static final int text1=0x7f09000d;
+        public static final int text2=0x7f09000f;
+        public static final int text3=0x7f090011;
+        public static final int text4=0x7f090013;
         public static final int to_time_picker=0x7f090022;
-        public static final int weekDays=0x7f090027;
-        public static final int weekDaysDetails=0x7f090028;
-        public static final int weekHeader=0x7f090024;
+        public static final int weekDays=0x7f090028;
+        public static final int weekDaysDetails=0x7f090029;
+        public static final int weekHeader=0x7f090025;
         public static final int weekHeaderNames=0x7f09001f;
-        public static final int weekHeaderTxt=0x7f090026;
+        public static final int weekHeaderTxt=0x7f090027;
         public static final int week_btn=0x7f090005;
-        public static final int week_layout=0x7f090023;
+        public static final int week_layout=0x7f090024;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int bottom_bar=0x7f030001;
-        public static final int calendar_day_gridcell=0x7f030002;
-        public static final int custom=0x7f030003;
-        public static final int custom_simple=0x7f030004;
-        public static final int event_dialog=0x7f030005;
-        public static final int month_vu=0x7f030006;
-        public static final int newtask_activity=0x7f030007;
-        public static final int week_vu=0x7f030008;
+        public static final int bottom_bar_newtask=0x7f030002;
+        public static final int calendar_day_gridcell=0x7f030003;
+        public static final int custom=0x7f030004;
+        public static final int custom_simple=0x7f030005;
+        public static final int event_dialog=0x7f030006;
+        public static final int month_vu=0x7f030007;
+        public static final int newtask_activity=0x7f030008;
+        public static final int week_vu=0x7f030009;
     }
     public static final class menu {
         public static final int activity_main=0x7f080000;
@@ -160,6 +162,7 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f070001;
-        public static final int calendar_event_style=0x7f070002;
+        public static final int calendar_event_style=0x7f070003;
+        public static final int noAnimTheme=0x7f070002;
     }
 }

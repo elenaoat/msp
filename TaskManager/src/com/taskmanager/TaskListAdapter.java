@@ -2,6 +2,7 @@ package com.taskmanager;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,16 +35,18 @@ public class TaskListAdapter extends ArrayAdapter<Task>{
 			holder = new TaskHolder();
 			holder.text = (TextView)row.findViewById(R.id.text);
 			holder.task = (TextView)row.findViewById(R.id.task); 
-			
+
 			row.setTag(holder);
 		} else {
 			holder = (TaskHolder)row.getTag();
 		}
 		
 		Task t = data[position];
+		holder.task.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
 		holder.task.setText(t.task);
+		holder.text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
 		holder.text.setText(t.time);
-		
+
 		return row;
 	}
 
@@ -52,5 +55,6 @@ public class TaskListAdapter extends ArrayAdapter<Task>{
 	{
 		TextView text;
 		TextView task;
+
 	}
 }

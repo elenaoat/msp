@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class NewTaskActivity extends Activity {
 	private DatabaseAdapter dbAdapter;
 	private EditText etTitle, etBody, etTime;
-	private Button saveBtn, cancelBtn, fromBtn, toBtn;
+	private Button fromBtn, toBtn;
 
 	private DateTime from, to;
 	private DateTime dt = new DateTime(0, 0);
@@ -28,12 +28,9 @@ public class NewTaskActivity extends Activity {
 
 		fromBtn = (Button) findViewById(R.id.from_time_picker);
 		toBtn = (Button) findViewById(R.id.to_time_picker);
-		etTime = (EditText) findViewById(R.id.etTime);
 		etTitle = (EditText) findViewById(R.id.etTitle);
 		etBody = (EditText) findViewById(R.id.etNote);
 
-		saveBtn = (Button) findViewById(R.id.save_btn);
-		cancelBtn = (Button) findViewById(R.id.cancel_btn);
 		setCurrentTime();
 		dbAdapter = new DatabaseAdapter(getApplicationContext());
 	}
@@ -47,14 +44,14 @@ public class NewTaskActivity extends Activity {
 		switch (v.getId()) {
 		case R.id.from_time_picker:
 			roundMinute(hour, minute, from);
-			new TimePickerDialog(this, new CustomOnTimeSetListener((Button) v),
-					from.getHour(), from.getMinute(), true).show();
+			new TimePickerDialog(this, new CustomOnTimeSetListener((Button) v,
+					from), from.getHour(), from.getMinute(), true).show();
 			break;
 
 		case R.id.to_time_picker:
 			roundMinute(hour, minute, to);
-			new TimePickerDialog(this, new CustomOnTimeSetListener((Button) v),
-					to.getHour(), to.getMinute(), true).show();
+			new TimePickerDialog(this, new CustomOnTimeSetListener((Button) v,
+					to), to.getHour(), to.getMinute(), true).show();
 			break;
 		}
 
@@ -115,17 +112,21 @@ public class NewTaskActivity extends Activity {
 		String body = etBody.getText().toString();
 
 		if ((from.getHour() > to.getHour())
-				|| ((from.getHour() == to.getHour()) && (from.getMinute() >= to
-						.getMinute()))) {
-			displayToast("You have inserted incorrect times");
-		} else {
+				|| (from.getHour() == to.getHour() && from.getMinute() >= to
+						.getMinute())) {
+			displayToast("You have inserted incorrect times from: "
+					+ Integer.toString(from.getMinute()) + " to: "
+					+ Integer.toString(to.getMinute()));
+		} else if (title.equals("")) {
+			displayToast("Please insert task title");
+		}	else {
 			dbAdapter.Open();
 
 			long inserted = dbAdapter.InsertNote(
 					Integer.toString(from.getHour()), title, body);
 
 			if (inserted > 0) {
-				displayToast("Successfully Saved " + inserted);
+				displayToast("Successfully Saved");
 				etTitle.setText("");
 				etBody.setText("");
 			} else {
@@ -134,6 +135,10 @@ public class NewTaskActivity extends Activity {
 
 			dbAdapter.Close();
 		}
+	}
+
+	public void cancel(View view) {
+
 	}
 
 	public void displayToast(String message) {
@@ -146,19 +151,22 @@ public class NewTaskActivity extends Activity {
 
 	class CustomOnTimeSetListener implements TimePickerDialog.OnTimeSetListener {
 		private Button btn;
+		private DateTime dtime;
 
-		public CustomOnTimeSetListener(Button v) {
+		public CustomOnTimeSetListener(Button v, DateTime dtime) {
 			this.btn = v;
+			this.dtime = dtime;
 		}
 
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			roundMinute(hourOfDay, minute, dt);
+			roundMinute(hourOfDay, minute, dtime);
 			StringBuffer sb = new StringBuffer();
-			sb.append(Integer.toString(dt.getHour()));
+			sb.append(Integer.toString(dtime.getHour()));
 			sb.append(":");
-			sb.append(padMinute(dt.getMinute()));
+			sb.append(padMinute(dtime.getMinute()));
 			btn.setText(sb);
+
 		}
 
 	}
