@@ -120,7 +120,7 @@ public class NewTaskActivity extends Activity {
 		} else if (title.equals("")) {
 			displayToast("Please insert task title");
 		}	else {
-			dbAdapter.Open();
+			/*dbAdapter.Open();
 
 			long inserted = dbAdapter.InsertNote(
 					Integer.toString(from.getHour()), title, body);
@@ -133,7 +133,7 @@ public class NewTaskActivity extends Activity {
 				displayToast("Insertion failed");
 			}
 
-			dbAdapter.Close();
+			dbAdapter.Close(); */
 		}
 	}
 
