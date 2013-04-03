@@ -1,5 +1,7 @@
 package com.taskmanager;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.util.TypedValue;
@@ -13,9 +15,9 @@ public class TaskListAdapter extends ArrayAdapter<Task>{
 
 	Context context;
 	int layoutResId;
-	Task data[] = null;
+	List <Task> data = null;
 	
-	public TaskListAdapter(Context context, int layoutResId, Task[] data){
+	public TaskListAdapter(Context context, int layoutResId, List <Task> data){
 		super(context, layoutResId, data);
 		this.layoutResId = layoutResId;
 		this.context = context;
@@ -41,7 +43,7 @@ public class TaskListAdapter extends ArrayAdapter<Task>{
 			holder = (TaskHolder)row.getTag();
 		}
 		
-		Task t = data[position];
+		Task t = data.get(position);
 		holder.task.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
 		holder.task.setText(t.task);
 		holder.text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);

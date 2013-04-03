@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -15,11 +16,11 @@ import android.widget.Toast;
 
 public class NewTaskActivity extends Activity {
 	private DatabaseAdapter dbAdapter;
-	private EditText etTitle, etBody, etTime;
+	private EditText etTitle, etBody;
 	private Button fromBtn, toBtn;
 
 	private DateTime from, to;
-	private DateTime dt = new DateTime(0, 0);
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +124,7 @@ public class NewTaskActivity extends Activity {
 			dbAdapter.Open();
 
 			long inserted = dbAdapter.InsertNote(
-					Integer.toString(from.getHour()), title, body);
+					Integer.toString(from.getHour()) + padMinute(from.getMinute()), title, body);
 
 			if (inserted > 0) {
 				displayToast("Successfully Saved");
@@ -134,6 +135,8 @@ public class NewTaskActivity extends Activity {
 			}
 
 			dbAdapter.Close();
+			Intent i = new Intent(this, MainActivity.class);
+			startActivity(i);
 		}
 	}
 
