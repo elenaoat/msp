@@ -6,14 +6,15 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+//import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -29,6 +30,46 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ListView listView;
 	private TaskListAdapter adapter;
 	private TextView currentDate;
+
+	public void show(){
+		
+		dbAdapter.Open();
+		Cursor c = dbAdapter.getAllConfig();
+		
+		String message="";
+		
+		if(c.moveToFirst())
+	    {
+	        do
+	        {
+	            //Call displayItem method in below
+	           // System.out.println("Property =" + c.getString(0)+ "\nValuetype =" + c.getString(1)+ "\nintegerValue =" + c.getString(3)); 
+	        	message = "Property: " + c.getString(0) + "\n" + 
+	      	          "ValueType: " + c.getString(1) + "\n" +
+	                    "Textvalue : " + c.getString(2) + "\n" +
+	                    "IntegerValue : " + c.getString(3);
+	      		displayToast(message);
+	        } while (c.moveToNext());
+	      
+	    }
+	    else
+	    {
+	    	displayToast("No item found");
+	    }
+		
+		
+		
+		dbAdapter.Close();
+	}
+	// end of initialization
+	public void initializeConfig(){
+
+		dbAdapter.Open();
+		dbAdapter.initializeGConfig();
+		dbAdapter.Close();
+		
+	} 
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +141,11 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			} while (curs.moveToNext());
 		}
+		
 
-		dbAdapter.Close();
+		dbAdapter.Close();  
+		
+		*/
 
 		adapter = new TaskListAdapter(this, R.layout.custom_simple, t_array);
 
