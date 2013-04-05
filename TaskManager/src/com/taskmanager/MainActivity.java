@@ -178,19 +178,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		} else if (v.getId() == R.id.show_btn) {
 			dbAdapter.Open();
-
-			//Cursor c = dbAdapter.getAllEvents();
-			//dbAdapter.createEvent("Task15", "Create Event", "2013-04-13 10:00", "2013-04-13 11:00", 
-				//	"5", "15", "Bar", "", "");
-			
-			dbAdapter.editEvent(1,"Changed Task", "Edited Event", "2013-12-13 10:00", "2013-12-13 11:00", 
-					"5", "15", "Bar", "", "");
-			
-			dbAdapter.editEvent(2,"Changed Task1", "Edited Event1", "2013-12-13 11:00", "2013-12-13 12:00", 
-					"5", "15", "Bar", "", "");
-			
-			dbAdapter.deleteEvents(1);
-			
 			Cursor c = dbAdapter.getEventByDate("2013-12-13");
 
 			if (c.moveToFirst()) {
