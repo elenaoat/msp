@@ -117,7 +117,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void showTasks() {
 		t_array = new ArrayList<Task>();
 
-		dbAdapter.Open();
+		/*dbAdapter.Open();
 		Cursor curs = dbAdapter.getAllEventsForDayView();
 
 		if (curs.moveToFirst()) {
@@ -152,7 +152,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		listView = (ListView) findViewById(R.id.hour_slots);
 		listView.setAdapter(adapter);
 
-		listView.setOnItemClickListener(new OnItemClickListener() {
+		/*listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -161,7 +161,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				// Toast.makeText(getApplicationContext(),
 				// t_array[position].time, Toast.LENGTH_SHORT).show();
 			}
-		});
+		});*/
 
 	}
 
@@ -179,7 +179,19 @@ public class MainActivity extends Activity implements OnClickListener {
 		} else if (v.getId() == R.id.show_btn) {
 			dbAdapter.Open();
 
-			Cursor c = dbAdapter.getAllEvents();
+			//Cursor c = dbAdapter.getAllEvents();
+			//dbAdapter.createEvent("Task15", "Create Event", "2013-04-13 10:00", "2013-04-13 11:00", 
+				//	"5", "15", "Bar", "", "");
+			
+			dbAdapter.editEvent(1,"Changed Task", "Edited Event", "2013-12-13 10:00", "2013-12-13 11:00", 
+					"5", "15", "Bar", "", "");
+			
+			dbAdapter.editEvent(2,"Changed Task1", "Edited Event1", "2013-12-13 11:00", "2013-12-13 12:00", 
+					"5", "15", "Bar", "", "");
+			
+			dbAdapter.deleteEvents(1);
+			
+			Cursor c = dbAdapter.getEventByDate("2013-12-13");
 
 			if (c.moveToFirst()) {
 				do {
@@ -208,8 +220,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	public void displayItem(Cursor c) {
-		String message = "id: " + c.getString(0) + "\n" + "title: "
-				+ c.getString(1) + "\n" + "description: " + c.getString(2);
+		String message = "Id: "+ c.getString(0) + "\n" + "Name: " + c.getString(1) + "\n" + 
+				"Description: " + c.getString(2) + "\n" + "EventStartTime: " + c.getString(3) 
+				+ "\n" + "EventEndTime: " + c.getString(4);
 		displayToast(message);
 
 	}

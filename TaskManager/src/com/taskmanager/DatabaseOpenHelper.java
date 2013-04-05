@@ -9,28 +9,30 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	public static final String DB_NAME = "taskManager.db";
 	public static final String TABLE_MASTER = "master_event";
 	public static final String TABLE_GCONFIG = "global_config";
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 1 ;
 	public Context context;
 	//public static DatabaseAdapter dAdapter;
 	
 	public static final String CREATE_TABLE_MASTER = "CREATE TABLE " + TABLE_MASTER
 			+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ "recurrenceFlag TEXT, "
-			+ "recurrenceEndDate TEXT, "
+			+ "recurrenceEndDay TEXT, "
 			+ "parentID TEXT, "
 			+ "name TEXT, "
 			+ "description TEXT, "
-			+ "createTime TEXT, "
-			+ "dueDate TEXT, "
+			+ "createDayTime TEXT, "
+			+ "eventStartDayTime TEXT, "
+			+ "eventEndDayTime TEXT, "
 			+ "notificationB4 TEXT, "
 			+ "notificationFreq TEXT, "
-			+ "notificationType TEXT);";
+			+ "notificationType TEXT, "
+			+ "deleteFlag TEXT);";
 	
 	public static final String CREATE_TABLE_GCONFIG = "CREATE TABLE " + TABLE_GCONFIG
 			+ "(property TEXT PRIMARY KEY, "
 			+ "valueType TEXT, "
 			+ "textValue TEXT, "
-			+ "intergerValue TEXT, "
+			+ "integerValue TEXT, "
 			+ "dateValue TEXT);";
 	
 	public DatabaseOpenHelper(Context contxt) {
@@ -50,7 +52,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 			ex.printStackTrace();
 		}
 		
-      (new DatabaseAdapter(context)).initializeGConfig();
+      //(new DatabaseAdapter(context)).initializeGConfig();
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public class DatabaseAdapter {
 	}
 	// initialize global configuration table
 	public void initializeGConfig(){
-		Open();
+		this.Open();
 		ContentValues values= new ContentValues();
 		
 		values.put("property", "NotificationB4");
@@ -56,7 +56,7 @@ public class DatabaseAdapter {
 		values.put("textValue", "Both");
 		
 		database.insert("global_config", "", values);
-		Close();
+		this.Close();
     }
 	
 	public Cursor viewEventByID(long id){
@@ -65,48 +65,94 @@ public class DatabaseAdapter {
 				null, null, null, null);
 		
 	}
-	// User must input name, dueDate 
+	
+	
+	
+	
+	
+	/*
+	 * This method returns all the events for a particular date.
+	 * Input parameter format: 'YYYY-MM-DD' 
+	 * Input parameter Example: '2013-05-09'
+	 * Output: Cursor having the following columns:
+	 * 		name,description,eventStartDayTime,eventEndDayTime
+	 */
+	public Cursor getEventByDate(String searchDate){
+		
+		Cursor cursor;
+		cursor = database.rawQuery("SELECT id,name,description,eventStartDayTime,eventEndDayTime FROM master_event " +
+				"WHERE substr(eventStartDayTime,1,10) = '"+searchDate+"'", null);        
+		return cursor;
+	}
+	
+	
+	
+	
+	/*
+	 * Insert a new event in the database
+	 * Input parameter format: all are String
+	 * 	 Output: 0 = failure; 1 = success
+	 */
 	public long createEvent
 	        (String name, 
 	         String description, 
-	         String dueDate, 
-	         int notB4, int notFreq, 
-	         String notType, 
-	         String recFlag, String recEndTime )
+	         String eventStartDayTime, 
+	         String eventEndDayTime,
+	         String notificationFreq,
+	         String notificationB4, 
+	         String notificationType, 
+	         String recurrenceFlag, 
+	         String recurrenceEndDay)
 	{
 		//TODO createEvent
-		ContentValues values = new ContentValues();
 		
-		values.put("name", recFlag);
-		values.put("recurrenceFlag", recFlag);
-		values.put("description", description);
-		values.put("notificationB4", notB4);
-		values.put("notificationFreq", notFreq);
-		values.put("notificationType", notType);
-		values.put("recurrenceEndDate", recEndTime);
-		values.put("dueDate", dueDate);
+		String sql = "insert into master_event (name,description,eventStartDayTime," +
+				"eventEndDayTime,notificationFreq,notificationB4,notificationType,recurrenceFlag," +
+				"recurrenceEndDay)" +
+				"values('" + name + "','" + description + "','" + eventStartDayTime + "','"
+						 + eventEndDayTime + "','" + notificationFreq + "','" + notificationB4 + 
+						 "','" + notificationType + "','" + recurrenceFlag + "','" +
+						 recurrenceEndDay + "')";
 		
-		return database.insert("master_event", null , values);
+		database.beginTransaction();
+        SQLiteStatement sqlStmt = database.compileStatement(sql);
+        try{
+        	sqlStmt.execute();
+            database.setTransactionSuccessful();
+            
+        }catch(SQLiteException ex){
+        	
+        	ex.printStackTrace();
+        	return 0;
+        	
+        }finally{
+        	database.endTransaction();
+        }
 		
+		return 1;
 	}
+	
+	
+	
+	
+	
 	public void deleteEvents(long id) {		
 		//TODO delete all rows that has the perentID equal to given ID
-		//database.delete("master_event", "id=" + id, null);	
 		
-		database.execSQL("delete from master_event where id='"+id+"' or parentID = id '"+id+"'");
+		database.execSQL("delete from master_event where id = " + id);
 	}
 	
 	public int getNotificationB4(){
 		
 		Cursor cursor;
-		cursor = database.rawQuery("SELECT intergerValue FROM global_config " +
+		cursor = database.rawQuery("SELECT integerValue FROM global_config " +
 				"WHERE property = 'NotificationB4' ", null);        
 		return Integer.parseInt(cursor.getString(0));
 	}
 	
 	public int getNotificationFreq(){
 		Cursor cursor;
-		cursor = database.rawQuery("SELECT intergerValue FROM global_config " +
+		cursor = database.rawQuery("SELECT integerValue FROM global_config " +
 				"WHERE property = 'NotificationFreq' ", null);        
 		return Integer.parseInt(cursor.getString(0));
 	}
@@ -244,31 +290,46 @@ public class DatabaseAdapter {
 	}
 	
 	public boolean editEvent(
-			 long id,
-			 String name,  // mandatory
-	         String description, 
-	         String dueDate,  // mandatory
-	         int notB4, int notFreq, 
-	         String notType, 
-	         String recFlag, String recEndTime)
+					 int sId,
+					 String name, 
+			         String description, 
+			         String eventStartDayTime, 
+			         String eventEndDayTime,
+			         String notificationFreq,
+			         String notificationB4, 
+			         String notificationType, 
+			         String recurrenceFlag, 
+			         String recurrenceEndDay)
 	{
-		
-		ContentValues editCon = new ContentValues();
-		
-		
-		editCon.put("recurrenceFlag", recFlag);
-		editCon.put("recurrenceEndDate", recEndTime);
-		editCon.put("name", name);
-		editCon.put("description", description);
-		editCon.put("dueDate", dueDate);
-		editCon.put("notificationB4", notB4);
-		editCon.put("notificationType", notType);
-		
-		
+				//TODO createEvent
 				
-		database.update("master_event", editCon, "id=" + id, null);
-		
-		return true;
+				String sql = "update master_event set name = '" + name + "'," +
+						"description= '" + description + "'," +
+						"eventStartDayTime = '" + eventStartDayTime + "'," +
+						"eventEndDayTime = '" + eventEndDayTime + "'," +
+						"notificationFreq = '" + notificationFreq + "'," +
+						"notificationB4 = '" + notificationB4 + "'," +
+						"notificationType = '" + notificationType + "'," +
+						"recurrenceFlag = '" + recurrenceFlag + "'," +
+						"recurrenceEndDay = '" + recurrenceEndDay + "'" +
+						" where id = " + sId;
+				
+				database.beginTransaction();
+		        SQLiteStatement sqlStmt = database.compileStatement(sql);
+		        try{
+		        	sqlStmt.execute();
+		            database.setTransactionSuccessful();
+		            
+		        }catch(SQLiteException ex){
+		        	
+		        	ex.printStackTrace();
+		        	return false;
+		        	
+		        }finally{
+		        	database.endTransaction();
+		        }
+				
+				return true;
 	}
 	
 	
