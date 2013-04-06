@@ -1,5 +1,9 @@
 package com.taskmanager;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import android.content.ContentValues;
 //import java.util.Date;
 import android.content.Context;
@@ -7,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.database.sqlite.SQLiteException;
+import android.net.ParseException;
 
 public class DatabaseAdapter {
 	private SQLiteDatabase database;
@@ -85,7 +90,25 @@ public class DatabaseAdapter {
 		return cursor;
 	}
 	
-	
+	public boolean executeSql(String sql){
+		
+		database.beginTransaction();
+        SQLiteStatement sqlStmt = database.compileStatement(sql);
+        try{
+        	sqlStmt.execute();
+            database.setTransactionSuccessful();
+            
+        }catch(SQLiteException ex){
+        	
+        	ex.printStackTrace();
+        	return false;
+        	
+        }finally{
+        	database.endTransaction();
+        }
+        
+        return true;
+	}
 	
 	
 	/*
@@ -106,36 +129,177 @@ public class DatabaseAdapter {
 	{
 		//TODO createEvent
 		
-		String sql = "insert into master_event (name,description,eventStartDayTime," +
-				"eventEndDayTime,notificationFreq,notificationB4,notificationType,recurrenceFlag," +
-				"recurrenceEndDay)" +
-				"values('" + name + "','" + description + "','" + eventStartDayTime + "','"
-						 + eventEndDayTime + "','" + notificationFreq + "','" + notificationB4 + 
-						 "','" + notificationType + "','" + recurrenceFlag + "','" +
-						 recurrenceEndDay + "')";
-		
-		database.beginTransaction();
-        SQLiteStatement sqlStmt = database.compileStatement(sql);
-        try{
-        	sqlStmt.execute();
-            database.setTransactionSuccessful();
-            
-        }catch(SQLiteException ex){
-        	
-        	ex.printStackTrace();
-        	return 0;
-        	
-        }finally{
-        	database.endTransaction();
-        }
-		
-		return 1;
-	}
-	
-	
-	
-	
-	
+		 String sql,startTimeString,endTimeString;
+	   	 long parentId;
+	   	 Date startDate = null,endDate=null,endDayTime=null;
+	   	 int incr=0;
+	   	 
+	   	 
+	   	 if(recurrenceFlag == ""){
+	   		 
+	   		 sql = "insert into master_event (name,description,eventStartDayTime," +
+	   				 "eventEndDayTime,notificationFreq,notificationB4,notificationType,recurrenceFlag," +
+	   				 "recurrenceEndDay)" +
+	   				 "values('" + name + "','" + description + "','" + eventStartDayTime + "','"
+	   						  + eventEndDayTime + "','" + notificationFreq + "','" + notificationB4 +
+	   						  "','" + notificationType + "','" + recurrenceFlag + "','" +
+	   						  recurrenceEndDay + "')";
+	   		 
+	   		 if(!executeSql(sql))
+	   			 return 0;   	 
+	   	 }
+	   	 else if(recurrenceFlag.equals("daily")||recurrenceFlag.equals("weekly")){
+	   		if(recurrenceFlag.equals("daily")) incr=1; else incr=7;
+	   		 
+	   		 ContentValues values= new ContentValues();
+	   		 
+	   		 values.put("name", name);
+	   		 values.put("description", description);
+	   		 values.put("eventStartDayTime", eventStartDayTime);
+	   		 values.put("eventEndDayTime", eventEndDayTime);
+	   		 values.put("notificationFreq", notificationFreq);
+	   		 values.put("notificationB4", notificationB4);
+	   		 values.put("notificationType", notificationType);
+	   		 values.put("recurrenceFlag", recurrenceFlag);
+	   		 values.put("recurrenceEndDay", recurrenceEndDay);
+	   		 
+	   		 parentId = database.insert("master_event", "", values);
+	   		 
+	   		 if(parentId == -1)
+	   			 return 0;
+	   		 
+	   		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");  
+	   		 
+	   		 try {  
+	   			startDate = format.parse(eventStartDayTime);
+	   			endDate = format.parse(recurrenceEndDay);
+	   			endDayTime = format.parse(eventEndDayTime);
+	   			//System.out.println(date);  
+	   		 } catch (ParseException e) {  
+	   			// TODO Auto-generated catch block  
+	   			e.printStackTrace();  
+	   		 } catch (java.text.ParseException e) {
+	   			 // TODO Auto-generated catch block
+	   			 e.printStackTrace();
+	   		 }
+	   		 
+	   		Calendar c = Calendar.getInstance();
+	   		c.setTime(startDate);
+	   		    
+	   		Calendar c1 = Calendar.getInstance();
+	   		c1.setTime(endDayTime);
+	   			
+	   		c.add(Calendar.DATE, incr);
+	   		startDate = c.getTime();
+	   			 
+	   		c1.add(Calendar.DATE, incr);
+	   		endDayTime = c1.getTime();
+	   			 
+	   		    
+	   		 while(startDate.before(endDate)){
+	   			 
+	   			 
+	   			 startTimeString = format.format(startDate);
+	   			 endTimeString = format.format(endDayTime);
+	   			 
+	   			 sql = "insert into master_event (name,description,parentId,eventStartDayTime," +
+	   					 "eventEndDayTime,notificationFreq,notificationB4,notificationType,recurrenceFlag," +
+	   					 "recurrenceEndDay)" +
+	   					 "values('" + name + "','" + description + "','" + parentId + "','"
+	   					 + startTimeString + "','" + endTimeString + "','"
+	   					 + notificationFreq + "','" + notificationB4 + "','" +
+	   					 notificationType + "','" + recurrenceFlag + "','" +     recurrenceEndDay + "')"; 
+	   			 
+	   			 if(!executeSql(sql))
+	   				 return 0;
+	   			c.add(Calendar.DATE, incr);
+	   			startDate = (Date) c.getTime();
+	   			 
+	   			c1.add(Calendar.DATE, incr);
+	   			endDayTime = c1.getTime();
+	   			 
+	   			 
+	   		 }// end while
+	   							 
+	   	 } else if(recurrenceFlag.equals("monthly")){
+	   		 
+	   		 ContentValues values= new ContentValues();
+	   		 
+	   		 values.put("name", name);
+	   		 values.put("description", description);
+	   		 values.put("eventStartDayTime", eventStartDayTime);
+	   		 values.put("eventEndDayTime", eventEndDayTime);
+	   		 values.put("notificationFreq", notificationFreq);
+	   		 values.put("notificationB4", notificationB4);
+	   		 values.put("notificationType", notificationType);
+	   		 values.put("recurrenceFlag", recurrenceFlag);
+	   		 values.put("recurrenceEndDay", recurrenceEndDay);
+	   		 
+	   		 parentId = database.insert("master_event", "", values);
+	   		 
+	   		 if(parentId == -1)
+	   			 return 0;
+	   		 
+	   		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");  
+	   		 
+	   		 try {  
+	   			startDate = format.parse(eventStartDayTime);
+	   			endDate = format.parse(recurrenceEndDay);
+	   			endDayTime = format.parse(eventEndDayTime);
+	   			//System.out.println(date);  
+	   		 } catch (ParseException e) {  
+	   			// TODO Auto-generated catch block  
+	   			e.printStackTrace();  
+	   		 } catch (java.text.ParseException e) {
+	   			 // TODO Auto-generated catch block
+	   			 e.printStackTrace();
+	   		 }
+	   		 
+	   		Calendar c = Calendar.getInstance();
+	   		c.setTime(startDate);
+	   		    
+	   		Calendar c1 = Calendar.getInstance();
+	   		c1.setTime(endDayTime);
+	   			
+	   		c.add(Calendar.MONTH, 1);
+	   		startDate = c.getTime();
+	   			 
+	   		c1.add(Calendar.MONTH, 1);
+	   		endDayTime = c1.getTime();
+	   			 
+	   		    
+	   		 while(startDate.before(endDate)){
+	   			 
+	   			 
+	   			 startTimeString = format.format(startDate);
+	   			 endTimeString = format.format(endDayTime);
+	   			 
+	   			 sql = "insert into master_event (name,description,parentId,eventStartDayTime," +
+	   					 "eventEndDayTime,notificationFreq,notificationB4,notificationType,recurrenceFlag," +
+	   					 "recurrenceEndDay)" +
+	   					 "values('" + name + "','" + description + "','" + parentId + "','"
+	   					 + startTimeString + "','" + endTimeString + "','"
+	   					 + notificationFreq + "','" + notificationB4 + "','" +
+	   					 notificationType + "','" + recurrenceFlag + "','" +     recurrenceEndDay + "')"; 
+	   			 
+	   			 if(!executeSql(sql))
+	   				 return 0;
+	   			c.add(Calendar.MONTH, 1);
+	   			startDate = (Date) c.getTime();
+	   			 
+	   			c1.add(Calendar.MONTH, 1);
+	   			endDayTime = c1.getTime();
+	   			 
+	   			 
+	   		 } //end while
+	   		 
+	   	 }else{
+	   		 return 0;
+	   	 }
+	   	 
+	    return 1;
+    }
+
 	public void deleteEvents(long id) {		
 		//TODO delete all rows that has the perentID equal to given ID
 		
@@ -331,6 +495,5 @@ public class DatabaseAdapter {
 				
 				return true;
 	}
-	
-	
+		
 }
