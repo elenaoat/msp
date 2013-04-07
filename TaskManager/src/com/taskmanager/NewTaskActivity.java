@@ -21,7 +21,6 @@ public class NewTaskActivity extends Activity {
 
 	private DateTime from, to;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,10 +68,9 @@ public class NewTaskActivity extends Activity {
 
 		roundMinute(hour, minute, from);
 		roundMinute(hour, minute, to);
-		fromBtn.setText(Integer.toString(from.getHour()) + ":"
-				+ padMinute(from.getMinute()));
-		toBtn.setText(Integer.toString(to.getHour()) + ":"
-				+ padMinute(to.getMinute()));
+		fromBtn.setText(padTime(from.getHour()) + ":"
+				+ padTime(from.getMinute()));
+		toBtn.setText(padTime(to.getHour()) + ":" + padTime(to.getMinute()));
 	}
 
 	public void roundMinute(int hourOfDay, int min, DateTime f) {
@@ -91,10 +89,10 @@ public class NewTaskActivity extends Activity {
 		}
 	}
 
-	public StringBuffer padMinute(int minute) {
+	public StringBuffer padTime(int m) {
 		StringBuffer strBuff = new StringBuffer();
-		strBuff.append(minute);
-		if (Integer.toString(minute).length() == 1) {
+		strBuff.append(m);
+		if (Integer.toString(m).length() == 1) {
 			strBuff.append("0");
 		}
 		return strBuff;
@@ -120,11 +118,16 @@ public class NewTaskActivity extends Activity {
 					+ Integer.toString(to.getMinute()));
 		} else if (title.equals("")) {
 			displayToast("Please insert task title");
-		}	else {
-			/*dbAdapter.Open();
+		} else {
+			dbAdapter.Open();
 
-			long inserted = dbAdapter.InsertNote(
-					Integer.toString(from.getHour()) + padMinute(from.getMinute()), title, body);
+			long inserted = dbAdapter.createBriefEvent(
+					title,
+					body,
+					"2013-04-07 " + padTime(from.getHour()) + ":"
+							+ padTime(from.getMinute()),
+					"2013-04-07 " + padTime(to.getHour()) + ":"
+							+ padTime(to.getMinute()));
 
 			if (inserted > 0) {
 				displayToast("Successfully Saved");
@@ -134,7 +137,7 @@ public class NewTaskActivity extends Activity {
 				displayToast("Insertion failed");
 			}
 
-			dbAdapter.Close();*/
+			dbAdapter.Close();
 			Intent i = new Intent(this, MainActivity.class);
 			startActivity(i);
 		}
@@ -165,9 +168,9 @@ public class NewTaskActivity extends Activity {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			roundMinute(hourOfDay, minute, dtime);
 			StringBuffer sb = new StringBuffer();
-			sb.append(Integer.toString(dtime.getHour()));
+			sb.append(padTime(dtime.getHour()));
 			sb.append(":");
-			sb.append(padMinute(dtime.getMinute()));
+			sb.append(padTime(dtime.getMinute()));
 			btn.setText(sb);
 
 		}

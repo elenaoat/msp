@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +34,8 @@ public class TaskListAdapter extends ArrayAdapter<Task>{
 			row = inflater.inflate(layoutResId, parent, false);
 			
 			holder = new TaskHolder();
-			holder.text = (TextView)row.findViewById(R.id.text);
-			holder.task = (TextView)row.findViewById(R.id.task); 
+			holder.time = (TextView)row.findViewById(R.id.time);
+			holder.name = (TextView)row.findViewById(R.id.name); 
 
 			row.setTag(holder);
 		} else {
@@ -44,10 +43,19 @@ public class TaskListAdapter extends ArrayAdapter<Task>{
 		}
 		
 		Task t = data.get(position);
-		holder.task.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
-		holder.task.setText(t.task);
-		holder.text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
-		holder.text.setText(t.time);
+		//holder.time.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
+		//need to put substr of this to show only the time, no date
+		//pad hour
+		
+		StringBuffer hour = new StringBuffer();
+		hour.append(t.eventTime.subSequence(11, 16));
+		hour.append(" - ");
+		
+		hour.append(t.eventTime.subSequence(27, 32));
+		//hour.append(t.eventTime.subSequence(29, 33));
+		holder.time.setText(hour);
+		//holder.name.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
+		holder.name.setText(t.name);
 
 		return row;
 	}
@@ -55,8 +63,8 @@ public class TaskListAdapter extends ArrayAdapter<Task>{
 	
 	static class TaskHolder
 	{
-		TextView text;
-		TextView task;
+		TextView time;
+		TextView name;
 
 	}
 }

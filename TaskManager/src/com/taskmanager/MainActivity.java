@@ -1,26 +1,26 @@
 package com.taskmanager;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-//import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+//import android.util.Log;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -30,46 +30,42 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ListView listView;
 	private TaskListAdapter adapter;
 	private TextView currentDate;
+	private String currentDateTimeString;
+	public void show() {
 
-	public void show(){
-		
 		dbAdapter.Open();
 		Cursor c = dbAdapter.getAllConfig();
-		
-		String message="";
-		
-		if(c.moveToFirst())
-	    {
-	        do
-	        {
-	            //Call displayItem method in below
-	           // System.out.println("Property =" + c.getString(0)+ "\nValuetype =" + c.getString(1)+ "\nintegerValue =" + c.getString(3)); 
-	        	message = "Property: " + c.getString(0) + "\n" + 
-	      	          "ValueType: " + c.getString(1) + "\n" +
-	                    "Textvalue : " + c.getString(2) + "\n" +
-	                    "IntegerValue : " + c.getString(3);
-	      		displayToast(message);
-	        } while (c.moveToNext());
-	      
-	    }
-	    else
-	    {
-	    	displayToast("No item found");
-	    }
-		
-		
-		
+
+		String message = "";
+
+		if (c.moveToFirst()) {
+			do {
+				// Call displayItem method in below
+				// System.out.println("Property =" + c.getString(0)+
+				// "\nValuetype =" + c.getString(1)+ "\nintegerValue =" +
+				// c.getString(3));
+				message = "Property: " + c.getString(0) + "\n" + "ValueType: "
+						+ c.getString(1) + "\n" + "Textvalue : "
+						+ c.getString(2) + "\n" + "IntegerValue : "
+						+ c.getString(3);
+				displayToast(message);
+			} while (c.moveToNext());
+
+		} else {
+			displayToast("No item found");
+		}
+
 		dbAdapter.Close();
 	}
+
 	// end of initialization
-	public void initializeConfig(){
+	public void initializeConfig() {
 
 		dbAdapter.Open();
 		dbAdapter.initializeGConfig();
 		dbAdapter.Close();
-		
-	} 
 
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,63 +101,69 @@ public class MainActivity extends Activity implements OnClickListener {
 		Intent in = getIntent();
 		String dateString = in.getStringExtra("currentDay");
 
-		String currentDateTimeString = DateFormat.getDateInstance(
+		currentDateTimeString = DateFormat.getDateInstance(
 				DateFormat.LONG).format(new Date());
 		if (dateString == null) {
 			currentDate.setText(currentDateTimeString);
+			
 		} else {
 			currentDate.setText(dateString);
+			
 		}
+		
 	}
 
 	public void showTasks() {
 		t_array = new ArrayList<Task>();
 
-		/*dbAdapter.Open();
-		Cursor curs = dbAdapter.getAllEventsForDayView();
+		dbAdapter.Open();
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		Cursor curs = dbAdapter.getEventByDate(dateFormat.format(c.getTime()));
 
 		if (curs.moveToFirst()) {
 			do {
 
 				// should the substring parameters be hard-coded?
-				String time = curs.getString(curs.getColumnIndex("datetime"))
-						.substring(0, 2);
-				String title = curs.getString(curs.getColumnIndex("title"));
-
-				//workaround for displaying events that have same date and time
-				for (Task t : t_array){
-					if (time.equals(t.getTime())){
-						time = "    ";
-					}
-				}
+				// name,description,eventStartDayTime,eventEndDayTime
+				String name = curs.getString(curs.getColumnIndex("name"));
+				String description = curs.getString(curs
+						.getColumnIndex("description"));
+				String eventTime = curs.getString(curs
+						.getColumnIndex("eventStartDayTime"))
+						+ curs.getString(curs.getColumnIndex("eventEndDayTime"));
+				// workaround for displaying events that have same date and time
+				/*
+				 * for (Task t : t_array){ if (time.equals(t.getTime())){ time =
+				 * "    "; } }
+				 */
 				// SHould be changed to (12, 13) in case the date field will be
 				// represented as dd-mm-yyyy hh:mm:ss
 				// if ( (Collections.frequency(t_array, )) )
-				t_array.add(new Task(time, title));
-
+				t_array.add(new Task(name, description, eventTime));
+/*				Toast.makeText(getApplicationContext(),
+						t_array.get(t_array.size() - 1).eventTime, Toast.LENGTH_SHORT).show();
+*/
 			} while (curs.moveToNext());
 		}
-		
 
-		dbAdapter.Close();  
-		
-		*/
+		dbAdapter.Close();
 
 		adapter = new TaskListAdapter(this, R.layout.custom_simple, t_array);
 
 		listView = (ListView) findViewById(R.id.hour_slots);
 		listView.setAdapter(adapter);
 
-		/*listView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
-				// Toast.makeText(getApplicationContext(),
-				// t_array[position].time, Toast.LENGTH_SHORT).show();
-			}
-		});*/
+		/*
+		 * listView.setOnItemClickListener(new OnItemClickListener() {
+		 * 
+		 * @Override public void onItemClick(AdapterView<?> parent, View view,
+		 * int position, long id) {
+		 * 
+		 * // Toast.makeText(getApplicationContext(), // t_array[position].time,
+		 * Toast.LENGTH_SHORT).show(); } });
+		 */
 
 	}
 
@@ -174,7 +176,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			Intent intent = new Intent(this, NewTaskActivity.class);
 			startActivity(intent);
-			adapter.notifyDataSetChanged();
+			// adapter.notifyDataSetChanged();
 
 		} else if (v.getId() == R.id.show_btn) {
 			dbAdapter.Open();
@@ -207,9 +209,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	public void displayItem(Cursor c) {
-		String message = "Id: "+ c.getString(0) + "\n" + "Name: " + c.getString(1) + "\n" + 
-				"Description: " + c.getString(2) + "\n" + "EventStartTime: " + c.getString(3) 
-				+ "\n" + "EventEndTime: " + c.getString(4);
+		String message = "Id: " + c.getString(0) + "\n" + "Name: "
+				+ c.getString(1) + "\n" + "Description: " + c.getString(2)
+				+ "\n" + "EventStartTime: " + c.getString(3) + "\n"
+				+ "EventEndTime: " + c.getString(4);
 		displayToast(message);
 
 	}

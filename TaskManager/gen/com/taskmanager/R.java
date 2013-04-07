@@ -61,6 +61,7 @@ public final class R {
         public static final int menu_settings=0x7f09002a;
         public static final int month_btn=0x7f090006;
         public static final int month_layout=0x7f09001a;
+        public static final int name=0x7f090016;
         public static final int nextMonth=0x7f09001e;
         public static final int num_events_per_day=0x7f09000c;
         public static final int prevMonth=0x7f09001c;
@@ -68,16 +69,15 @@ public final class R {
         public static final int save_btn=0x7f090009;
         public static final int selectedDayMonthYear=0x7f09001b;
         public static final int show_btn=0x7f090008;
-        public static final int task=0x7f090016;
         public static final int task1=0x7f09000e;
         public static final int task2=0x7f090010;
         public static final int task3=0x7f090012;
         public static final int task4=0x7f090014;
-        public static final int text=0x7f090015;
         public static final int text1=0x7f09000d;
         public static final int text2=0x7f09000f;
         public static final int text3=0x7f090011;
         public static final int text4=0x7f090013;
+        public static final int time=0x7f090015;
         public static final int to_time_picker=0x7f090022;
         public static final int weekDays=0x7f090028;
         public static final int weekDaysDetails=0x7f090029;
