@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class TaskListAdapter extends ArrayAdapter<Task>{
+public class TaskListAdapter extends ArrayAdapter<Slot>{
 
 	Context context;
 	int layoutResId;
-	List <Task> data = null;
+	List <Slot> data = null;
 	
-	public TaskListAdapter(Context context, int layoutResId, List <Task> data){
+	public TaskListAdapter(Context context, int layoutResId, List <Slot> data){
 		super(context, layoutResId, data);
 		this.layoutResId = layoutResId;
 		this.context = context;
@@ -42,18 +42,18 @@ public class TaskListAdapter extends ArrayAdapter<Task>{
 			holder = (TaskHolder)row.getTag();
 		}
 		
-		Task t = data.get(position);
+		Slot t = data.get(position);
 		//holder.time.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
 		//need to put substr of this to show only the time, no date
 		//pad hour
 		
-		StringBuffer hour = new StringBuffer();
-		hour.append(t.eventTime.subSequence(11, 16));
+/*		StringBuffer hour = new StringBuffer();
+		hour.append(t.time.subSequence(11, 16));
 		hour.append(" - ");
 		
-		hour.append(t.eventTime.subSequence(27, 32));
+		hour.append(t.time.subSequence(27, 32));*/
 		//hour.append(t.eventTime.subSequence(29, 33));
-		holder.time.setText(hour);
+		holder.time.setText(t.time);
 		//holder.name.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
 		holder.name.setText(t.name);
 

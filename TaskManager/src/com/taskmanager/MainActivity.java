@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 //import android.util.Log;
 
+@SuppressLint("SimpleDateFormat")
 public class MainActivity extends Activity implements OnClickListener {
 
 	DatabaseAdapter dbAdapter;
@@ -114,6 +116,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	public void showTasks() {
+		
 		t_array = new ArrayList<Task>();
 
 		dbAdapter.Open();
@@ -127,12 +130,13 @@ public class MainActivity extends Activity implements OnClickListener {
 
 				// should the substring parameters be hard-coded?
 				// name,description,eventStartDayTime,eventEndDayTime
+				int id = curs.getInt(curs.getColumnIndex("id"));
 				String name = curs.getString(curs.getColumnIndex("name"));
 				String description = curs.getString(curs
 						.getColumnIndex("description"));
-				String eventTime = curs.getString(curs
-						.getColumnIndex("eventStartDayTime"))
-						+ curs.getString(curs.getColumnIndex("eventEndDayTime"));
+				String eventStartDayTime = curs.getString(curs
+						.getColumnIndex("eventStartDayTime"));
+				String eventEndDayTime = curs.getString(curs.getColumnIndex("eventEndDayTime"));
 				// workaround for displaying events that have same date and time
 				/*
 				 * for (Task t : t_array){ if (time.equals(t.getTime())){ time =
@@ -141,7 +145,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				// SHould be changed to (12, 13) in case the date field will be
 				// represented as dd-mm-yyyy hh:mm:ss
 				// if ( (Collections.frequency(t_array, )) )
-				t_array.add(new Task(name, description, eventTime));
+				t_array.add(new Task(id, name, description, eventStartDayTime, eventEndDayTime));
+				
 /*				Toast.makeText(getApplicationContext(),
 						t_array.get(t_array.size() - 1).eventTime, Toast.LENGTH_SHORT).show();
 */
@@ -150,7 +155,12 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		dbAdapter.Close();
 
-		adapter = new TaskListAdapter(this, R.layout.custom_simple, t_array);
+		List<Slot> hours = new ArrayList<Slot>();
+		for (int i=0; i<24; i++){
+			Slot slot = new Slot(Integer.toString(i), "");
+			hours.add(slot);
+		}
+		adapter = new TaskListAdapter(this, R.layout.custom_simple, hours);
 
 		listView = (ListView) findViewById(R.id.hour_slots);
 		listView.setAdapter(adapter);

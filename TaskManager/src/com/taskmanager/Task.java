@@ -3,10 +3,12 @@ package com.taskmanager;
 public class Task {
 
 	public String name;
-//	public String description;
+	public int id;
+	public String description;
 	//public String recurrenceFlag;
-	public String eventTime;
-	//public String eventStartDayTime;
+	//public String eventTime;
+	public String eventStartDayTime;
+	public String eventEndDayTime;
 	//public String recurrenceEndDay;
 	
 /*	+ "name TEXT, "
@@ -22,14 +24,35 @@ public class Task {
 		super();		
 	}
 	
-	public Task(String name, String description, String eventTime){
+	public Task(int id, String name, String description, String eventStartDayTime, String eventEndDayTime){
 		super();
+		this.id = id;
 		this.name = name;
-	//	this.description = description;
-		this.eventTime = eventTime;
+		this.description = description;
+		this.eventStartDayTime = eventStartDayTime;
+		this.eventEndDayTime = eventEndDayTime;
 		//this.eventEndDayTime = eventEndDayTime;
 	}
 
+	public String getEventStartDayTime() {
+		return eventStartDayTime;
+	}
+
+	public void setEventStartDayTime(String eventStartDayTime) {
+		this.eventStartDayTime = eventStartDayTime;
+	}
+
+	public String getEventEndDayTime() {
+		return eventEndDayTime;
+	}
+
+	public void setEventEndDayTime(String eventEndDayTime) {
+		this.eventEndDayTime = eventEndDayTime;
+	}
+
+	public int getId(){
+		return id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -38,17 +61,14 @@ public class Task {
 		this.name = name;
 	}
 
-/*	public String getDescription() {
+	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
-*/
-	public String getEventTime() {
-		return eventTime;
-	}
+
 
 	/*public void setEventEndDayTime(String eventEndDayTime) {
 		this.eventEndDayTime = eventEndDayTime;
