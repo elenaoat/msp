@@ -1,12 +1,18 @@
 package com.taskmanager;
 
 public class Slot {
+	public int id;
 	public String time;
 	public String name;
+	
 
-	public Slot(String time, String name){
+	public Slot(int id, String time, String name){
 		this.time = time;
 		this.name = name;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public String getTime() {

@@ -57,7 +57,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
+		
 		if (oldVersion == 1 && newVersion == 2) {
 			db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_MASTER);
 	        db.execSQL("DROP TABLE IF EXISTS " + CREATE_TABLE_GCONFIG);

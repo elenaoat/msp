@@ -12,15 +12,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 //import android.util.Log;
 
 @SuppressLint("SimpleDateFormat")
@@ -28,11 +32,169 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	DatabaseAdapter dbAdapter;
 	EditText etTitle, etBody;
+	private List<Slot> hours;
 	private List<Task> t_array;
 	private ListView listView;
 	private TaskListAdapter adapter;
 	private TextView currentDate;
 	private String currentDateTimeString;
+	public final static String DATE = "com.taskmanager.DATE";
+	public final static String TIME = "com.taskmanager.TIME";
+	public final static String NAME = "com.taskmanager.NAME";
+	public final static String DESCRIPTION = "com.taskmanager.DESCRIPTION";
+	//TODO add other fields which are missing, i.e. reccurency 
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+
+		dbAdapter = new DatabaseAdapter(getApplicationContext());
+
+		// get the instance of all buttons
+		currentDate = (TextView) findViewById(R.id.dvu_header);
+
+		Button dayBtn = (Button) findViewById(R.id.day_btn);
+		Button weekBtn = (Button) findViewById(R.id.week_btn);
+		Button monthBtn = (Button) findViewById(R.id.month_btn);
+
+		ImageButton addBtn = (ImageButton) findViewById(R.id.add_event);
+		ImageButton showBtn = (ImageButton) findViewById(R.id.show_btn);
+
+		// Current date for display in the day view
+		showTodaysDate();
+		showTasks();
+
+		// adding action listener of buttons
+		dayBtn.setOnClickListener(this);
+		weekBtn.setOnClickListener(this);
+		monthBtn.setOnClickListener(this);
+		addBtn.setOnClickListener(this);
+		showBtn.setOnClickListener(this);
+	}
+
+	public void showTodaysDate() {
+		// Current date for display in the day view
+		Intent in = getIntent();
+		String dateString = in.getStringExtra("currentDay");
+
+		currentDateTimeString = DateFormat.getDateInstance(DateFormat.LONG)
+				.format(new Date());
+		if (dateString == null) {
+			currentDate.setText(currentDateTimeString);
+
+		} else {
+			currentDate.setText(dateString);
+
+		}
+
+	}
+
+	public void showTasks() {
+
+		t_array = new ArrayList<Task>();
+
+		dbAdapter.Open();
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		Cursor curs = dbAdapter.getEventByDate(dateFormat.format(c.getTime()));
+
+		if (curs.moveToFirst()) {
+			do {
+
+				// should the substring parameters be hard-coded?
+				// name,description,eventStartDayTime,eventEndDayTime
+				int id = curs.getInt(curs.getColumnIndex("id"));
+				String name = curs.getString(curs.getColumnIndex("name"));
+				String description = curs.getString(curs
+						.getColumnIndex("description"));
+				String eventStartDayTime = curs.getString(curs
+						.getColumnIndex("eventStartDayTime"));
+				String eventEndDayTime = curs.getString(curs
+						.getColumnIndex("eventEndDayTime"));
+				// workaround for displaying events that have same date and time
+				/*
+				 * for (Task t : t_array){ if (time.equals(t.getTime())){ time =
+				 * "    "; } }
+				 */
+				// SHould be changed to (12, 13) in case the date field will be
+				// represented as dd-mm-yyyy hh:mm:ss
+				// if ( (Collections.frequency(t_array, )) )
+				t_array.add(new Task(id, name, description, eventStartDayTime,
+						eventEndDayTime));
+
+				/*
+				 * Toast.makeText(getApplicationContext(),
+				 * t_array.get(t_array.size() - 1).eventTime,
+				 * Toast.LENGTH_SHORT).show();
+				 */
+			} while (curs.moveToNext());
+		}
+
+		dbAdapter.Close();
+
+		hours = new ArrayList<Slot>();
+		for (int i = 0; i < 24; i++) {
+			Slot slot;
+			StringBuilder builder = new StringBuilder();
+			if (i <= 9) {
+				builder.append("0");
+				builder.append(i);
+				builder.append(":00");
+				slot = new Slot(-1, builder.toString(), "");
+			} else {
+				builder.append(i);
+				builder.append(":00");
+				slot = new Slot(-1, builder.toString(), "");
+			}
+			hours.add(slot);
+		}
+		
+		//check if there are any events in the database
+		if (t_array.size()!=0)
+		for (int i=0; i<24; i++){
+			try{
+				if ((t_array.get(i).eventStartDayTime.substring(12, 13)).equals(hours.get(i).time.substring(0,1))){
+					hours.get(i).name = t_array.get(i).name;
+					hours.get(i).id = t_array.get(i).id;
+				}
+			} catch(ArrayIndexOutOfBoundsException e){
+				Log.v("MainActivity", "Wrong format for datetime");
+			}
+			//pad with :00
+ 
+		}
+		adapter = new TaskListAdapter(this, R.layout.custom_simple, hours);
+
+		listView = (ListView) findViewById(R.id.hour_slots);
+		listView.setAdapter(adapter);
+
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
+		  
+		  @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		  if (hours.get(position).id == -1){
+			  
+				Intent intent = new Intent(MainActivity.this, NewTaskActivity.class);
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String date = dateFormat.format(Calendar.getInstance().getTime());
+				String time = hours.get(position).time;
+				intent.putExtra(DATE, date);
+				intent.putExtra(TIME, time);				
+				startActivity(intent);
+				
+		  }
+		  	  
+		  Toast.makeText(getApplicationContext(), hours.get(position).name, Toast.LENGTH_SHORT).show(); 
+		 } 
+		  
+		 });
+		 
+
+	}
+
+
 	public void show() {
 
 		dbAdapter.Open();
@@ -70,114 +232,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-
-		dbAdapter = new DatabaseAdapter(getApplicationContext());
-
-		// get the instance of all buttons
-		currentDate = (TextView) findViewById(R.id.dvu_header);
-
-		Button dayBtn = (Button) findViewById(R.id.day_btn);
-		Button weekBtn = (Button) findViewById(R.id.week_btn);
-		Button monthBtn = (Button) findViewById(R.id.month_btn);
-
-		ImageButton addBtn = (ImageButton) findViewById(R.id.add_event);
-		ImageButton showBtn = (ImageButton) findViewById(R.id.show_btn);
-
-		// Current date for display in the day view
-		showTodaysDate();
-		showTasks();
-
-		// adding action listener of buttons
-		dayBtn.setOnClickListener(this);
-		weekBtn.setOnClickListener(this);
-		monthBtn.setOnClickListener(this);
-		addBtn.setOnClickListener(this);
-		showBtn.setOnClickListener(this);
-	}
-
-	public void showTodaysDate() {
-		// Current date for display in the day view
-		Intent in = getIntent();
-		String dateString = in.getStringExtra("currentDay");
-
-		currentDateTimeString = DateFormat.getDateInstance(
-				DateFormat.LONG).format(new Date());
-		if (dateString == null) {
-			currentDate.setText(currentDateTimeString);
-			
-		} else {
-			currentDate.setText(dateString);
-			
-		}
-		
-	}
-
-	public void showTasks() {
-		
-		t_array = new ArrayList<Task>();
-
-		dbAdapter.Open();
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar c = Calendar.getInstance();
-		Cursor curs = dbAdapter.getEventByDate(dateFormat.format(c.getTime()));
-
-		if (curs.moveToFirst()) {
-			do {
-
-				// should the substring parameters be hard-coded?
-				// name,description,eventStartDayTime,eventEndDayTime
-				int id = curs.getInt(curs.getColumnIndex("id"));
-				String name = curs.getString(curs.getColumnIndex("name"));
-				String description = curs.getString(curs
-						.getColumnIndex("description"));
-				String eventStartDayTime = curs.getString(curs
-						.getColumnIndex("eventStartDayTime"));
-				String eventEndDayTime = curs.getString(curs.getColumnIndex("eventEndDayTime"));
-				// workaround for displaying events that have same date and time
-				/*
-				 * for (Task t : t_array){ if (time.equals(t.getTime())){ time =
-				 * "    "; } }
-				 */
-				// SHould be changed to (12, 13) in case the date field will be
-				// represented as dd-mm-yyyy hh:mm:ss
-				// if ( (Collections.frequency(t_array, )) )
-				t_array.add(new Task(id, name, description, eventStartDayTime, eventEndDayTime));
-				
-/*				Toast.makeText(getApplicationContext(),
-						t_array.get(t_array.size() - 1).eventTime, Toast.LENGTH_SHORT).show();
-*/
-			} while (curs.moveToNext());
-		}
-
-		dbAdapter.Close();
-
-		List<Slot> hours = new ArrayList<Slot>();
-		for (int i=0; i<24; i++){
-			Slot slot = new Slot(Integer.toString(i), "");
-			hours.add(slot);
-		}
-		adapter = new TaskListAdapter(this, R.layout.custom_simple, hours);
-
-		listView = (ListView) findViewById(R.id.hour_slots);
-		listView.setAdapter(adapter);
-
-		/*
-		 * listView.setOnItemClickListener(new OnItemClickListener() {
-		 * 
-		 * @Override public void onItemClick(AdapterView<?> parent, View view,
-		 * int position, long id) {
-		 * 
-		 * // Toast.makeText(getApplicationContext(), // t_array[position].time,
-		 * Toast.LENGTH_SHORT).show(); } });
-		 */
-
-	}
-
-	@Override
 	public void onClick(View v) {
 
 		String message = "";
@@ -190,16 +244,22 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		} else if (v.getId() == R.id.show_btn) {
 			dbAdapter.Open();
-			
+
 			/*
 			 * please don't clean this up
 			 * 
 			 * 
-			 * dbAdapter.createEvent("task1", "create event", "2013-04-09 12:00","2013-04-09 13:00", "","15","Bar","daily","2013-04-17 12:00");
-			dbAdapter.createEvent("task2", "create event", "2013-05-09 17:00","2013-05-09 18:00", "","15","Bar","weekly","2013-06-17 12:00");
-			
-			dbAdapter.createEvent("task1", "create event", "2014-04-09 12:00","2014-04-09 13:00", "","15","Bar","monthly","2015-04-07 12:00");
-			*/
+			 * dbAdapter.createEvent("task1", "create event",
+			 * "2013-04-09 12:00","2013-04-09 13:00",
+			 * "","15","Bar","daily","2013-04-17 12:00");
+			 * dbAdapter.createEvent("task2", "create event",
+			 * "2013-05-09 17:00","2013-05-09 18:00",
+			 * "","15","Bar","weekly","2013-06-17 12:00");
+			 * 
+			 * dbAdapter.createEvent("task1", "create event",
+			 * "2014-04-09 12:00","2014-04-09 13:00",
+			 * "","15","Bar","monthly","2015-04-07 12:00");
+			 */
 			Cursor c = dbAdapter.getEventByDate("2013-04-09");
 
 			if (c.moveToFirst()) {
