@@ -7,14 +7,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:padding="10dip">
+        android:orientation="vertical"
+        android:padding="10dip" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" 
-            android:padding="10dip">
+            android:orientation="horizontal"
+            android:padding="10dip" >
 
             <TextView
                 android:layout_width="0dp"
@@ -24,6 +24,18 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" >
             </TextView>
+
+            <Button
+                android:id="@+id/from_date_picker"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/black"
+                android:focusable="true"
+                android:onClick="chooseDate"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" >
+            </Button>
 
             <Button
                 android:id="@+id/from_time_picker"
@@ -41,8 +53,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" 
-            android:padding="10dip">
+            android:orientation="horizontal"
+            android:padding="10dip" >
 
             <TextView
                 android:layout_width="0dp"
@@ -52,6 +64,18 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" >
             </TextView>
+
+            <Button
+                android:id="@+id/to_date_picker"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/black"
+                android:focusable="true"
+                android:onClick="chooseDate"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" >
+            </Button>
 
             <Button
                 android:id="@+id/to_time_picker"
@@ -67,9 +91,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" 
-            android:padding="10dip"
-            >
+            android:orientation="vertical"
+            android:padding="10dip" >
 
             <EditText
                 android:id="@+id/etTitle"
@@ -84,8 +107,6 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_body" />
         </LinearLayout>
-
-
 
         <include
             android:id="@+id/footer2"

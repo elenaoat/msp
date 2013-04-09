@@ -9,6 +9,7 @@ public class Slot {
 	public Slot(int id, String time, String name){
 		this.time = time;
 		this.name = name;
+		this.id = id;
 	}
 
 	public int getId() {

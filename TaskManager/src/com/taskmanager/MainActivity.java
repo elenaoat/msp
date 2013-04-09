@@ -113,22 +113,10 @@ public class MainActivity extends Activity implements OnClickListener {
 						.getColumnIndex("eventStartDayTime"));
 				String eventEndDayTime = curs.getString(curs
 						.getColumnIndex("eventEndDayTime"));
-				// workaround for displaying events that have same date and time
-				/*
-				 * for (Task t : t_array){ if (time.equals(t.getTime())){ time =
-				 * "    "; } }
-				 */
-				// SHould be changed to (12, 13) in case the date field will be
-				// represented as dd-mm-yyyy hh:mm:ss
-				// if ( (Collections.frequency(t_array, )) )
+
 				t_array.add(new Task(id, name, description, eventStartDayTime,
 						eventEndDayTime));
 
-				/*
-				 * Toast.makeText(getApplicationContext(),
-				 * t_array.get(t_array.size() - 1).eventTime,
-				 * Toast.LENGTH_SHORT).show();
-				 */
 			} while (curs.moveToNext());
 		}
 
@@ -137,16 +125,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		hours = new ArrayList<Slot>();
 		for (int i = 0; i < 24; i++) {
 			Slot slot;
-			StringBuilder builder = new StringBuilder();
+		//	StringBuilder builder = new StringBuilder();
 			if (i <= 9) {
-				builder.append("0");
+		/*		builder.append("0");
 				builder.append(i);
-				builder.append(":00");
-				slot = new Slot(-1, builder.toString(), "");
+				builder.append(":00");*/
+				slot = new Slot(-1, Integer.toString(i), "");
 			} else {
-				builder.append(i);
-				builder.append(":00");
-				slot = new Slot(-1, builder.toString(), "");
+			/*	builder.append(i);
+				builder.append(":00");*/
+				slot = new Slot(-1, Integer.toString(i), "");
 			}
 			hours.add(slot);
 		}
@@ -155,14 +143,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (t_array.size()!=0)
 		for (int i=0; i<24; i++){
 			try{
-				if ((t_array.get(i).eventStartDayTime.substring(12, 13)).equals(hours.get(i).time.substring(0,1))){
+				if ((t_array.get(i).eventStartDayTime.substring(12, 13)).equals(hours.get(i).time)){
 					hours.get(i).name = t_array.get(i).name;
 					hours.get(i).id = t_array.get(i).id;
 				}
 			} catch(ArrayIndexOutOfBoundsException e){
 				Log.v("MainActivity", "Wrong format for datetime");
 			}
-			//pad with :00
+		
  
 		}
 		adapter = new TaskListAdapter(this, R.layout.custom_simple, hours);
@@ -186,7 +174,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 		  }
 		  	  
-		  Toast.makeText(getApplicationContext(), hours.get(position).name, Toast.LENGTH_SHORT).show(); 
+		  //Toast.makeText(getApplicationContext(), hours.get(position).name, Toast.LENGTH_SHORT).show(); 
 		 } 
 		  
 		 });
