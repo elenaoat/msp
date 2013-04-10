@@ -20,7 +20,8 @@ public class NewTaskActivity extends Activity {
 	private DatabaseAdapter dbAdapter;
 	private EditText etTitle, etBody;
 	private Button fromTimeBtn, toTimeBtn, fromDateBtn, toDateBtn;
-	private String date_sent, time_sent;
+	private String date_sent, date_to_save;
+	private int time_sent;
 	private CustomDate date_sent_DT;
 	private CustomTime from, to, time_sent_DT;
 
@@ -37,12 +38,20 @@ public class NewTaskActivity extends Activity {
 		etTitle = (EditText) findViewById(R.id.etTitle);
 		etBody = (EditText) findViewById(R.id.etNote);
 
-		date_sent = getIntent().getStringExtra("com.taskmanager.DATE");
-		time_sent = getIntent().getStringExtra("com.taskmanager.TIME");
+		Intent intent = getIntent();
+		//check if the extra DATE was sent with the intent
+		if (intent.hasExtra("com.taskmanager.DATE")){
+			date_sent = intent.getStringExtra("com.taskmanager.DATE");
+			Log.v("date in new task activ", date_sent);
+		}
+		//check if the extra TIME was sent with the intent
+		if (intent.hasExtra("com.taskmanager.HOUR")){
+			time_sent = intent.getIntExtra("com.taskmanager.HOUR", 0);
+			//Log.v("time in new task activ", Integer.toString(intent.getIntExtra("com.taskmanager.HOUR", 0)));
+		}		
 		
-		Log.v("time", time_sent);
-		Log.v("date", date_sent);
-		time_sent_DT = new CustomTime(Integer.parseInt(time_sent), 0);
+		
+		time_sent_DT = new CustomTime(time_sent, 0);
 		date_sent_DT = new CustomDate(date_sent);
 		
 		setReceivedTime();
@@ -177,11 +186,15 @@ public class NewTaskActivity extends Activity {
 			long inserted = dbAdapter.createBriefEvent(
 					title,
 					body,
-					"2013-04-07 " + padTime(from.getHour()) + ":"
+					date_to_save, date_to_save
+					);
+
+					/*"2013-04-07 " + padTime(from.getHour()) + ":"
 							+ padTime(from.getMinute()),
 					"2013-04-07 " + padTime(to.getHour()) + ":"
 							+ padTime(to.getMinute()));
-
+					 */
+					
 			if (inserted > 0) {
 				displayToast("Successfully Saved");
 				etTitle.setText("");
@@ -241,14 +254,20 @@ public class NewTaskActivity extends Activity {
 
 		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
-
+			
 			StringBuilder sb = new StringBuilder();
+			sb.append(date.substring(0, 4));
+			sb.append("-");
+			sb.append(date.substring(5, 7));
+			sb.append("-");
 			sb.append(date.substring(8, 10));
+/*			sb.append(date.substring(8, 10));
 			sb.append("-");
 			sb.append(date.substring(5, 7));
 			sb.append("-");
 			sb.append(date.substring(0, 4));
-			
+	*/		
+			//date_to_save = new String(sb);
 			btn.setText(sb);
 
 		}

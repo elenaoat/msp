@@ -38,10 +38,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	private TaskListAdapter adapter;
 	private TextView currentDate;
 	private String currentDateTimeString;
+	private String currentDate_YYYY_mm_dd;
 	public final static String DATE = "com.taskmanager.DATE";
-	public final static String TIME = "com.taskmanager.TIME";
+	public final static String HOUR = "com.taskmanager.HOUR";
+	public final static String MINUTE = "com.taskmanager.MINUTE";
 	public final static String NAME = "com.taskmanager.NAME";
 	public final static String DESCRIPTION = "com.taskmanager.DESCRIPTION";
+	public SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	public Calendar today = Calendar.getInstance();
 	//TODO add other fields which are missing, i.e. reccurency 
 	
 	@Override
@@ -62,7 +66,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		ImageButton showBtn = (ImageButton) findViewById(R.id.show_btn);
 
 		// Current date for display in the day view
-		showTodaysDate();
+		showCurrentDate();
 		showTasks();
 
 		// adding action listener of buttons
@@ -73,20 +77,30 @@ public class MainActivity extends Activity implements OnClickListener {
 		showBtn.setOnClickListener(this);
 	}
 
-	public void showTodaysDate() {
+	public void showCurrentDate() {
 		// Current date for display in the day view
 		Intent in = getIntent();
 		String dateString = in.getStringExtra("currentDay");
-
-		currentDateTimeString = DateFormat.getDateInstance(DateFormat.LONG)
-				.format(new Date());
-		if (dateString == null) {
+		
+		if (dateString != null)
+		{
+			currentDateTimeString = dateString;
+			//to be added: currentDate_YYYY_mm_dd = 
+		}
+		else {
+			currentDateTimeString = DateFormat.getDateInstance(DateFormat.LONG)
+					.format(new Date());
+			currentDate_YYYY_mm_dd = new String (dateFormat.format(today.getTime()));
+			Log.v("current date", currentDateTimeString);	
+		}
+		currentDate.setText(currentDateTimeString);
+		/*if (dateString == null) {
 			currentDate.setText(currentDateTimeString);
 
 		} else {
 			currentDate.setText(dateString);
-
-		}
+			
+		}*/
 
 	}
 
@@ -96,9 +110,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		dbAdapter.Open();
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar c = Calendar.getInstance();
-		Cursor curs = dbAdapter.getEventByDate(dateFormat.format(c.getTime()));
+		
+		Cursor curs = dbAdapter.getEventByDate(dateFormat.format(today.getTime()));
 
 		if (curs.moveToFirst()) {
 			do {
@@ -130,11 +143,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		/*		builder.append("0");
 				builder.append(i);
 				builder.append(":00");*/
-				slot = new Slot(-1, Integer.toString(i), "");
+				slot = new Slot(-1, i, "");
 			} else {
 			/*	builder.append(i);
 				builder.append(":00");*/
-				slot = new Slot(-1, Integer.toString(i), "");
+				slot = new Slot(-1, i, "");
 			}
 			hours.add(slot);
 		}
@@ -165,11 +178,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		  if (hours.get(position).id == -1){
 			  
 				Intent intent = new Intent(MainActivity.this, NewTaskActivity.class);
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String date = dateFormat.format(Calendar.getInstance().getTime());
-				String time = hours.get(position).time;
+				String date = dateFormat.format(today.getTime());
+				int time = hours.get(position).time;
 				intent.putExtra(DATE, date);
-				intent.putExtra(TIME, time);				
+				intent.putExtra(HOUR, time);				
 				startActivity(intent);
 				
 		  }
@@ -225,8 +237,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		String message = "";
 		// action of adding a task
 		if (v.getId() == R.id.add_event) {
-
+			
 			Intent intent = new Intent(this, NewTaskActivity.class);
+			intent.putExtra(DATE, currentDate_YYYY_mm_dd);
+			intent.putExtra(HOUR, today.get(Calendar.HOUR_OF_DAY));
+			Log.v("time main act", Integer.toString(today.get(Calendar.HOUR_OF_DAY)));
 			startActivity(intent);
 			// adapter.notifyDataSetChanged();
 
@@ -299,4 +314,5 @@ public class MainActivity extends Activity implements OnClickListener {
  * BUG when going to a day from month view and then selecting day view, it says
  * you are already in the day view There should be some home view and day view
  * separately Update data in the view once there is new task inserted
+ * Sent minute with hour at the same time
  */

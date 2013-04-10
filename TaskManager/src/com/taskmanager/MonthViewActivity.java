@@ -462,7 +462,9 @@ public class MonthViewActivity extends Activity  implements OnClickListener {
 				e.printStackTrace();
 			}
 			
+			Log.v("in the month view", date_month_year);
 			String[] selectedDate = date_month_year.split("-");
+			
 			Intent dayIntent = new Intent(getBaseContext(), MainActivity.class);
 			dayIntent.putExtra("currentDay", selectedDate[1] + " " + selectedDate[0] + ", " + selectedDate[2]);
 			startActivity(dayIntent);

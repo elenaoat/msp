@@ -2,11 +2,11 @@ package com.taskmanager;
 
 public class Slot {
 	public int id;
-	public String time;
+	public int time;
 	public String name;
 	
 
-	public Slot(int id, String time, String name){
+	public Slot(int id, int time, String name){
 		this.time = time;
 		this.name = name;
 		this.id = id;
@@ -16,11 +16,11 @@ public class Slot {
 		return id;
 	}
 
-	public String getTime() {
+	public int getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(int time) {
 		this.time = time;
 	}
 
