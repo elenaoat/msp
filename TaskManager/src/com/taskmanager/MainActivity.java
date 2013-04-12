@@ -57,9 +57,11 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		dbAdapter = new DatabaseAdapter(getApplicationContext());
 
-		// get the instance of all buttons
+		// get the instance of all buttons  
 		currentDate = (TextView) findViewById(R.id.dvu_header);
-
+		dbAdapter.Open();
+		dbAdapter.initializeGConfig();
+		dbAdapter.Close();
 		Button dayBtn = (Button) findViewById(R.id.day_btn);
 		Button weekBtn = (Button) findViewById(R.id.week_btn);
 		Button monthBtn = (Button) findViewById(R.id.month_btn);
