@@ -8,13 +8,17 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.util.Log;
 import android.widget.Toast;
 import android.preference.PreferenceManager;
 
 public class SettingsPrefs extends PreferenceActivity implements OnSharedPreferenceChangeListener
 {
 	
-   @Override
+   private String TAG;
+
+
+@Override
     protected void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         try {
@@ -63,7 +67,7 @@ public class SettingsPrefs extends PreferenceActivity implements OnSharedPrefere
 		ListPreference listPreference = (ListPreference) findPreference(key);
 		String currValue = listPreference.getValue();
 		Toast.makeText(getApplicationContext(), currValue,Toast.LENGTH_SHORT).show();
-		//Log.d(TAG, "settings change key = "+key);
+		Log.i(TAG, "settings change key = "+key);
 	}
 	
     
