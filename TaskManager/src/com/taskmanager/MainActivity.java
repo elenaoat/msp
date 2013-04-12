@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -24,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.MenuInflater;
 
 //import android.util.Log;
 
@@ -67,8 +69,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		// Current date for display in the day view
 		showCurrentDate();
+		dbAdapter.Open();
 		showTasks();
-
+		dbAdapter.Close();
 		// adding action listener of buttons
 		dayBtn.setOnClickListener(this);
 		weekBtn.setOnClickListener(this);
@@ -107,12 +110,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void showTasks() {
 
 		t_array = new ArrayList<Task>();
-
-		dbAdapter.Open();
-
-		
 		Cursor curs = dbAdapter.getEventByDate(dateFormat.format(today.getTime()));
-
+        
 		if (curs.moveToFirst()) {
 			do {
 
@@ -133,7 +132,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			} while (curs.moveToNext());
 		}
 
-		dbAdapter.Close();
+		
 
 		hours = new ArrayList<Slot>();
 		for (int i = 0; i < 24; i++) {
@@ -307,6 +306,37 @@ public class MainActivity extends Activity implements OnClickListener {
 				0, 0);
 		toast.show();
 	}
+	
+	//Menu for Settings...
+	
+		@Override
+		public boolean onCreateOptionsMenu(android.view.Menu menu) {
+			// TODO Auto-generated method stub
+			super.onCreateOptionsMenu(menu);
+			MenuInflater popUp = getMenuInflater();
+			popUp.inflate(R.menu.menus, menu);
+			return true;		
+		}
+
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			// TODO Auto-generated method stub
+			switch(item.getItemId()){
+			case R.id.aboutUs:
+				Intent a = new Intent("com.taskmanager.ABOUTUS");
+				startActivity(a);
+				break;
+			case R.id.settings:
+				Intent s = new Intent("com.taskmanager.SETTINGSPREFS");
+				startActivity(s);
+				break;
+			case R.id.exit:
+				finish();
+				break;
+			}
+			return false;
+		}
+		
 }
 
 // TODO LIST

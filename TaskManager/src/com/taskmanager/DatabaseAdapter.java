@@ -5,85 +5,93 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.content.ContentValues;
-//import java.util.Date;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteStatement;
 import android.net.ParseException;
 
 public class DatabaseAdapter {
 	private SQLiteDatabase database;
 	private DatabaseOpenHelper dbHelper;
 	private Context context;
-
-	public DatabaseAdapter(Context c) {
-		this.context = c;
+	private long editParentId = 0;
+	
+	public DatabaseAdapter(Context c){
+		this.context=c;
 		dbHelper = new DatabaseOpenHelper(context);
 	}
-
-	public void Open() {
+	
+	public void Open(){
 		database = dbHelper.getWritableDatabase();
 	}
-
-	public void Close() {
+	
+	public void Close()
+	{
 		database.close();
 	}
-
+	
 	public Cursor getAllConfig() {
-
-		return database.query("global_config", new String[] { "property",
-				"valueType", "textValue", "intergerValue", "dateValue" }, null,
-				null, null, null, null);
+	 
+		return database.query(
+				"global_config", 
+				new String[] {"property", "valueType","textValue", "integerValue", "dateValue"},
+				null, null, null, null, null);
 	}
-
 	// initialize global configuration table
-	public void initializeGConfig() {
-		this.Open();
-		ContentValues values = new ContentValues();
-
-		values.put("property", "NotificationB4");
-		values.put("valueType", "int");
-		values.put("intergerValue", "Fifteen");
-
-		database.insert("global_config", "", values);
-
-		values.put("property", "NotificationFreq");
-		values.put("valueType", "int");
-		values.put("intergerValue", "Five");
-
-		database.insert("global_config", "", values);
-
-		values.put("property", "NotificationType");
-		values.put("valueType", "text");
-		values.put("textValue", "Both");
-
-		database.insert("global_config", "", values);
-		this.Close();
-	}
-
-	public Cursor viewEventByID(long id) {
-
-		return database.query("master_event", null, "id=" + id, null, null,
-				null, null);
-
-	}
-
-	/*
-	 * This method returns all the events for a particular date. Input parameter
-	 * format: 'YYYY-MM-DD' Input parameter Example: '2013-05-09' Output: Cursor
-	 * having the following columns:
-	 * name,description,eventStartDayTime,eventEndDayTime
-	 */
-	public Cursor getEventByDate(String searchDate) {
-
+	public void initializeGConfig(){
 		Cursor cursor;
-		cursor = database
-				.rawQuery(
-						"SELECT id,name,description,eventStartDayTime,eventEndDayTime FROM master_event "
-								+ "WHERE substr(eventStartDayTime,1,10) = '"
-								+ searchDate + "'", null);
+		cursor = database.rawQuery("SELECT count(1) FROM global_config", null);
+		cursor.moveToFirst();
+		if(Long.parseLong(cursor.getString(0))==0){
+				ContentValues values= new ContentValues();
+				
+				values.put("property", "NotificationB4");
+				values.put("valueType", "int");
+				values.put("integerValue", "15");
+				
+				database.insert("global_config", "", values);
+				
+				values.put("property", "NotificationFreq");
+				values.put("valueType", "int");
+				values.put("integerValue", "5");
+				
+				database.insert("global_config", "", values);
+				
+				values.put("property", "NotificationType");
+				values.put("valueType", "text");
+				values.put("textValue", "Both");
+				values.put("integerValue", "");
+				
+				database.insert("global_config", "", values);
+		}
+    }
+	
+	public Cursor viewEventByID(long id){
+		
+		return database.query("master_event", null, "id=" + id,
+				null, null, null, null);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @param searchDate: Input parameter format: 'YYYY-MM-DD'
+	 * @return Cursor having the following columns:
+	 * 		name,description,eventStartDayTime,eventEndDayTime
+	 */
+	public Cursor getEventByDate(String searchDate){
+		
+		Cursor cursor;
+		cursor = database.rawQuery("SELECT id,name,description,eventStartDayTime,eventEndDayTime FROM master_event " +
+				"WHERE substr(eventStartDayTime,1,10) = '"+searchDate+"'", null);        
 		return cursor;
 	}
 	
@@ -107,41 +115,19 @@ public class DatabaseAdapter {
         return true;
 	}
 	
-	
-	/*
-	 * Insert a new event in the database Input parameter format: all are String
-	 * Output: 0 = failure; 1 = success
+	/**
+	 * 
+	 * @param name
+	 * @param description
+	 * @param eventStartDayTime
+	 * @param eventEndDayTime
+	 * @param notificationFreq
+	 * @param notificationB4
+	 * @param notificationType
+	 * @param recurrenceFlag
+	 * @param recurrenceEndDay
+	 * @return
 	 */
-	public long createBriefEvent(String name, String description,
-			String eventStartDayTime, String eventEndDayTime) {
-		// TODO createEvent
-
-		String sql = "insert into master_event (name,description,eventStartDayTime,"
-				+ "eventEndDayTime)"
-				+ "values('"
-				+ name
-				+ "','"
-				+ description
-				+ "','" + eventStartDayTime + "','" + eventEndDayTime + "')";
-
-		database.beginTransaction();
-		SQLiteStatement sqlStmt = database.compileStatement(sql);
-		try {
-			sqlStmt.execute();
-			database.setTransactionSuccessful();
-
-		} catch (SQLiteException ex) {
-
-			ex.printStackTrace();
-			return 0;
-
-		} finally {
-			database.endTransaction();
-		}
-
-		return 1;
-	}
-
 	public long createEvent
 	        (String name, 
 	         String description, 
@@ -163,10 +149,10 @@ public class DatabaseAdapter {
 	   	 
 	   	 if(recurrenceFlag == ""){
 	   		 
-	   		 sql = "insert into master_event (name,description,eventStartDayTime," +
+	   		 sql = "insert into master_event (name,description,parentId,eventStartDayTime," +
 	   				 "eventEndDayTime,notificationFreq,notificationB4,notificationType,recurrenceFlag," +
 	   				 "recurrenceEndDay)" +
-	   				 "values('" + name + "','" + description + "','" + eventStartDayTime + "','"
+	   				 "values('" + name + "','" + description + "','" + this.editParentId + "','" + eventStartDayTime + "','"
 	   						  + eventEndDayTime + "','" + notificationFreq + "','" + notificationB4 +
 	   						  "','" + notificationType + "','" + recurrenceFlag + "','" +
 	   						  recurrenceEndDay + "')";
@@ -325,204 +311,190 @@ public class DatabaseAdapter {
 	   	 
 	    return 1;
     }
+	
+	public String getRecurrenceFlag(long id){
+		
+		Cursor cursor;
+		cursor = database.rawQuery("SELECT recurrenceFlag FROM master_event " +
+				"WHERE id =" + id, null);
+		cursor.moveToFirst();
+		return cursor.getString(0);
+		
+	}
+	
+	public long getParentId(long id){
+		
+		Cursor cursor;
+		cursor = database.rawQuery("SELECT parentId FROM master_event " +
+				"WHERE id =" + id, null);
+		cursor.moveToFirst();
+		return Long.parseLong(cursor.getString(0));
+	}
 
-	public void deleteEvents(long id) {		
+	public boolean deleteEvents(long id) {		
 		//TODO delete all rows that has the perentID equal to given ID
 		
-
-		database.execSQL("delete from master_event where id = " + id);
+		//String tmprecur=getRecurrenceFlag(id);
+				
+		if(getRecurrenceFlag(id).equals("")){
+			database.execSQL("delete from master_event where id = " + id);
+			return true;
+		}else if(!getRecurrenceFlag(id).equals("")){
+			database.execSQL("delete from master_event where id = " + id + " or parentID = " + id);
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
-
-	public int getNotificationB4() {
-
+	
+	public int getNotificationB4(){
+		
 		Cursor cursor;
-		cursor = database.rawQuery("SELECT integerValue FROM global_config "
-				+ "WHERE property = 'NotificationB4' ", null);
+		cursor = database.rawQuery("SELECT integerValue FROM global_config " +
+				"WHERE property = 'NotificationB4' ", null);        
 		return Integer.parseInt(cursor.getString(0));
 	}
-
-	public int getNotificationFreq() {
+	
+	public int getNotificationFreq(){
 		Cursor cursor;
-		cursor = database.rawQuery("SELECT integerValue FROM global_config "
-				+ "WHERE property = 'NotificationFreq' ", null);
+		cursor = database.rawQuery("SELECT integerValue FROM global_config " +
+				"WHERE property = 'NotificationFreq' ", null);        
 		return Integer.parseInt(cursor.getString(0));
 	}
-
-	public String getNotificationType() {
+	
+	public String getNotificationType(){
 		Cursor cursor;
-		cursor = database.rawQuery("SELECT textValue FROM global_config "
-				+ "WHERE property = 'NotificationType' ", null);
+		cursor = database.rawQuery("SELECT textValue FROM global_config " +
+				"WHERE property = 'NotificationType' ", null);        
 		return cursor.getString(0);
 	}
-
-	public String getRecurrenceFlag() {
-
+	public String getRecurrenceFlag(){
+		
 		return null;
 	}
-
-	public boolean setNotificationB4(int newValue) {
-
-		String sql = "UPDATE global_config SET intergerValue = " + newValue
-				+ " WHERE property = 'NotificationB4'";
-		database.beginTransaction();
-		SQLiteStatement sqlStmt = database.compileStatement(sql);
-		try {
-			sqlStmt.execute();
-			database.setTransactionSuccessful();
-
-		} catch (SQLiteException ex) {
-
-			ex.printStackTrace();
-			return false;
-
-		} finally {
-			database.endTransaction();
-		}
-
-		return true;
-
+	
+	public boolean setNotificationB4(int newValue){
+						
+		String sql = "UPDATE global_config SET integerValue = "+ newValue +" WHERE property = 'NotificationB4'";
+		if(executeSql(sql)) return true;
+		return false;
+		
 	}
-
-	public boolean setNotificationFreq(int newValue) {
-
-		String sql = "UPDATE global_config SET intergerValue = " + newValue
-				+ " WHERE property = 'NotificationFreq'";
-		database.beginTransaction();
-		SQLiteStatement sqlStmt = database.compileStatement(sql);
-		try {
-			sqlStmt.execute();
-			database.setTransactionSuccessful();
-
-		} catch (SQLiteException ex) {
-
-			ex.printStackTrace();
-			return false;
-
-		} finally {
-			database.endTransaction();
-		}
-		return true;
-
+    public boolean setNotificationFreq(int newValue){
+    	
+    	String sql = "UPDATE global_config SET integerValue = "+ newValue +" WHERE property = 'NotificationFreq'";
+    	if(executeSql(sql)) return true;
+		return false;
+		
 	}
-
-	public boolean setNotificationType(String txt) {
-
-		String sql = "UPDATE global_config SET textValue = '" + txt
-				+ "' WHERE property = 'NotificationType'";
-		database.beginTransaction();
-		SQLiteStatement sqlStmt = database.compileStatement(sql);
-		try {
-			sqlStmt.execute();
-			database.setTransactionSuccessful();
-
-		} catch (SQLiteException ex) {
-
-			ex.printStackTrace();
-			return false;
-
-		} finally {
-			database.endTransaction();
-		}
-		return true;
-
+    public boolean setNotificationType(String txt){
+    	
+    	String sql = "UPDATE global_config SET textValue = '"+ txt +"' WHERE property = 'NotificationType'";
+    	if(executeSql(sql)) return true;
+		return false;
+		
 	}
-
-	public boolean setRecurrenceFlag(String txt) {
-
-		String sql = "UPDATE global_config SET TextValue = " + txt
-				+ " WHERE Property = 'RecurrenceFlag'";
-		database.beginTransaction();
-		SQLiteStatement sqlStmt = database.compileStatement(sql);
-		try {
-			sqlStmt.execute();
-			database.setTransactionSuccessful();
-
-		} catch (SQLiteException ex) {
-
-			ex.printStackTrace();
-			return false;
-
-		} finally {
-			database.endTransaction();
-		}
-		return true;
-
+    
+    public boolean setRecurrenceFlag(String txt){
+    	
+    	String sql = "UPDATE global_config SET TextValue = "+ txt +" WHERE Property = 'RecurrenceFlag'";
+    	if(executeSql(sql)) return true;
+		return false;
+		
 	}
-
-	public boolean setRecurrenceEndTime(String txt) {
-
-		String sql = "UPDATE global_config SET TextValue = " + txt
-				+ " WHERE Property = 'RecurrenceEndTime'";
-		database.beginTransaction();
-		SQLiteStatement sqlStmt = database.compileStatement(sql);
-		try {
-			sqlStmt.execute();
-			database.setTransactionSuccessful();
-
-		} catch (SQLiteException ex) {
-
-			ex.printStackTrace();
-			return false;
-
-		} finally {
-			database.endTransaction();
-		}
-		return true;
-
+    public boolean setRecurrenceEndTime(String txt){
+		
+    	String sql = "UPDATE global_config SET TextValue = "+ txt +" WHERE Property = 'RecurrenceEndTime'";
+    	if(executeSql(sql)) return true;
+		return false;
+		
 	}
-
+	
 	public Cursor getAllEvents() {
-		return database.query("master_event", new String[] { "id",
-				"recurrenceFlag", "name", "description" }, null, null, null,
-				null, null);
+		return database.query("master_event", new String[] {"id", "recurrenceFlag","name", "description"},
+		null, null, null, null, null);
 	}
-
+	
+	
 	public Cursor getOneEvent(long id) {
-		return database.query("master_event", null, "id=" + id, null, null,
-				null, null);
+		return database.query("master_event", null, "id=" + id,
+		null, null, null, null);
 	}
-
+	
 	public void updateEvent(long id, String title, String body) {
 		ContentValues editCon = new ContentValues();
 		editCon.put("title", title);
-		editCon.put("body", body);
+		editCon.put("body", body);		
 		database.update("master_event", editCon, "_id=" + id, null);
 	}
 
-	public boolean editEvent(int sId, String name, String description,
-			String eventStartDayTime, String eventEndDayTime,
-			String notificationFreq, String notificationB4,
-			String notificationType, String recurrenceFlag,
-			String recurrenceEndDay) 
+	/**
+	 * 
+	 * @param sId
+	 * @param name
+	 * @param description
+	 * @param eventStartDayTime
+	 * @param eventEndDayTime
+	 * @param notificationFreq
+	 * @param notificationB4
+	 * @param notificationType
+	 * @param recurrenceFlag
+	 * @param recurrenceEndDay
+	 * @return
+	 */
+	public boolean editEvent(
+					 int sId,
+					 String name, 
+			         String description, 
+			         String eventStartDayTime, 
+			         String eventEndDayTime,
+			         String notificationFreq,
+			         String notificationB4, 
+			         String notificationType, 
+			         String recurrenceFlag, 
+			         String recurrenceEndDay)
 	{
-
-
-		String sql = "update master_event set name = '" + name + "',"
-				+ "description= '" + description + "',"
-				+ "eventStartDayTime = '" + eventStartDayTime + "',"
-				+ "eventEndDayTime = '" + eventEndDayTime + "',"
-				+ "notificationFreq = '" + notificationFreq + "',"
-				+ "notificationB4 = '" + notificationB4 + "',"
-				+ "notificationType = '" + notificationType + "',"
-				+ "recurrenceFlag = '" + recurrenceFlag + "',"
-				+ "recurrenceEndDay = '" + recurrenceEndDay + "'"
-				+ " where id = " + sId;
-
-		database.beginTransaction();
-		SQLiteStatement sqlStmt = database.compileStatement(sql);
-		try {
+				//TODO createEvent
+				
+				if((editParentId=getParentId(sId))>0){
+					recurrenceFlag = "";
+				}
+		
+				deleteEvents(sId);
+				createEvent(name,description, eventStartDayTime,eventEndDayTime,notificationFreq,
+						notificationB4,notificationType,recurrenceFlag,recurrenceEndDay);
+				this.editParentId=0;
+				return true;
+	}
+	
+	/*
+	* Insert a new event in the database Input parameter format: all are String
+	* Output: 0 = failure; 1 = success
+	*/
+	public long createBriefEvent(String name, String description,
+					String eventStartDayTime, String eventEndDayTime) {
+	// TODO createEvent
+			String sql = "insert into master_event (name,description,eventStartDayTime,"
+			+ "eventEndDayTime)"
+			+ "values('"
+			+ name
+			+ "','"
+			+ description
+			+ "','" + eventStartDayTime + "','" + eventEndDayTime + "')";
+	
+	database.beginTransaction();
+	SQLiteStatement sqlStmt = database.compileStatement(sql);
+	try {
 			sqlStmt.execute();
 			database.setTransactionSuccessful();
-
-		} catch (SQLiteException ex) {
-
+	} catch (SQLiteException ex) {
 			ex.printStackTrace();
-			return false;
-
-		} finally {
+			return 0;
+	} finally {
 			database.endTransaction();
-		}
-
-		return true;
 	}
+	return 1;
+  }
+		
 }

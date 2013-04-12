@@ -181,13 +181,14 @@ public class NewTaskActivity extends Activity {
 		} else if (title.equals("")) {
 			displayToast("Please insert task title");
 		} else {
+			
 			dbAdapter.Open();
-
+            
 			long inserted = dbAdapter.createBriefEvent(
 					title,
 					body,
-					date_to_save, date_to_save
-					);
+					date_to_save, date_to_save);
+					
 
 					/*"2013-04-07 " + padTime(from.getHour()) + ":"
 							+ padTime(from.getMinute()),
