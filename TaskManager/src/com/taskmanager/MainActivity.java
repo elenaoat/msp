@@ -56,12 +56,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_main);
 
 		dbAdapter = new DatabaseAdapter(getApplicationContext());
+		initializeGlobalConfigWithDefaultValues();
 
 		// get the instance of all buttons  
 		currentDate = (TextView) findViewById(R.id.dvu_header);
-		dbAdapter.Open();
-		dbAdapter.initializeGConfig();
-		dbAdapter.Close();
+		
 		Button dayBtn = (Button) findViewById(R.id.day_btn);
 		Button weekBtn = (Button) findViewById(R.id.week_btn);
 		Button monthBtn = (Button) findViewById(R.id.month_btn);
@@ -71,8 +70,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		// Current date for display in the day view
 		showCurrentDate();
+
 		dbAdapter.Open();
-		showTasks();
+			showTasks();
 		dbAdapter.Close();
 		// adding action listener of buttons
 		dayBtn.setOnClickListener(this);
@@ -81,7 +81,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		addBtn.setOnClickListener(this);
 		showBtn.setOnClickListener(this);
 	}
-
+	
 	public void showCurrentDate() {
 		// Current date for display in the day view
 		Intent in = getIntent();
@@ -308,6 +308,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL,
 				0, 0);
 		toast.show();
+	}
+	
+	public void initializeGlobalConfigWithDefaultValues(){
+		
+		dbAdapter.Open();
+			dbAdapter.initializeGConfig();
+		dbAdapter.Close();
+		
 	}
 	
 	//Menu for Settings...
