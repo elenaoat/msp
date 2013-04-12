@@ -65,6 +65,13 @@ public class DatabaseAdapter {
 				values.put("integerValue", "");
 				
 				database.insert("global_config", "", values);
+				
+				values.put("property", "RecurrenceFlag");
+				values.put("valueType", "text");
+				values.put("textValue", "");
+				values.put("integerValue", "");
+				
+				database.insert("global_config", "", values);
 		}
     }
 	
@@ -376,14 +383,14 @@ public class DatabaseAdapter {
 	
 	public boolean setNotificationB4(int newValue){
 						
-		String sql = "UPDATE global_config SET integerValue = "+ newValue +" WHERE property = 'NotificationB4'";
+		String sql = "UPDATE global_config SET integerValue = '"+ newValue +"' WHERE property = 'NotificationB4'";
 		if(executeSql(sql)) return true;
 		return false;
 		
 	}
     public boolean setNotificationFreq(int newValue){
     	
-    	String sql = "UPDATE global_config SET integerValue = "+ newValue +" WHERE property = 'NotificationFreq'";
+    	String sql = "UPDATE global_config SET integerValue = '"+ newValue +"' WHERE property = 'NotificationFreq'";
     	if(executeSql(sql)) return true;
 		return false;
 		
@@ -398,7 +405,7 @@ public class DatabaseAdapter {
     
     public boolean setRecurrenceFlag(String txt){
     	
-    	String sql = "UPDATE global_config SET TextValue = "+ txt +" WHERE Property = 'RecurrenceFlag'";
+    	String sql = "UPDATE global_config SET textValue = '"+ txt +"' WHERE Property = 'RecurrenceFlag'";
     	if(executeSql(sql)) return true;
 		return false;
 		
