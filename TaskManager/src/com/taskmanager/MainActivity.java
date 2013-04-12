@@ -190,7 +190,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		  
 		 });
 		 
-
+		curs.close();
 	}
 
 
@@ -217,7 +217,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		} else {
 			displayToast("No item found");
 		}
-
+		c.close();
 		dbAdapter.Close();
 	}
 
@@ -272,7 +272,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			} else {
 				displayToast("No item found");
 			}
-
+			c.close();
 			dbAdapter.Close();
 		} else if (v.getId() == R.id.day_btn) {
 			message = "You are in the day view";
@@ -288,6 +288,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					MonthViewActivity.class);
 			startActivity(monthIntent);
 		}
+		
 	}
 
 	public void displayItem(Cursor c) {

@@ -40,7 +40,7 @@ public class MonthViewActivity extends Activity  implements OnClickListener {
 	private GridView calendarView;
 	private Calendar _calendar;
 	private int month, year;
-	private final DateFormat dateFormatter = new DateFormat();
+	//private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
 	
 	private GridCellAdapter adapter;
@@ -82,7 +82,7 @@ public class MonthViewActivity extends Activity  implements OnClickListener {
 		prevMonth.setOnClickListener(this);
 
 		currentMonth = (Button) this.findViewById(R.id.currentMonth);
-		currentMonth.setText(dateFormatter.format(dateTemplate, _calendar.getTime()));
+		currentMonth.setText(DateFormat.format(dateTemplate, _calendar.getTime()));
 
 		nextMonth = (ImageButton) this.findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
@@ -122,7 +122,7 @@ public class MonthViewActivity extends Activity  implements OnClickListener {
 	{
 		adapter = new GridCellAdapter(getApplicationContext(), R.id.calendar_day_gridcell, month, year);
 		_calendar.set(year, month - 1, _calendar.get(Calendar.DAY_OF_MONTH));
-		currentMonth.setText(dateFormatter.format(dateTemplate, _calendar.getTime()));
+		currentMonth.setText(DateFormat.format(dateTemplate, _calendar.getTime()));
 		adapter.notifyDataSetChanged();
 		calendarView.setAdapter(adapter);
 	}
@@ -200,13 +200,12 @@ public class MonthViewActivity extends Activity  implements OnClickListener {
 		private final String[] weekdays = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 		private final String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 		private final int[] daysOfMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-		private final int month, year;
-		private int daysInMonth, prevMonthDays;
+		private int daysInMonth;
 		private int currentDayOfMonth;
 		private int currentWeekDay;
 		private Button gridcell;
 		private TextView num_events_per_day;
-		private final HashMap eventsPerMonthMap;
+		private final HashMap<String, Integer> eventsPerMonthMap;
 		private final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
 		
 		// Days in Current Month
@@ -214,9 +213,6 @@ public class MonthViewActivity extends Activity  implements OnClickListener {
 			super();
 			this._context = context;
 			this.list = new ArrayList<String>();
-			this.month = month;
-			this.year = year;
-			
 			Log.d(tag, "==> Passed in Date FOR Month: " + month + " " + "Year: " + year);
 			Calendar calendar = Calendar.getInstance();
 			setCurrentDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH));
@@ -267,7 +263,7 @@ public class MonthViewActivity extends Activity  implements OnClickListener {
 			// The number of days to leave blank at
 			// the start of this month.
 			int trailingSpaces = 0;
-			int leadSpaces = 0;
+			//int leadSpaces = 0;
 			int daysInPrevMonth = 0;
 			int prevMonth = 0;
 			int prevYear = 0;
@@ -368,9 +364,9 @@ public class MonthViewActivity extends Activity  implements OnClickListener {
 		 * @param month
 		 * @return
 		 */
-		private HashMap findNumberOfEventsPerMonth(int year, int month)
+		private HashMap<String, Integer> findNumberOfEventsPerMonth(int year, int month)
 		{
-			HashMap map = new HashMap<String, Integer>();
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
 			// DateFormat dateFormatter2 = new DateFormat();
 			//						
 			// String day = dateFormatter2.format("dd", dateCreated).toString();
