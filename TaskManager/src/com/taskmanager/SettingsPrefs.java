@@ -11,11 +11,13 @@ import android.preference.PreferenceFragment;
 import android.util.Log;
 import android.widget.Toast;
 import android.preference.PreferenceManager;
+import java.lang.Integer;
 
 public class SettingsPrefs extends PreferenceActivity implements OnSharedPreferenceChangeListener
 {
 	
-   private String TAG;
+   private String TAG= "prefs";
+   private DatabaseAdapter dbAdapter;
 
 
 @Override
@@ -29,6 +31,7 @@ public class SettingsPrefs extends PreferenceActivity implements OnSharedPrefere
         }
       
         PreferenceManager.setDefaultValues(SettingsPrefs.this, R.xml.settings_prefs, false);
+        dbAdapter= new DatabaseAdapter(getApplicationContext());
    }
 
     @SuppressWarnings("deprecation")
@@ -66,8 +69,22 @@ public class SettingsPrefs extends PreferenceActivity implements OnSharedPrefere
 		@SuppressWarnings("deprecation")
 		ListPreference listPreference = (ListPreference) findPreference(key);
 		String currValue = listPreference.getValue();
-		Toast.makeText(getApplicationContext(), currValue,Toast.LENGTH_SHORT).show();
-		Log.i(TAG, "settings change key = "+key);
+		Toast.makeText(getApplicationContext(),currValue.substring(0, 2),Toast.LENGTH_SHORT).show();
+		Log.v(TAG, "settings change key = "+key);
+		dbAdapter.Open();
+		if(key.equals("reminder")){
+			dbAdapter.setNotificationB4(Integer.parseInt(currValue.substring(0, 2)));
+		}else if(key.equals("frequency")){
+			dbAdapter.setNotificationFreq(Integer.parseInt(currValue.substring(0, 2)));
+		}else if(key.equals("type")){
+			dbAdapter.setNotificationType(currValue);
+		}else if(key.equals("repetition")){
+			if(currValue.equals("Once")){
+				currValue="";
+			}
+			dbAdapter.setRecurrenceFlag(currValue);
+		}
+		dbAdapter.Close();
 	}
 	
     
