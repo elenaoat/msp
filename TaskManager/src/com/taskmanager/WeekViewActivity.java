@@ -5,6 +5,7 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -15,8 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class WeekViewActivity extends Activity implements OnClickListener  {
+	
+	private ImageButton prevWeek;
+	private ImageButton nextWeek;
 	private LinearLayout lLayout, cLayout;
 	private TextView tView;
+	private final String[] weekdays = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+	int weekNumber,year;
+	private Calendar c1;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -30,15 +37,30 @@ public class WeekViewActivity extends Activity implements OnClickListener  {
 		Button monthBtn = (Button) findViewById(R.id.month_btn);
 		ImageButton addBtn = (ImageButton) findViewById(R.id.add_event);
 		
+		prevWeek = (ImageButton) this.findViewById(R.id.prevWeek);
+		prevWeek.setOnClickListener(this);
+		
+		nextWeek = (ImageButton) this.findViewById(R.id.nextWeek);
+		nextWeek.setOnClickListener(this);
+		
 		dayBtn.setOnClickListener(this);
 		weekBtn.setOnClickListener(this);
 		monthBtn.setOnClickListener(this);
 		addBtn.setOnClickListener(this);
 		
-		Calendar c1 = Calendar.getInstance();
-
+		c1 = Calendar.getInstance();
+		weekNumber= c1.get(Calendar.WEEK_OF_YEAR);
+		
+		weekView(weekNumber);
+	}	
+	
+	public void weekView(int weekNum){
 	    //first day of week
-	    c1.set(Calendar.DAY_OF_WEEK, c1.getFirstDayOfWeek());
+		
+		c1.set(Calendar.WEEK_OF_YEAR, weekNum);
+		//Toast.makeText(getApplicationContext(), ""+c1.get(Calendar.WEEK_OF_YEAR)+"--"+c1.getFirstDayOfWeek() , Toast.LENGTH_SHORT).show();
+		c1.get(Calendar.WEEK_OF_YEAR);
+		c1.set(Calendar.DAY_OF_WEEK, c1.getFirstDayOfWeek());
 
 	    int year1 = c1.get(Calendar.YEAR);
 	    int month1 = c1.get(Calendar.MONTH)+1;
@@ -51,12 +73,12 @@ public class WeekViewActivity extends Activity implements OnClickListener  {
 	    int year7 = c1.get(Calendar.YEAR);
 	    int month7 = c1.get(Calendar.MONTH) + 1;
 	    int day7 = c1.get(Calendar.DAY_OF_MONTH) + 1;
-	    
+	    tView = new TextView(this);
 	    tView = (TextView) findViewById(R.id.weekHeaderTxt);
 	    tView.setText("Week " + c1.get(Calendar.WEEK_OF_YEAR) + " : " + day1 + "/" + month1 + "/" + year1 + " - " + day7 + "/" + month7 + "/" + year7);
-		
+		lLayout=new LinearLayout(this);
 		lLayout = (LinearLayout) findViewById(R.id.weekDays);
-		
+		//lLayout.setOrientation(LinearLayout.HORIZONTAL);
 		tView = new TextView(this);
 		tView.setText("TIMES");
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -70,7 +92,7 @@ public class WeekViewActivity extends Activity implements OnClickListener  {
 		
 		for(int i = 0; i < 7; i ++)
 		{
-			c1.set(Calendar.DAY_OF_WEEK, i+2);
+			c1.set(Calendar.DAY_OF_WEEK, i+1);
 //		    c1.add(Calendar.WEEK_OF_YEAR, 1);
 
 		    month = c1.get(Calendar.MONTH) + 1;
@@ -78,7 +100,7 @@ public class WeekViewActivity extends Activity implements OnClickListener  {
 			
 			
 			tView = new TextView(this);
-			tView.setText(" " + day + "/" + month);
+			tView.setText(weekdays[i]+" " + day + "/" + month);
 			params = new LinearLayout.LayoutParams(
 				    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			params.weight = 13;
@@ -155,6 +177,32 @@ public class WeekViewActivity extends Activity implements OnClickListener  {
 		{
 			Intent monthIntent = new Intent(getBaseContext(), MonthViewActivity.class);
 			startActivity(monthIntent);
+		}if (v == prevWeek){
+			if (weekNumber <= 1)
+				{
+					weekNumber = 52;
+					year--;
+				}
+			else
+				{
+				weekNumber--;
+				}
+			lLayout.invalidate();
+			weekView(weekNumber);
+		}if (v == nextWeek)
+		{
+			if (weekNumber > 52)
+				{
+					weekNumber=1;
+					year++;
+				}
+			else
+				{
+				weekNumber++;
+				}
+			tView.invalidate();
+			lLayout.invalidate();
+			weekView(weekNumber);
 		}
 	}
 
