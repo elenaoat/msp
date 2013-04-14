@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -187,7 +188,7 @@ public class WeekViewActivity extends Activity implements OnClickListener  {
 				{
 				weekNumber--;
 				}
-			lLayout.invalidate();
+			refreshWeekView();
 			weekView(weekNumber);
 		}if (v == nextWeek)
 		{
@@ -200,10 +201,20 @@ public class WeekViewActivity extends Activity implements OnClickListener  {
 				{
 				weekNumber++;
 				}
-			tView.invalidate();
-			lLayout.invalidate();
+			
+			refreshWeekView();
 			weekView(weekNumber);
 		}
+	}
+	
+	public void refreshWeekView(){
+		ViewGroup vg = (ViewGroup) findViewById (R.id.weekDaysDetails);
+		 vg.removeAllViews();
+		 vg.refreshDrawableState();
+		vg=(ViewGroup) findViewById (R.id.weekDays);
+		 vg.removeAllViews();
+		 vg.refreshDrawableState();
+		
 	}
 
 }
