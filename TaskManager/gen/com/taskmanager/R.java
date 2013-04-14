@@ -49,8 +49,8 @@ public final class R {
     }
     public static final class id {
         public static final int TextView1=0x7f0b0000;
-        public static final int aboutUs=0x7f0b002e;
-        public static final int action_settings=0x7f0b0031;
+        public static final int aboutUs=0x7f0b002f;
+        public static final int action_settings=0x7f0b0032;
         public static final int add_event=0x7f0b0008;
         public static final int calendar=0x7f0b0021;
         public static final int calendar_day_gridcell=0x7f0b000c;
@@ -61,24 +61,25 @@ public final class R {
         public static final int etNote=0x7f0b001a;
         public static final int etTime=0x7f0b0018;
         public static final int etTitle=0x7f0b0019;
-        public static final int exit=0x7f0b0030;
+        public static final int exit=0x7f0b0031;
         public static final int footer1=0x7f0b0004;
         public static final int footer2=0x7f0b0026;
         public static final int from_date_picker=0x7f0b0022;
         public static final int from_time_picker=0x7f0b0023;
         public static final int hour_slots=0x7f0b0003;
         public static final int main_layout=0x7f0b0001;
-        public static final int menu_settings=0x7f0b002d;
+        public static final int menu_settings=0x7f0b002e;
         public static final int month_btn=0x7f0b0007;
         public static final int month_layout=0x7f0b001b;
         public static final int name=0x7f0b0017;
         public static final int nextMonth=0x7f0b001f;
+        public static final int nextWeek=0x7f0b002a;
         public static final int num_events_per_day=0x7f0b000d;
         public static final int prevMonth=0x7f0b001d;
         public static final int prevWeek=0x7f0b0029;
         public static final int save_btn=0x7f0b000a;
         public static final int selectedDayMonthYear=0x7f0b001c;
-        public static final int settings=0x7f0b002f;
+        public static final int settings=0x7f0b0030;
         public static final int show_btn=0x7f0b0009;
         public static final int task1=0x7f0b000f;
         public static final int task2=0x7f0b0011;
@@ -91,11 +92,11 @@ public final class R {
         public static final int time=0x7f0b0016;
         public static final int to_date_picker=0x7f0b0024;
         public static final int to_time_picker=0x7f0b0025;
-        public static final int weekDays=0x7f0b002b;
-        public static final int weekDaysDetails=0x7f0b002c;
+        public static final int weekDays=0x7f0b002c;
+        public static final int weekDaysDetails=0x7f0b002d;
         public static final int weekHeader=0x7f0b0028;
         public static final int weekHeaderNames=0x7f0b0020;
-        public static final int weekHeaderTxt=0x7f0b002a;
+        public static final int weekHeaderTxt=0x7f0b002b;
         public static final int week_btn=0x7f0b0006;
         public static final int week_layout=0x7f0b0027;
     }

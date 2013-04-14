@@ -24,5 +24,22 @@ public class CustomTime {
 	public void setMinute(int minute) {
 		this.minute = minute;
 	}
+	public String getTimeStr(){
+		StringBuffer strBuff = new StringBuffer();
+		strBuff.append(padTime(hour));
+		strBuff.append(":");
+		strBuff.append(padTime(minute));
+		return strBuff.toString();
+	}
+
+	public StringBuffer padTime(int m) {
+		StringBuffer strBuff = new StringBuffer();
+		
+		if (Integer.toString(m).length() == 1) {
+			strBuff.append(0);
+		}
+		strBuff.append(m);
+		return strBuff;
+	}
 
 }

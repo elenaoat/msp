@@ -96,7 +96,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			currentDateTimeString = DateFormat.getDateInstance(DateFormat.LONG)
 					.format(new Date());
 			currentDate_YYYY_mm_dd = new String (dateFormat.format(today.getTime()));
-			Log.v("current date", currentDateTimeString);	
+		//Log.v("current date", currentDateTimeString);	
 		}
 		currentDate.setText(currentDateTimeString);
 		/*if (dateString == null) {

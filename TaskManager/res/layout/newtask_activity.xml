@@ -32,7 +32,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/black"
                 android:focusable="true"
-                android:onClick="chooseDate"
+                android:onClick="chooseDateFrom"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/black"
                 android:focusable="true"
-                android:onClick="chooseTime"
+                android:onClick="chooseTimeFrom"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/black"
                 android:focusable="true"
-                android:onClick="chooseDate"
+                android:onClick="chooseDateTo"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/black"
-                android:onClick="chooseTime"
+                android:onClick="chooseTimeTo"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
         </LinearLayout>

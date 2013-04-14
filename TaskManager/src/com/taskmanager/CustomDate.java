@@ -8,20 +8,26 @@ public class CustomDate {
 	public int year;
 	public int month;
 	public int day;
-	
 	public CustomDate(){
 		
 	}
-	
+	public CustomDate(int day, int month, int year){
+		this.day = day;
+		this.month = month;
+		this.year = year;
+		this.year_str = getYear_str();
+		this.month_str = getMonth_str();
+		this.day_str = getDay_str();
+	}
 	public CustomDate(String date){
-	
 		this.year_str = date.substring(0, 4);
 		this.month_str = date.substring(5, 7);
 		this.day_str = date.substring(8, 10);
-		this.year = Integer.parseInt(year_str);
-		this.month = Integer.parseInt(removeZero(month_str));
-		this.day = Integer.parseInt(removeZero(day_str));
+		this.year = Integer.parseInt(date.substring(0, 4));
+		this.month = Integer.parseInt(removeZero(date.substring(5, 7)));
+		this.day = Integer.parseInt(removeZero(date.substring(8, 10)));
 	}
+
 	public String removeZero(String str){
 		String str_edited;
 		if (str.charAt(0) == '0'){
@@ -32,24 +38,38 @@ public class CustomDate {
 		}
 		return str_edited;
 	}
+	public String getDate(){
+		StringBuilder strBuilder = new StringBuilder();
+		strBuilder.append(day_str);
+		strBuilder.append("-");
+		strBuilder.append(month_str);
+		strBuilder.append("-");
+		strBuilder.append(year_str);
+		return strBuilder.toString();
+	}
 	
+	public String getDateForDB(){
+		StringBuilder strBuilder = new StringBuilder();
+		strBuilder.append(year_str);
+		strBuilder.append("-");
+		strBuilder.append(month_str);
+		strBuilder.append("-");
+		strBuilder.append(day_str);
+		return strBuilder.toString();
+	}
+
+
 	public String getYear_str() {
+		year_str = Integer.toString(year);
 		return year_str;
 	}
-	public void setYear_str(String year_str) {
-		this.year_str = year_str;
-	}
 	public String getMonth_str() {
+		month_str = padDate(month);
 		return month_str;
 	}
-	public void setMonth_str(String month_str) {
-		this.month_str = month_str;
-	}
 	public String getDay_str() {
+		day_str = padDate(day);
 		return day_str;
-	}
-	public void setDay_str(String day_str) {
-		this.day_str = day_str;
 	}
 	public int getYear() {
 		return year;
@@ -69,5 +89,15 @@ public class CustomDate {
 	public void setDay(int day) {
 		this.day = day;
 	}
+	public String padDate(int d) {
+		StringBuffer strBuff = new StringBuffer();
+		
+		if (Integer.toString(d).length() == 1) {
+			strBuff.append(0);
+		}
+		strBuff.append(d);
+		return strBuff.toString();
+	}
+
 
 }
