@@ -171,7 +171,7 @@ public class NewTaskActivity extends Activity {
 
 		String title = etTitle.getText().toString();
 		String body = etBody.getText().toString();
-
+        /*
 		if ((from.getHour() > to.getHour())
 				|| (from.getHour() == to.getHour() && from.getMinute() >= to
 						.getMinute())) {
@@ -180,14 +180,19 @@ public class NewTaskActivity extends Activity {
 					+ Integer.toString(to.getMinute()));
 		} else if (title.equals("")) {
 			displayToast("Please insert task title");
-		} else {
+		} else {*/
 			
 			dbAdapter.Open();
             
+			/*long inserted = dbAdapter.createBriefEvent(
+					title,
+					body,
+					date_to_save, date_to_save);*/
+			
 			long inserted = dbAdapter.createBriefEvent(
 					title,
 					body,
-					date_to_save, date_to_save);
+					"2013-04-07 12:00", "2013-04-07 13:00");
 					
 
 					/*"2013-04-07 " + padTime(from.getHour()) + ":"
@@ -207,7 +212,7 @@ public class NewTaskActivity extends Activity {
 			dbAdapter.Close();
 			Intent i = new Intent(this, MainActivity.class);
 			startActivity(i);
-		}
+		//}
 	}
 
 	public void cancel(View view) {
@@ -257,17 +262,12 @@ public class NewTaskActivity extends Activity {
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			
 			StringBuilder sb = new StringBuilder();
-			sb.append(date.substring(0, 4));
+		    sb.append(year);
 			sb.append("-");
-			sb.append(date.substring(5, 7));
+			sb.append(month+1);
 			sb.append("-");
-			sb.append(date.substring(8, 10));
-/*			sb.append(date.substring(8, 10));
-			sb.append("-");
-			sb.append(date.substring(5, 7));
-			sb.append("-");
-			sb.append(date.substring(0, 4));
-	*/		
+			sb.append(day);
+	 	
 			//date_to_save = new String(sb);
 			btn.setText(sb);
 
