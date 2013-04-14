@@ -73,6 +73,7 @@ public class DatabaseAdapter {
 				
 				database.insert("global_config", "", values);
 		}
+		cursor.close();
     }
 	
 	public Cursor viewEventByID(long id){
