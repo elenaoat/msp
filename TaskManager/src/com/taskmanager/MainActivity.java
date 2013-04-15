@@ -41,6 +41,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private TextView currentDate;
 	private String currentDateTimeString;
 	private String currentDate_YYYY_mm_dd;
+	public final static String ID = "com.taskmanager.ID";
 	public final static String DATE = "com.taskmanager.DATE";
 	public final static String HOUR = "com.taskmanager.HOUR";
 	public final static String MINUTE = "com.taskmanager.MINUTE";
@@ -185,6 +186,11 @@ public class MainActivity extends Activity implements OnClickListener {
 					intent.putExtra(HOUR, time);
 					startActivity(intent);
 
+				} else if (hours.get(position).getId() != -1) {
+					//Send only ID, all the others will be extracted from the DB 
+					Intent intent = new Intent(MainActivity.this, EditTaskActivity.class);
+					intent.putExtra(ID, hours.get(position).getId());
+					startActivity(intent);
 				}
 
 				// Toast.makeText(getApplicationContext(),

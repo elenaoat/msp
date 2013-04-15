@@ -27,28 +27,26 @@
             </TextView>
 
             <Button
-                android:id="@+id/from_date_picker"
+                android:id="@+id/edit_from_date_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/black"
-                android:focusable="true"
-                android:onClick="chooseDateFrom"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
+            <!-- android:onClick="chooseDateFrom" -->
 
             <Button
-                android:id="@+id/from_time_picker"
+                android:id="@+id/edit_from_time_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/black"
-                android:focusable="true"
-                android:onClick="chooseTimeFrom"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
+            <!-- android:onClick="chooseTimeFrom" -->
         </LinearLayout>
 
         <LinearLayout
@@ -67,27 +65,27 @@
             </TextView>
 
             <Button
-                android:id="@+id/to_date_picker"
+                android:id="@+id/edit_to_date_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/black"
                 android:focusable="true"
-                android:onClick="chooseDateTo"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
+            <!-- android:onClick="chooseDateTo" -->
 
             <Button
-                android:id="@+id/to_time_picker"
+                android:id="@+id/edit_to_time_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/black"
-                android:onClick="chooseTimeTo"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
         </LinearLayout>
+        <!-- android:onClick="chooseTimeTo" -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,19 +94,34 @@
             android:padding="10dip" >
 
             <EditText
-                android:id="@+id/etTitle"
+                android:id="@+id/edit_etTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_title"
                 android:inputType="textNoSuggestions" >
             </EditText>
 
-            <EditText
-                android:id="@+id/etNote"
+            <!--
+                  <EditText
+                android:id="@+id/edit_etNote"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="top|left"
                 android:hint="@string/hint_body"
-                android:inputType="textNoSuggestions" />
+                android:inputType="textNoSuggestions"
+                android:lines="8"
+                android:maxLines="10"
+                android:minLines="6"
+                android:scrollbars="vertical"
+                android:singleLine="false" >
+            -->
+
+            <EditText
+                android:id="@+id/edit_etNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine" >
+            </EditText>
         </LinearLayout>
     </LinearLayout>
 
@@ -119,6 +132,5 @@
         android:layout_alignParentBottom="true"
         layout="@layout/bottom_bar_newtask"
         android:gravity="center" />
-    <!-- </LinearLayout> -->
 
 </RelativeLayout>
