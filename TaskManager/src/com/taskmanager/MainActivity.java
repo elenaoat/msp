@@ -121,17 +121,17 @@ public class MainActivity extends Activity implements OnClickListener {
 				// should the substring parameters be hard-coded?
 				// name,description,eventStartDayTime,eventEndDayTime
 				int id = curs.getInt(curs.getColumnIndex("id"));
-				Log.v("id ", Integer.toString(id));
+				//Log.v("id ", Integer.toString(id));
 				String name = curs.getString(curs.getColumnIndex("name"));
 				String description = curs.getString(curs
 						.getColumnIndex("description"));
-				Log.v("description", description);
+				//Log.v("description", description);
 				String eventStartDayTime = curs.getString(curs
 						.getColumnIndex("eventStartDayTime"));
-				Log.v("event start day", eventStartDayTime);
+				//Log.v("event start", eventStartDayTime);
 				String eventEndDayTime = curs.getString(curs
 						.getColumnIndex("eventEndDayTime"));
-				Log.v("event end day", eventEndDayTime);
+				//Log.v("event end", eventEndDayTime);
 				t_array.add(new Task(id, name, description, eventStartDayTime,
 						eventEndDayTime));
 
@@ -148,12 +148,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		// check if there are any events in the database
 		int size_events = t_array.size();
 		for (int i = 0; i < size_events; i++) {
-			Log.v("hour in events",
-					t_array.get(i).eventStartDayTime.substring(11, 13));
+		//	Log.v("hour in events",
+		//			t_array.get(i).eventStartDayTime.substring(11, 13));
 
 			for (int j = 0; j < 24; j++) {
 				try {
-					Log.v("hour in slot ", hours.get(j).hourStr());
+			//		Log.v("hour in slot ", hours.get(j).hourStr());
 					if ((t_array.get(i).eventStartDayTime.substring(11, 13))
 							.equals(hours.get(j).hourStr())) {
 						hours.get(j).setName(t_array.get(i).name);

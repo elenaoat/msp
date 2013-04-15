@@ -5,8 +5,8 @@ public class CustomTime {
 	private int minute;
 	
 	public CustomTime(int hour, int minute){
-		this.setHour(hour);
-		this.setMinute(minute);
+		this.hour = hour;
+		this.minute = minute;
 	}
 
 	public int getHour() {

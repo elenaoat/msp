@@ -1,0 +1,35 @@
+NewTaskActivity.java
+
+------------------------------------------------
+High importance:
+------------------------------------------------
+---> Validate input and that the input boxes aren't empty
+-------------------------------------------------
+Medium importance:
+-------------------------------------------------
+---> Correct warnings and errors 
+
+
+-------------------------------------------------
+Low importance:
+-------------------------------------------------
+
+----> FROM and TO fields in the FragmentDialog need to be changes, so they are not equal
+
+
+
+
+
+What I've learned/Notes:
+
+
+------Object reference passing-----
+
+Instantiate object before sending its reference, otherwise if you instantiate it inside the other class where you send it, it will create a completely new object and the object of which reference you send will still be null.
+
+
+
+
+
+
+

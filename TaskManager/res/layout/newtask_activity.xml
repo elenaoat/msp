@@ -98,6 +98,7 @@
                 android:id="@+id/etTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textNoSuggestions"
                 android:hint="@string/hint_title" >
             </EditText>
 
@@ -105,6 +106,7 @@
                 android:id="@+id/etNote"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textNoSuggestions"
                 android:hint="@string/hint_body" />
         </LinearLayout>
 

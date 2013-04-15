@@ -50,12 +50,13 @@ public class NewTaskActivity extends Activity {
 			// Integer.toString(intent.getIntExtra("com.taskmanager.HOUR", 0)));
 		}
 
+		// times and dates for "From" and "To" are equal
 		time_DT_from = new CustomTime(time_sent, 0);
 		date_DT_from = new CustomDate(date_sent);
 
 		time_DT_to = new CustomTime(time_sent, 0);
 		date_DT_to = new CustomDate(date_sent);
-		
+
 		setReceivedTime();
 		setReceivedDate();
 
@@ -65,22 +66,24 @@ public class NewTaskActivity extends Activity {
 	// Button click -> display TimePickerDialog
 	public void chooseTimeFrom(View v) {
 
+		time_save_from = new CustomTime(0, 0);
 		new TimePickerDialog(this, new CustomOnTimeSetListener((Button) v,
-				time_save_from), time_DT_from.getHour(), time_DT_from.getMinute(), true)
-				.show();
+				time_save_from), time_DT_from.getHour(),
+				time_DT_from.getMinute(), true).show();
 
 	}
 
 	public void chooseTimeTo(View v) {
-
+		time_save_to = new CustomTime(0, 0);
 		new TimePickerDialog(this, new CustomOnTimeSetListener((Button) v,
-				time_save_to), time_DT_to.getHour(), time_DT_to.getMinute(), true)
-				.show();
+				time_save_to), time_DT_to.getHour(), time_DT_to.getMinute(),
+				true).show();
 
 	}
 
 	public void chooseDateTo(View v) {
 
+		date_save_to = new CustomDate(0, 0, 0);
 		CustomOnDateSetListener customDateListener = new CustomOnDateSetListener(
 				(Button) v, date_save_to);
 		new DatePickerDialog(this, customDateListener, date_DT_to.getYear(),
@@ -88,7 +91,7 @@ public class NewTaskActivity extends Activity {
 	}
 
 	public void chooseDateFrom(View v) {
-
+		date_save_from = new CustomDate(0, 0, 0);
 		CustomOnDateSetListener customDateListener = new CustomOnDateSetListener(
 				(Button) v, date_save_from);
 		new DatePickerDialog(this, customDateListener, date_DT_from.getYear(),
@@ -151,45 +154,72 @@ public class NewTaskActivity extends Activity {
 
 	public void save(View view) {
 
-		/*
-		 * if ((from.getHour() > to.getHour()) || (from.getHour() ==
-		 * to.getHour() && from.getMinute() >= to .getMinute())) {
-		 * displayToast("You have inserted incorrect times from: " +
-		 * Integer.toString(from.getMinute()) + " to: " +
-		 * Integer.toString(to.getMinute())); } else if (title.equals("")) {
-		 * displayToast("Please insert task title"); } else {
-		 */
-
-		dbAdapter.Open();
-
-		/*
-		 * long inserted = dbAdapter.createBriefEvent( title, body,
-		 * date_to_save, date_to_save);
-		 */
-
-		/*workaround in case the date/time pickers werent selected at all*/
-		if (date_save_from==null){
+		if (date_save_from == null) {
 			date_save_from = date_DT_from;
 		}
-		if (date_save_to==null){
+		if (date_save_to == null) {
 			date_save_to = date_DT_to;
 		}
 
-		if (time_save_from==null){
+		if (time_save_from == null) {
 			time_save_from = time_DT_from;
 		}
 
-		if (time_save_to==null){
+		if (time_save_to == null) {
 			time_save_to = time_DT_to;
 		}
+
+		if ((time_save_from.getHour() > time_save_to.getHour()
+				&& date_save_from.getYear() >= date_save_to.getYear()
+				&& date_save_from.getMonth() >= date_save_to.getMonth() && date_save_from
+				.getDay() >= date_save_to.getDay())
+				|| (time_save_from.getHour() == time_save_to.getHour() && time_save_from
+						.getMinute() >= time_save_to.getMinute())
+				&& date_save_from.getYear() >= date_save_to.getYear()
+				&& date_save_from.getMonth() >= date_save_to.getMonth()
+				&& date_save_from.getDay() >= date_save_to.getDay()) {
+			displayToast("You have inserted incorrect times from: ");
+		} else if (etTitle.equals("")) {
+			displayToast("Please insert task title");
+		}
+
+		dbAdapter.Open();
+
+		if (date_save_from == null) {
+			date_save_from = date_DT_from;
+		}
+		if (date_save_to == null) {
+			date_save_to = date_DT_to;
+		}
+
+		if (time_save_from == null) {
+			time_save_from = time_DT_from;
+		}
+
+		if (time_save_to == null) {
+			time_save_to = time_DT_to;
+		}
+
+		if (date_save_from == null) {
+			Log.v("it's null", "");
+		} else {
+			Log.v("if its not null", time_save_from.getTimeStr());
+		}
+		// Log.v("if its not null", date_save_from.getDate());
+		if (date_save_from == null) {
+			Log.v("date is null too", "");
+		}
+
+		// Log.v("minutes", Integer.toString(time_save_from.getMinute()));
+
+		/* workaround in case the date/time pickers werent selected at all */
 
 		long inserted = dbAdapter.createBriefEvent(
 				etTitle.getText().toString(),
 				etBody.getText().toString(),
 				date_save_from.getDateForDB() + " "
 						+ time_save_from.getTimeStr(),
-				date_save_to.getDateForDB() + " "
-						+ time_save_to.getTimeStr());
+				date_save_to.getDateForDB() + " " + time_save_to.getTimeStr());
 
 		/*
 		 * "2013-04-07 " + padTime(from.getHour()) + ":" +
@@ -238,12 +268,16 @@ public class NewTaskActivity extends Activity {
 
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			dtime = new CustomTime(hourOfDay, minute);
+			// dtime = new CustomTime(hourOfDay, minute);
 			/*
 			 * roundMinute(hourOfDay, minute, dtime); StringBuffer sb = new
 			 * StringBuffer(); sb.append(padTime(dtime.getHour()));
 			 * sb.append(":"); sb.append(padTime(dtime.getMinute()));
 			 */
+			dtime.setHour(hourOfDay);
+			dtime.setMinute(minute);
+			Log.v("saved minutes", dtime.getTimeStr());
+			Log.v("only minutes", Integer.toString(dtime.getMinute()));
 			btn.setText(dtime.getTimeStr());
 		}
 
@@ -261,8 +295,10 @@ public class NewTaskActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 
-			date = new CustomDate(day, month, year);
-			Log.v("date inside the method", date.getDate());
+			// Log.v("date inside the method", date.getDate());
+			date.setDay(day);
+			date.setMonth(month);
+			date.setYear(year);
 			btn.setText(date.getDate());
 
 		}
