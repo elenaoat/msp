@@ -1,5 +1,7 @@
 package com.taskmanager;
 
+import android.util.Log;
+
 public class CustomDate {
 
 	public String year_str;
@@ -15,9 +17,9 @@ public class CustomDate {
 		this.day = day;
 		this.month = month;
 		this.year = year;
-		this.year_str = getYear_str();
-		this.month_str = getMonth_str();
-		this.day_str = getDay_str();
+		this.year_str = Integer.toString(year);
+		this.month_str = Integer.toString(month);
+		this.day_str = Integer.toString(day);
 	}
 	public CustomDate(String date){
 		this.year_str = date.substring(0, 4);
@@ -39,6 +41,20 @@ public class CustomDate {
 		return str_edited;
 	}
 	public String getDate(){
+		
+		//Log.v("day in class", day_str);
+		if (day_str.equals("0")){
+		//	Log.v("day in class", day_str);
+			getDay_str();
+		}
+		if (month_str.equals("0")){
+			getMonth_str();
+		}
+
+		if (year_str.equals("0")){
+			getYear_str();
+		}
+
 		StringBuilder strBuilder = new StringBuilder();
 		strBuilder.append(day_str);
 		strBuilder.append("-");

@@ -169,6 +169,7 @@ public class NewTaskActivity extends Activity {
 			time_save_to = time_DT_to;
 		}
 
+		//Validating input inserted by user: hourFrom < hourTo, Title not empty
 		if ((time_save_from.getHour() > time_save_to.getHour()
 				&& date_save_from.getYear() >= date_save_to.getYear()
 				&& date_save_from.getMonth() >= date_save_to.getMonth() && date_save_from
@@ -177,10 +178,20 @@ public class NewTaskActivity extends Activity {
 						.getMinute() >= time_save_to.getMinute())
 				&& date_save_from.getYear() >= date_save_to.getYear()
 				&& date_save_from.getMonth() >= date_save_to.getMonth()
-				&& date_save_from.getDay() >= date_save_to.getDay()) {
-			displayToast("You have inserted incorrect times from: ");
+				&& date_save_from.getDay() >= date_save_to.getDay()) 
+		{
+			
+			displayToast("You have inserted incorrect times");
+			// return to MainActivity ???
+			Intent i = new Intent(this, MainActivity.class);
+			startActivity(i);
+			
+
 		} else if (etTitle.equals("")) {
 			displayToast("Please insert task title");
+			// return to MainActivity ???
+			Intent i = new Intent(this, MainActivity.class);
+			startActivity(i);
 		}
 
 		dbAdapter.Open();
@@ -200,18 +211,18 @@ public class NewTaskActivity extends Activity {
 			time_save_to = time_DT_to;
 		}
 
-		if (date_save_from == null) {
-			Log.v("it's null", "");
-		} else {
-			Log.v("if its not null", time_save_from.getTimeStr());
-		}
-		// Log.v("if its not null", date_save_from.getDate());
+//		if (date_save_from == null) {
+//			//Log.v("it's null", "");
+//		} else {
+			//Log.v("time to save", time_save_from.getTimeStr());
+//		}
+		Log.v("if its not null", date_save_from.getDate());
 		if (date_save_from == null) {
 			Log.v("date is null too", "");
 		}
 
-		// Log.v("minutes", Integer.toString(time_save_from.getMinute()));
-
+		Log.v("date for DB", date_save_from.getDateForDB());
+		Log.v("time for DB", time_save_from.getTimeStr());
 		/* workaround in case the date/time pickers werent selected at all */
 
 		long inserted = dbAdapter.createBriefEvent(
@@ -242,7 +253,7 @@ public class NewTaskActivity extends Activity {
 		}
 		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);
-		// }
+		
 	}
 
 	public void cancel(View view) {
@@ -295,10 +306,11 @@ public class NewTaskActivity extends Activity {
 		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 
-			// Log.v("date inside the method", date.getDate());
+			
 			date.setDay(day);
 			date.setMonth(month);
 			date.setYear(year);
+			Log.v("date inside the method", Integer.toString(date.getYear()));
 			btn.setText(date.getDate());
 
 		}
