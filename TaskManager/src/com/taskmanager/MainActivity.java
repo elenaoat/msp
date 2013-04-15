@@ -48,8 +48,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	public final static String DESCRIPTION = "com.taskmanager.DESCRIPTION";
 	public SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	public Calendar today = Calendar.getInstance();
-	//TODO add other fields which are missing, i.e. reccurency 
-	
+
+	// TODO add other fields which are missing, i.e. reccurency
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,9 +59,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		dbAdapter = new DatabaseAdapter(getApplicationContext());
 		initializeGlobalConfigWithDefaultValues();
 
-		// get the instance of all buttons  
+		// get the instance of all buttons
 		currentDate = (TextView) findViewById(R.id.dvu_header);
-		
+
 		Button dayBtn = (Button) findViewById(R.id.day_btn);
 		Button weekBtn = (Button) findViewById(R.id.week_btn);
 		Button monthBtn = (Button) findViewById(R.id.month_btn);
@@ -72,7 +73,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		showCurrentDate();
 
 		dbAdapter.Open();
-			showTasks();
+		showTasks();
 		dbAdapter.Close();
 		// adding action listener of buttons
 		dayBtn.setOnClickListener(this);
@@ -81,120 +82,119 @@ public class MainActivity extends Activity implements OnClickListener {
 		addBtn.setOnClickListener(this);
 		showBtn.setOnClickListener(this);
 	}
-	
+
 	public void showCurrentDate() {
 		// Current date for display in the day view
 		Intent in = getIntent();
 		String dateString = in.getStringExtra("currentDay");
-		
-		if (dateString != null)
-		{
+
+		if (dateString != null) {
 			currentDateTimeString = dateString;
-			//to be added: currentDate_YYYY_mm_dd = 
-		}
-		else {
+			// to be added: currentDate_YYYY_mm_dd =
+		} else {
 			currentDateTimeString = DateFormat.getDateInstance(DateFormat.LONG)
 					.format(new Date());
-			currentDate_YYYY_mm_dd = new String (dateFormat.format(today.getTime()));
-		//Log.v("current date", currentDateTimeString);	
+			currentDate_YYYY_mm_dd = new String(dateFormat.format(today
+					.getTime()));
+			// Log.v("current date", currentDateTimeString);
 		}
 		currentDate.setText(currentDateTimeString);
-		/*if (dateString == null) {
-			currentDate.setText(currentDateTimeString);
-
-		} else {
-			currentDate.setText(dateString);
-			
-		}*/
+		/*
+		 * if (dateString == null) { currentDate.setText(currentDateTimeString);
+		 * 
+		 * } else { currentDate.setText(dateString);
+		 * 
+		 * }
+		 */
 
 	}
 
 	public void showTasks() {
 
 		t_array = new ArrayList<Task>();
-		Cursor curs = dbAdapter.getEventByDate(dateFormat.format(today.getTime()));
-        
+		Cursor curs = dbAdapter.getEventByDate(dateFormat.format(today
+				.getTime()));
+
 		if (curs.moveToFirst()) {
 			do {
 
 				// should the substring parameters be hard-coded?
 				// name,description,eventStartDayTime,eventEndDayTime
 				int id = curs.getInt(curs.getColumnIndex("id"));
+				Log.v("id ", Integer.toString(id));
 				String name = curs.getString(curs.getColumnIndex("name"));
 				String description = curs.getString(curs
 						.getColumnIndex("description"));
+				Log.v("description", description);
 				String eventStartDayTime = curs.getString(curs
 						.getColumnIndex("eventStartDayTime"));
+				Log.v("event start day", eventStartDayTime);
 				String eventEndDayTime = curs.getString(curs
 						.getColumnIndex("eventEndDayTime"));
-
+				Log.v("event end day", eventEndDayTime);
 				t_array.add(new Task(id, name, description, eventStartDayTime,
 						eventEndDayTime));
 
 			} while (curs.moveToNext());
 		}
 
-		
-
 		hours = new ArrayList<Slot>();
 		for (int i = 0; i < 24; i++) {
 			Slot slot;
-		//	StringBuilder builder = new StringBuilder();
-			if (i <= 9) {
-		/*		builder.append("0");
-				builder.append(i);
-				builder.append(":00");*/
-				slot = new Slot(-1, i, "");
-			} else {
-			/*	builder.append(i);
-				builder.append(":00");*/
-				slot = new Slot(-1, i, "");
-			}
+			slot = new Slot(-1, i, "");
 			hours.add(slot);
 		}
-		
-		//check if there are any events in the database
-		if (t_array.size()!=0)
-		for (int i=0; i<24; i++){
-			try{
-				if ((t_array.get(i).eventStartDayTime.substring(12, 13)).equals(hours.get(i).time)){
-					hours.get(i).name = t_array.get(i).name;
-					hours.get(i).id = t_array.get(i).id;
+		// 2013-04-15 06:00
+		// check if there are any events in the database
+		int size_events = t_array.size();
+		for (int i = 0; i < size_events; i++) {
+			Log.v("hour in events",
+					t_array.get(i).eventStartDayTime.substring(11, 13));
+
+			for (int j = 0; j < 24; j++) {
+				try {
+					Log.v("hour in slot ", hours.get(j).hourStr());
+					if ((t_array.get(i).eventStartDayTime.substring(11, 13))
+							.equals(hours.get(j).hourStr())) {
+						hours.get(j).setName(t_array.get(i).name);
+						hours.get(j).setId(t_array.get(i).id);
+					}
+				} catch (ArrayIndexOutOfBoundsException e) {
+					Log.v("MainActivity", "Wrong format for datetime");
 				}
-			} catch(ArrayIndexOutOfBoundsException e){
-				Log.v("MainActivity", "Wrong format for datetime");
 			}
-		
- 
+
 		}
 		adapter = new TaskListAdapter(this, R.layout.custom_simple, hours);
 
 		listView = (ListView) findViewById(R.id.hour_slots);
 		listView.setAdapter(adapter);
 
-		
 		listView.setOnItemClickListener(new OnItemClickListener() {
-		  
-		  @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		  if (hours.get(position).id == -1){
-			  
-				Intent intent = new Intent(MainActivity.this, NewTaskActivity.class);
-				String date = dateFormat.format(today.getTime());
-				int time = hours.get(position).time;
-				intent.putExtra(DATE, date);
-				intent.putExtra(HOUR, time);				
-				startActivity(intent);
-				
-		  }
-		  	  
-		  //Toast.makeText(getApplicationContext(), hours.get(position).name, Toast.LENGTH_SHORT).show(); 
-		 } 
-		  
-		 });
-		 
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				if (hours.get(position).id == -1) {
+
+					Intent intent = new Intent(MainActivity.this,
+							NewTaskActivity.class);
+					String date = dateFormat.format(today.getTime());
+					int time = hours.get(position).time;
+					intent.putExtra(DATE, date);
+					intent.putExtra(HOUR, time);
+					startActivity(intent);
+
+				}
+
+				// Toast.makeText(getApplicationContext(),
+				// hours.get(position).name, Toast.LENGTH_SHORT).show();
+			}
+
+		});
+
 		curs.close();
 	}
-
 
 	public void show() {
 
@@ -238,11 +238,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		String message = "";
 		// action of adding a task
 		if (v.getId() == R.id.add_event) {
-			
+
 			Intent intent = new Intent(this, NewTaskActivity.class);
 			intent.putExtra(DATE, currentDate_YYYY_mm_dd);
 			intent.putExtra(HOUR, today.get(Calendar.HOUR_OF_DAY));
-			Log.v("time main act", Integer.toString(today.get(Calendar.HOUR_OF_DAY)));
+			// Log.v("time main act",
+			// Integer.toString(today.get(Calendar.HOUR_OF_DAY)));
 			startActivity(intent);
 			// adapter.notifyDataSetChanged();
 
@@ -290,7 +291,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					MonthViewActivity.class);
 			startActivity(monthIntent);
 		}
-		
+
 	}
 
 	public void displayItem(Cursor c) {
@@ -309,51 +310,51 @@ public class MainActivity extends Activity implements OnClickListener {
 				0, 0);
 		toast.show();
 	}
-	
-	public void initializeGlobalConfigWithDefaultValues(){
-		
-		dbAdapter.Open();
-			dbAdapter.initializeGConfig();
-		dbAdapter.Close();
-		
-	}
-	
-	//Menu for Settings...
-	
-		@Override
-		public boolean onCreateOptionsMenu(android.view.Menu menu) {
-			// TODO Auto-generated method stub
-			super.onCreateOptionsMenu(menu);
-			MenuInflater popUp = getMenuInflater();
-			popUp.inflate(R.menu.menus, menu);
-			return true;		
-		}
 
-		@Override
-		public boolean onOptionsItemSelected(MenuItem item) {
-			// TODO Auto-generated method stub
-			switch(item.getItemId()){
-			case R.id.aboutUs:
-				Intent a = new Intent("com.taskmanager.ABOUTUS");
-				startActivity(a);
-				break;
-			case R.id.settings:
-				Intent s = new Intent("com.taskmanager.SETTINGSPREFS");
-				startActivity(s);
-				break;
-			case R.id.exit:
-				finish();
-				break;
-			}
-			return false;
+	public void initializeGlobalConfigWithDefaultValues() {
+
+		dbAdapter.Open();
+		dbAdapter.initializeGConfig();
+		dbAdapter.Close();
+
+	}
+
+	// Menu for Settings...
+
+	@Override
+	public boolean onCreateOptionsMenu(android.view.Menu menu) {
+		// TODO Auto-generated method stub
+		super.onCreateOptionsMenu(menu);
+		MenuInflater popUp = getMenuInflater();
+		popUp.inflate(R.menu.menus, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		case R.id.aboutUs:
+			Intent a = new Intent("com.taskmanager.ABOUTUS");
+			startActivity(a);
+			break;
+		case R.id.settings:
+			Intent s = new Intent("com.taskmanager.SETTINGSPREFS");
+			startActivity(s);
+			break;
+		case R.id.exit:
+			finish();
+			break;
 		}
-		
+		return false;
+	}
+
 }
 
 // TODO LIST
 /*
  * BUG when going to a day from month view and then selecting day view, it says
  * you are already in the day view There should be some home view and day view
- * separately Update data in the view once there is new task inserted
- * Sent minute with hour at the same time
+ * separately Update data in the view once there is new task inserted Sent
+ * minute with hour at the same time
  */

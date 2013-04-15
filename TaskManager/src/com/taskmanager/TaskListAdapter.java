@@ -53,7 +53,14 @@ public class TaskListAdapter extends ArrayAdapter<Slot>{
 		
 		hour.append(t.time.subSequence(27, 32));*/
 		//hour.append(t.eventTime.subSequence(29, 33));
-		holder.time.setText(t.time + ":00");
+		StringBuilder strBuilder = new StringBuilder();
+		if (data.get(position).getTime() <= 9){
+			strBuilder.append("0");
+		}
+		strBuilder.append(t.time);
+		strBuilder.append(":00");
+		
+		holder.time.setText(strBuilder);
 		//holder.name.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
 		holder.name.setText(t.name);
 
