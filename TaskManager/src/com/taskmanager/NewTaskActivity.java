@@ -183,39 +183,25 @@ public class NewTaskActivity extends Activity {
 			
 			displayToast("You have inserted incorrect times");
 			// return to MainActivity ???
-			Intent i = new Intent(this, MainActivity.class);
-			startActivity(i);
+			
 			
 
-		} else if (etTitle.equals("")) {
+		} else if (etTitle.getText().toString().equals("") ) {
 			displayToast("Please insert task title");
 			// return to MainActivity ???
-			Intent i = new Intent(this, MainActivity.class);
-			startActivity(i);
+		} 
+		//input OK
+		else {
+			insertIntoDB();
 		}
 
+		
+	}
+
+	public void insertIntoDB(){
 		dbAdapter.Open();
 
-		if (date_save_from == null) {
-			date_save_from = date_DT_from;
-		}
-		if (date_save_to == null) {
-			date_save_to = date_DT_to;
-		}
 
-		if (time_save_from == null) {
-			time_save_from = time_DT_from;
-		}
-
-		if (time_save_to == null) {
-			time_save_to = time_DT_to;
-		}
-
-//		if (date_save_from == null) {
-//			//Log.v("it's null", "");
-//		} else {
-			//Log.v("time to save", time_save_from.getTimeStr());
-//		}
 		Log.v("if its not null", date_save_from.getDate());
 		if (date_save_from == null) {
 			Log.v("date is null too", "");
@@ -232,11 +218,6 @@ public class NewTaskActivity extends Activity {
 						+ time_save_from.getTimeStr(),
 				date_save_to.getDateForDB() + " " + time_save_to.getTimeStr());
 
-		/*
-		 * "2013-04-07 " + padTime(from.getHour()) + ":" +
-		 * padTime(from.getMinute()), "2013-04-07 " + padTime(to.getHour()) +
-		 * ":" + padTime(to.getMinute()));
-		 */
 
 		if (inserted > 0) {
 			displayToast("Successfully Saved");
@@ -253,11 +234,12 @@ public class NewTaskActivity extends Activity {
 		}
 		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);
-		
+
 	}
-
+	
 	public void cancel(View view) {
-
+		Intent i = new Intent(this, MainActivity.class);
+		startActivity(i);
 	}
 
 	public void displayToast(String message) {
