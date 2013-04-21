@@ -9,6 +9,10 @@ public class CustomTime {
 		this.minute = minute;
 	}
 
+	public CustomTime(String date){
+		this.hour = Integer.parseInt(date.substring(11, 13));
+		this.minute = Integer.parseInt(date.substring(14, 16));
+	}
 	public int getHour() {
 		return hour;
 	}

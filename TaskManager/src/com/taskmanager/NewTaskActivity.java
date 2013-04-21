@@ -10,9 +10,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class NewTaskActivity extends Activity {
@@ -169,7 +167,7 @@ public class NewTaskActivity extends Activity {
 			time_save_to = time_DT_to;
 		}
 
-		//Validating input inserted by user: hourFrom < hourTo, Title not empty
+		// Validating input inserted by user: hourFrom < hourTo, Title not empty
 		if ((time_save_from.getHour() > time_save_to.getHour()
 				&& date_save_from.getYear() >= date_save_to.getYear()
 				&& date_save_from.getMonth() >= date_save_to.getMonth() && date_save_from
@@ -178,29 +176,24 @@ public class NewTaskActivity extends Activity {
 						.getMinute() >= time_save_to.getMinute())
 				&& date_save_from.getYear() >= date_save_to.getYear()
 				&& date_save_from.getMonth() >= date_save_to.getMonth()
-				&& date_save_from.getDay() >= date_save_to.getDay()) 
-		{
-			
+				&& date_save_from.getDay() >= date_save_to.getDay()) {
+
 			displayToast("You have inserted incorrect times");
 			// return to MainActivity ???
-			
-			
 
-		} else if (etTitle.getText().toString().equals("") ) {
+		} else if (etTitle.getText().toString().equals("")) {
 			displayToast("Please insert task title");
 			// return to MainActivity ???
-		} 
-		//input OK
+		}
+		// input OK
 		else {
 			insertIntoDB();
 		}
 
-		
 	}
 
-	public void insertIntoDB(){
+	public void insertIntoDB() {
 		dbAdapter.Open();
-
 
 		Log.v("if its not null", date_save_from.getDate());
 		if (date_save_from == null) {
@@ -217,7 +210,6 @@ public class NewTaskActivity extends Activity {
 				date_save_from.getDateForDB() + " "
 						+ time_save_from.getTimeStr(),
 				date_save_to.getDateForDB() + " " + time_save_to.getTimeStr());
-
 
 		if (inserted > 0) {
 			displayToast("Successfully Saved");
@@ -236,7 +228,7 @@ public class NewTaskActivity extends Activity {
 		startActivity(i);
 
 	}
-	
+
 	public void cancel(View view) {
 		Intent i = new Intent(this, MainActivity.class);
 		startActivity(i);
@@ -250,7 +242,7 @@ public class NewTaskActivity extends Activity {
 		toast.show();
 	}
 
-	class CustomOnTimeSetListener implements TimePickerDialog.OnTimeSetListener {
+/*	class CustomOnTimeSetListener implements TimePickerDialog.OnTimeSetListener {
 		private Button btn;
 		private CustomTime dtime;
 
@@ -267,36 +259,34 @@ public class NewTaskActivity extends Activity {
 			 * StringBuffer(); sb.append(padTime(dtime.getHour()));
 			 * sb.append(":"); sb.append(padTime(dtime.getMinute()));
 			 */
-			dtime.setHour(hourOfDay);
+/*			dtime.setHour(hourOfDay);
 			dtime.setMinute(minute);
 			Log.v("saved minutes", dtime.getTimeStr());
 			Log.v("only minutes", Integer.toString(dtime.getMinute()));
 			btn.setText(dtime.getTimeStr());
 		}
 
-	}
+	}*/
 
-	class CustomOnDateSetListener implements DatePickerDialog.OnDateSetListener {
-		private Button btn;
-		private CustomDate date;
-
-		public CustomOnDateSetListener(Button v, CustomDate date) {
-			this.btn = v;
-			this.date = date;
-		}
-
-		@Override
-		public void onDateSet(DatePicker view, int year, int month, int day) {
-
-			
-			date.setDay(day);
-			date.setMonth(month);
-			date.setYear(year);
-			Log.v("date inside the method", Integer.toString(date.getYear()));
-			btn.setText(date.getDate());
-
-		}
-
-	}
+	/*
+	 * class CustomOnDateSetListener implements
+	 * DatePickerDialog.OnDateSetListener { private Button btn; private
+	 * CustomDate date;
+	 * 
+	 * public CustomOnDateSetListener(Button v, CustomDate date) { this.btn = v;
+	 * this.date = date; }
+	 * 
+	 * @Override public void onDateSet(DatePicker view, int year, int month, int
+	 * day) {
+	 * 
+	 * 
+	 * date.setDay(day); date.setMonth(month); date.setYear(year);
+	 * Log.v("date inside the method", Integer.toString(date.getYear()));
+	 * btn.setText(date.getDate());
+	 * 
+	 * }
+	 * 
+	 * }
+	 */
 
 }

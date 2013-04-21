@@ -1,6 +1,5 @@
 package com.taskmanager;
 
-import android.util.Log;
 
 public class CustomDate {
 
@@ -40,6 +39,7 @@ public class CustomDate {
 		}
 		return str_edited;
 	}
+	//for UI
 	public String getDate(){
 		
 		//Log.v("day in class", day_str);

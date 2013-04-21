@@ -82,6 +82,7 @@ public class DatabaseAdapter {
 				null, null, null, null);
 		
 	}
+
 	
 	
 	

@@ -31,6 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="chooseDateFromCustom"
                 android:background="@android:color/black"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" >
@@ -43,10 +44,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/black"
+                android:onClick="chooseTimeFromCustom"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
-            <!-- android:onClick="chooseTimeFrom" -->
         </LinearLayout>
 
         <LinearLayout
@@ -69,12 +70,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="chooseDateToCustom"
                 android:background="@android:color/black"
                 android:focusable="true"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
-            <!-- android:onClick="chooseDateTo" -->
 
             <Button
                 android:id="@+id/edit_to_time_picker"
@@ -82,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/black"
+                android:onClick="chooseTimeToCustom"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
         </LinearLayout>
