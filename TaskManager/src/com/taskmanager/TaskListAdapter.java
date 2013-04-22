@@ -1,3 +1,10 @@
+/*AUTHOR: Elena Oat
+ * Class that populates the ListView with events that are passed to it
+ * inside the ArrayAdapter, whose elements are of class Slot.
+ * 
+ * */
+
+
 package com.taskmanager;
 
 import java.util.List;

@@ -1,15 +1,26 @@
+/*AUTHOR: Elena Oat
+ * This class contains methods that are shared among all the classes in the package.
+ * Provided functionality of these methods is re-used in several places, that's why
+ * the class was created.
+ * 
+ * */
+
+
 package com.taskmanager;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class HelperMethods {
 
+	/*method that creates a new TimePickerDialog and returns to activity the chosen time*/
 	public static CustomTime chooseTime(View v, CustomTime time_DT_from, Activity activity) {
 
 		CustomTime time_save_from = new CustomTime(0, 0);
@@ -20,7 +31,7 @@ public class HelperMethods {
 		return time_save_from;
 	}
 	
-	
+	/*method that creates a new DatePickerDialog and returns to activity the chosen date*/
 	public static CustomDate chooseDate(View v, CustomDate date_DT_from, Activity activity) {
 
 		CustomDate date_save_from = new CustomDate(0, 0, 0);
@@ -31,8 +42,27 @@ public class HelperMethods {
 		return date_save_from;
 	}
 	
+	/*
+	 * ArrayList <CustomDate> dates
+	 *  dates[0] = date entered from the picker for "FROM" picker, i.e. modified date
+	 *  dates[1] = date entered before the picker was selected, extracted from the DB
+	 *  dates[2] = date entered from the picker for "FROM" picker, i.e. modified date
+	 *  dates[3] = date entered before the picker was selected, extracted from the DB
+	 */
 	
-	public static void save(View view, ArrayList <CustomDate> dates, ArrayList <CustomTime> times) {
+	
+	/*method for displaying an short toast*/
+	public static void displayToast(String message, Activity activity) {
+		Toast toast = Toast.makeText(activity, message,
+				Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL,
+				0, 0);
+		toast.show();
+	}
+
+	
+	/*method for validation of DateTime periods*/
+	public static boolean validateDateTime(View view, List <CustomDate> dates, List <CustomTime> times) {
 
 		if (dates.get(0) == null) {
 			dates.set(0, dates.get(1));
@@ -47,32 +77,21 @@ public class HelperMethods {
 		if (times.get(2) == null) {
 			times.set(2, times.get(3));
 		}
+		if ((times.get(0).getHour() > times.get(2).getHour()
+				&& dates.get(0).getYear() >= dates.get(2).getYear()
+				&& dates.get(0).getMonth() >= dates.get(1).getMonth() && dates.get(0)
+				.getDay() >= dates.get(2).getDay())
+				|| (times.get(0).getHour() == times.get(2).getHour() && times.get(0)
+						.getMinute() >= times.get(2).getMinute())
+				&& dates.get(0).getYear() >= dates.get(2).getYear()
+				&& dates.get(0).getMonth() >= dates.get(2).getMonth()
+				&& dates.get(0).getDay() >= dates.get(2).getDay()) {
+				return false;
 
-
-
-
-		// Validating input inserted by user: hourFrom < hourTo, Title not empty
-/*		if ((time_save_from.getHour() > time_save_to.getHour()
-				&& date_save_from.getYear() >= date_save_to.getYear()
-				&& date_save_from.getMonth() >= date_save_to.getMonth() && date_save_from
-				.getDay() >= date_save_to.getDay())
-				|| (time_save_from.getHour() == time_save_to.getHour() && time_save_from
-						.getMinute() >= time_save_to.getMinute())
-				&& date_save_from.getYear() >= date_save_to.getYear()
-				&& date_save_from.getMonth() >= date_save_to.getMonth()
-				&& date_save_from.getDay() >= date_save_to.getDay()) {
-
-			displayToast("You have inserted incorrect times");
-			// return to MainActivity ???
-
-		} else if (etTitle.getText().toString().equals("")) {
-			displayToast("Please insert task title");
-			// return to MainActivity ???
+		} else {
+			return true;
 		}
-		// input OK
-		else {
-			insertIntoDB();
-		}*/
+
 
 	}
 	

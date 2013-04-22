@@ -1,25 +1,25 @@
+/*AUTHOR: Elena Oat
+ * This class is meant for storing data about events which are
+ * extracted from database for a particular day and displayed
+ * on them main screen. 
+ * */
+
+
 package com.taskmanager;
+
+
+
 
 public class Task {
 
 	public String name;
 	public int id;
 	public String description;
-	//public String recurrenceFlag;
-	//public String eventTime;
+
 	public String eventStartDayTime;
 	public String eventEndDayTime;
-	//public String recurrenceEndDay;
 	
-/*	+ "name TEXT, "
-	+ "description TEXT, "
-	+ "createDayTime TEXT, "
-	+ "eventStartDayTime TEXT, "
-	+ "eventEndDayTime TEXT, "
-	+ "notificationB4 TEXT, "
-	+ "notificationFreq TEXT, "
-	+ "notificationType TEXT, "
-	+ "deleteFlag TEXT);";*/
+
 	public Task(){
 		super();		
 	}

@@ -1,3 +1,7 @@
+/*AUTHOR: Elena Oat
+ * Class, whose object holds event date
+ * */
+
 package com.taskmanager;
 
 

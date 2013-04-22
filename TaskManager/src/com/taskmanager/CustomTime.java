@@ -1,3 +1,7 @@
+/*AUTHOR: Elena Oat
+ * Class for storing event time information 
+ * */
+
 package com.taskmanager;
 
 public class CustomTime {

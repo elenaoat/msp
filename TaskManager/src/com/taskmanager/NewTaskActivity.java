@@ -1,3 +1,9 @@
+/*AUTHOR: Elena Oat
+ * This activity is started whenever a user taps on an empty line in the ListView on the main screen.
+ * The time and date are sent in the intent when this activity is started. 
+ * */
+
+
 package com.taskmanager;
 
 import android.app.Activity;
@@ -6,12 +12,10 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class NewTaskActivity extends Activity {
 	private DatabaseAdapter dbAdapter;
@@ -97,18 +101,6 @@ public class NewTaskActivity extends Activity {
 	}
 
 	public void setReceivedTime() {
-		/*
-		 * final Calendar cal = Calendar.getInstance(); int hour =
-		 * cal.get(Calendar.HOUR_OF_DAY); int minute = cal.get(Calendar.MINUTE);
-		 * 
-		 * from = new DateTime(0, 0); to = new DateTime(0, 0);
-		 * 
-		 * roundMinute(hour, minute, from); roundMinute(hour, minute, to);
-		 */
-
-		// fromTimeBtn.setText(padTime(time_DT.getHour()) + ":"
-		// + padTime(time_sent_DT.getMinute()));
-
 		fromTimeBtn.setText(time_DT_from.getTimeStr());
 		toTimeBtn.setText(time_DT_to.getTimeStr());
 	}
@@ -135,13 +127,6 @@ public class NewTaskActivity extends Activity {
 		}
 	}
 
-	/*
-	 * public StringBuffer padTime(int m) { StringBuffer strBuff = new
-	 * StringBuffer();
-	 * 
-	 * if (Integer.toString(m).length() == 1) { strBuff.append(0); }
-	 * strBuff.append(m); return strBuff; }
-	 */
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -178,11 +163,11 @@ public class NewTaskActivity extends Activity {
 				&& date_save_from.getMonth() >= date_save_to.getMonth()
 				&& date_save_from.getDay() >= date_save_to.getDay()) {
 
-			displayToast("You have inserted incorrect times");
+			HelperMethods.displayToast("You have inserted incorrect times", this);
 			// return to MainActivity ???
 
 		} else if (etTitle.getText().toString().equals("")) {
-			displayToast("Please insert task title");
+			HelperMethods.displayToast("Please insert task title", this);
 			// return to MainActivity ???
 		}
 		// input OK
@@ -192,6 +177,7 @@ public class NewTaskActivity extends Activity {
 
 	}
 
+	/*Insert data chosen by user into database*/
 	public void insertIntoDB() {
 		dbAdapter.Open();
 
@@ -204,19 +190,20 @@ public class NewTaskActivity extends Activity {
 		Log.v("time for DB", time_save_from.getTimeStr());
 		/* workaround in case the date/time pickers werent selected at all */
 
-		long inserted = dbAdapter.createBriefEvent(
+		
+		long inserted = dbAdapter.createEvent(
 				etTitle.getText().toString(),
 				etBody.getText().toString(),
 				date_save_from.getDateForDB() + " "
 						+ time_save_from.getTimeStr(),
-				date_save_to.getDateForDB() + " " + time_save_to.getTimeStr());
+				date_save_to.getDateForDB() + " " + time_save_to.getTimeStr(), "", "", "", "", "");
 
 		if (inserted > 0) {
-			displayToast("Successfully Saved");
+			HelperMethods.displayToast("Successfully Saved", this);
 			etTitle.setText("");
 			etBody.setText("");
 		} else {
-			displayToast("Insertion failed");
+			HelperMethods.displayToast("Insertion failed", this);
 		}
 
 		dbAdapter.Close();
@@ -234,59 +221,7 @@ public class NewTaskActivity extends Activity {
 		startActivity(i);
 	}
 
-	public void displayToast(String message) {
-		Toast toast = Toast.makeText(getApplicationContext(), message,
-				Toast.LENGTH_SHORT);
-		toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL,
-				0, 0);
-		toast.show();
-	}
 
-/*	class CustomOnTimeSetListener implements TimePickerDialog.OnTimeSetListener {
-		private Button btn;
-		private CustomTime dtime;
 
-		public CustomOnTimeSetListener(Button v, CustomTime dtime) {
-			this.btn = v;
-			this.dtime = dtime;
-		}
-
-		@Override
-		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// dtime = new CustomTime(hourOfDay, minute);
-			/*
-			 * roundMinute(hourOfDay, minute, dtime); StringBuffer sb = new
-			 * StringBuffer(); sb.append(padTime(dtime.getHour()));
-			 * sb.append(":"); sb.append(padTime(dtime.getMinute()));
-			 */
-/*			dtime.setHour(hourOfDay);
-			dtime.setMinute(minute);
-			Log.v("saved minutes", dtime.getTimeStr());
-			Log.v("only minutes", Integer.toString(dtime.getMinute()));
-			btn.setText(dtime.getTimeStr());
-		}
-
-	}*/
-
-	/*
-	 * class CustomOnDateSetListener implements
-	 * DatePickerDialog.OnDateSetListener { private Button btn; private
-	 * CustomDate date;
-	 * 
-	 * public CustomOnDateSetListener(Button v, CustomDate date) { this.btn = v;
-	 * this.date = date; }
-	 * 
-	 * @Override public void onDateSet(DatePicker view, int year, int month, int
-	 * day) {
-	 * 
-	 * 
-	 * date.setDay(day); date.setMonth(month); date.setYear(year);
-	 * Log.v("date inside the method", Integer.toString(date.getYear()));
-	 * btn.setText(date.getDate());
-	 * 
-	 * }
-	 * 
-	 * }
-	 */
 
 }

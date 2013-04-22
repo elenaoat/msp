@@ -27,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.MenuInflater;
 
-//import android.util.Log;
 
 @SuppressLint("SimpleDateFormat")
 public class MainActivity extends Activity implements OnClickListener {

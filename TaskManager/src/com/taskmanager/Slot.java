@@ -1,3 +1,8 @@
+/* AUTHOR: Elena Oat
+ * Class for ListView display on the main screen
+ * 
+ */
+
 package com.taskmanager;
 
 public class Slot {
