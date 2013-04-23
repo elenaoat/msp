@@ -14,18 +14,19 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.MenuInflater;
 
 
 @SuppressLint("SimpleDateFormat")
@@ -109,6 +110,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	}
 
+	
+	
+	
 	public void showTasks() {
 
 		t_array = new ArrayList<Task>();
@@ -197,6 +201,19 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 
 		});
+		
+		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                    int pos, long id) {
+                // TODO Auto-generated method stub
+
+                Log.v("long clicked","pos"+" "+pos);
+
+                return true;
+            }
+        }); 
+		
 
 		curs.close();
 	}
