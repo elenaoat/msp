@@ -9,6 +9,8 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -59,6 +61,17 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		dbAdapter = new DatabaseAdapter(getApplicationContext());
 		initializeGlobalConfigWithDefaultValues();
+		
+		/*//Calendar c = Calendar.getInstance();
+		
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.SECOND, 5);
+	    //Create a new PendingIntent and add it to the AlarmManager
+	    Intent intent = new Intent(this, AlarmReceiverActivity.class);
+	    PendingIntent pendingIntent = PendingIntent.getActivity(this,12345, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+	    AlarmManager am = (AlarmManager)this.getSystemService(Activity.ALARM_SERVICE);
+	    am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),pendingIntent); 	
+	    System.out.println("I am here"); */
 
 		// get the instance of all buttons
 		currentDate = (TextView) findViewById(R.id.dvu_header);
@@ -271,6 +284,18 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		} else if (v.getId() == R.id.show_btn) {
 			dbAdapter.Open();
+			
+			
+			
+			  dbAdapter.createEvent("Presentation", "MSP Final Presentation",
+						 "2013-04-25 11:40","2013-04-25 12:00",
+						 "1","5","Alarm","","");
+			  
+			 /* (String name, String description,
+						String eventStartDayTime, String eventEndDayTime,
+						String notificationFreq, String notificationB4,
+						String notificationType, String recurrenceFlag,
+						String recurrenceEndDay)*/
 
 			/*
 			 * please don't clean this up

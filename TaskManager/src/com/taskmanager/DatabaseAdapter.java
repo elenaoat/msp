@@ -4,21 +4,30 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteStatement;
 import android.net.ParseException;
+import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 
-public class DatabaseAdapter {
+
+public class DatabaseAdapter extends Activity{
 	private SQLiteDatabase database;
 	private DatabaseOpenHelper dbHelper;
 	private Context context;
 	private long editParentId = 0;
-
+		
 	public DatabaseAdapter(Context c) {
 		this.context = c;
 		dbHelper = new DatabaseOpenHelper(context);
@@ -144,10 +153,40 @@ public class DatabaseAdapter {
 		String sql, startTimeString, endTimeString;
 		long parentId;
 		Date startDate = null, endDate = null, endDayTime = null;
-		int incr = 0;
-
+		int incr = 0,notificationB4int;
+		
+		AlarmCreator alarmCreator = new AlarmCreator(this.context);
+		
+		if(notificationB4.equals(""))
+			notificationB4int = 15;
+			//notificationB4int=getNotificationB4();
+		else 
+			notificationB4int=Integer.parseInt(notificationB4);
+			
+		
+		
 		if (recurrenceFlag == "") {
 
+			
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+			try {
+				startDate = format.parse(eventStartDayTime);
+				endDate = format.parse(recurrenceEndDay);
+				endDayTime = format.parse(eventEndDayTime);
+				// System.out.println(date);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (java.text.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			Calendar c = Calendar.getInstance();
+			c.setTime(startDate);
+			
+			
 			sql = "insert into master_event (name,description,parentId,eventStartDayTime,"
 					+ "eventEndDayTime,notificationFreq,notificationB4,notificationType,recurrenceFlag,"
 					+ "recurrenceEndDay)"
@@ -174,6 +213,9 @@ public class DatabaseAdapter {
 
 			if (!executeSql(sql))
 				return 0;
+			else
+				//createAlarm(c,notificationB4);
+				alarmCreator.createAlarm(c, notificationB4int, name, description, eventStartDayTime);
 		} else if (recurrenceFlag.equals("daily")
 				|| recurrenceFlag.equals("weekly")) {
 			if (recurrenceFlag.equals("daily"))
@@ -197,6 +239,9 @@ public class DatabaseAdapter {
 
 			if (parentId == -1)
 				return 0;
+			//else
+				//createAlarm(c,notificationB4);
+
 
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -217,7 +262,7 @@ public class DatabaseAdapter {
 			c.setTime(startDate);
 
 			Calendar c1 = Calendar.getInstance();
-			c1.setTime(endDayTime);
+			c1.setTime(endDayTime); 
 
 			c.add(Calendar.DATE, incr);
 			startDate = c.getTime();
@@ -256,6 +301,9 @@ public class DatabaseAdapter {
 
 				if (!executeSql(sql))
 					return 0;
+				//else
+				//createAlarm(c,notificationB4);
+				
 				c.add(Calendar.DATE, incr);
 				startDate = (Date) c.getTime();
 
@@ -282,6 +330,8 @@ public class DatabaseAdapter {
 
 			if (parentId == -1)
 				return 0;
+			//else
+				//createAlarm(c,notificationB4);
 
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -341,6 +391,9 @@ public class DatabaseAdapter {
 
 				if (!executeSql(sql))
 					return 0;
+				//else
+					//createAlarm(c,notificationB4);
+				
 				c.add(Calendar.MONTH, 1);
 				startDate = (Date) c.getTime();
 
@@ -355,7 +408,12 @@ public class DatabaseAdapter {
 
 		return 1;
 	}
-
+	
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);	
+	}
+	
+	
 	public String getRecurrenceFlag(long id) {
 
 		Cursor cursor;

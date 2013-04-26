@@ -2,6 +2,8 @@ package com.taskmanager;
 
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.AlarmManager;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
