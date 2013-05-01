@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CBA"
     android:padding="10dip" >
 
     <LinearLayout
@@ -30,11 +31,11 @@
                 android:id="@+id/from_date_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textSize="15sp"
                 android:layout_weight="1"
-                android:background="@android:color/black"
+                android:background="#CBA"
                 android:focusable="true"
                 android:onClick="chooseDateFrom"
-                android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
 
@@ -43,10 +44,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@android:color/black"
+                android:background="#CBA"
                 android:focusable="true"
                 android:onClick="chooseTimeFrom"
-                android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
         </LinearLayout>
@@ -71,10 +71,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@android:color/black"
+                android:background="#CBA"
                 android:focusable="true"
                 android:onClick="chooseDateTo"
-                android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
 
@@ -83,9 +82,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@android:color/black"
+                android:background="#CBA"
                 android:onClick="chooseTimeTo"
-                android:textColor="@android:color/white"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -111,4 +109,5 @@
                 android:inputType="textNoSuggestions" />
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+
+</RelativeLayout>

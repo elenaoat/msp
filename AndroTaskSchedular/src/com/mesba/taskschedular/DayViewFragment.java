@@ -41,6 +41,7 @@ public class DayViewFragment extends Fragment {
 
 	private List<Slot> hours;
 	private List<Task> t_array;
+	
 	private ListView listView;
 	private TaskListAdapter adapter;
 
