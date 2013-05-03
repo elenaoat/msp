@@ -66,10 +66,10 @@ public class MainActivity extends Activity {
 		TaskListTab.setTabListener(new MyTabsListener(TasksFragment));
 
 		// add the two tabs to the actionbar
+		actionbar.addTab(TaskListTab);
 		actionbar.addTab(DayTab);
 		actionbar.addTab(WeekTab);
-		actionbar.addTab(MonthTab);
-		actionbar.addTab(TaskListTab);
+		actionbar.addTab(MonthTab);		
 
 		// set the app icon as an action to go home
 		actionbar.setDisplayHomeAsUpEnabled(false);
