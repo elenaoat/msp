@@ -50,16 +50,7 @@ public class TaskListAdapter extends ArrayAdapter<Slot> {
 		}
 
 		Slot t = data.get(position);
-		// holder.time.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
-		// need to put substr of this to show only the time, no date
-		// pad hour
-
-		/*
-		 * StringBuffer hour = new StringBuffer();
-		 * hour.append(t.time.subSequence(11, 16)); hour.append(" - ");
-		 * 
-		 * hour.append(t.time.subSequence(27, 32));
-		 */
+		
 		// hour.append(t.eventTime.subSequence(29, 33));
 		StringBuilder strBuilder = new StringBuilder();
 		if (data.get(position).getTime() <= 9) {
@@ -69,7 +60,6 @@ public class TaskListAdapter extends ArrayAdapter<Slot> {
 		strBuilder.append(":00");
 
 		holder.time.setText(strBuilder);
-		// holder.name.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
 		holder.name.setText(t.name);
 
 		return row;

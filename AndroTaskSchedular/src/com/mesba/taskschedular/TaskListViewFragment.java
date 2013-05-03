@@ -17,7 +17,8 @@ public class TaskListViewFragment extends Fragment {
 	private View taskListView;
 	private DatabaseAdapter dbAdapter;
 	private TextView eventList;
-
+	private String[] dateTimeSplitStart;
+	private String[] dateTimeSplitEnd;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -48,18 +49,15 @@ public class TaskListViewFragment extends Fragment {
 				start = c.getString(c.getColumnIndex("eventStartDayTime"));
 				end = c.getString(c.getColumnIndex("eventEndDayTime"));
 				
-				eventList.append(name + "-" + description + "-" + start + "-" + end + "\n");
+				dateTimeSplitStart = start.split(" ");
+				dateTimeSplitEnd = end.split(" ");
+				eventList.append("Task: \n"+"------\n"+ name + "-" + description + "\nDate: " + dateTimeSplitStart[0]
+						+ "\nTime:  " + dateTimeSplitStart[1]+ "-"+ dateTimeSplitEnd[1]+ "\n");
 			} while (c.moveToNext());
 
 		}
-		else {
 			
-		}
-		
 		c.close();
-		
-		
-		
 		dbAdapter.Close();
 	}
 }
