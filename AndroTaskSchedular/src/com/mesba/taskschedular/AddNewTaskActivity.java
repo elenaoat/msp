@@ -65,8 +65,8 @@ public class AddNewTaskActivity extends Activity {
 			// times and dates for "From" and "To" are equal
 			time_DT_from = new CustomTime(time_sent, 0);
 			date_DT_from = new CustomDate(date_sent);
-
-			time_DT_to = new CustomTime(time_sent, 0);
+			time_DT_to = new CustomTime(time_sent+1, 0);
+			//time_DT_to = HelperMethods.addHour(time_DT_from);
 			date_DT_to = new CustomDate(date_sent);
 		} else if (intent.getStringExtra("tag").equals("edit")) {
 			if (intent.hasExtra("com.taskmanager.ID")) {
@@ -131,8 +131,11 @@ public class AddNewTaskActivity extends Activity {
 
 	// Button click -> display TimePickerDialog
 	public void chooseTimeFrom(View v) {
-
-		time_save_from = new CustomTime(0, 0);
+		if (time_save_from != null) {
+			time_DT_from = time_save_from;
+		} else {
+			time_save_from = new CustomTime(0, 0);
+		}
 		new TimePickerDialog(this, new CustomOnTimeSetListener((Button) v,
 				time_save_from), time_DT_from.getHour(),
 				time_DT_from.getMinute(), true).show();
@@ -140,7 +143,11 @@ public class AddNewTaskActivity extends Activity {
 	}
 
 	public void chooseTimeTo(View v) {
-		time_save_to = new CustomTime(0, 0);
+		if (time_save_to != null) {
+			time_DT_to = time_save_to;
+		} else {
+			time_save_to = new CustomTime(0, 0);
+		}
 		new TimePickerDialog(this, new CustomOnTimeSetListener((Button) v,
 				time_save_to), time_DT_to.getHour(), time_DT_to.getMinute(),
 				true).show();
@@ -148,19 +155,29 @@ public class AddNewTaskActivity extends Activity {
 	}
 
 	public void chooseDateTo(View v) {
+		if (date_save_to != null) {
+			date_DT_to = date_save_to;
+			Log.v("date DT to", date_DT_to.getDate());
+		} else {
+			date_save_to = new CustomDate(0, 0, 0);
+			Log.v("date DT to", date_save_to.getDate());
 
-		date_save_to = new CustomDate(0, 0, 0);
-		CustomOnDateSetListener customDateListener = new CustomOnDateSetListener(
-				(Button) v, date_save_to);
-		new DatePickerDialog(this, customDateListener, date_DT_to.getYear(),
+		} 
+
+
+		new DatePickerDialog(this, new CustomOnDateSetListener(
+				(Button) v, date_save_to), date_DT_to.getYear(),
 				date_DT_to.getMonth(), date_DT_to.getDay()).show();
 	}
 
 	public void chooseDateFrom(View v) {
-		date_save_from = new CustomDate(0, 0, 0);
-		CustomOnDateSetListener customDateListener = new CustomOnDateSetListener(
-				(Button) v, date_save_from);
-		new DatePickerDialog(this, customDateListener, date_DT_from.getYear(),
+		if (date_save_from != null) {
+			date_DT_from = date_save_from;
+		} else {
+			date_save_from = new CustomDate(0, 0, 0);
+		} 
+		new DatePickerDialog(this, new CustomOnDateSetListener(
+				(Button) v, date_save_from), date_DT_from.getYear(),
 				date_DT_from.getMonth(), date_DT_from.getDay()).show();
 	}
 
@@ -175,21 +192,14 @@ public class AddNewTaskActivity extends Activity {
 		toDateBtn.setText(date_DT_to.getDate());
 	}
 
-	public void roundMinute(int hourOfDay, int min, CustomTime f) {
-		f.setHour(hourOfDay);
-		if (min <= 7) {
-			f.setMinute(0);
-		} else if (min > 7 && min <= 22) {
-			f.setMinute(15);
-		} else if (min > 22 && min <= 37) {
-			f.setMinute(30);
-		} else if (min > 37 && min <= 52) {
-			f.setMinute(45);
-		} else {
-			f.setMinute(0);
-			f.setHour(hourOfDay + 1);
-		}
-	}
+	// Needed?
+	/*
+	 * public void roundMinute(int hourOfDay, int min, CustomTime f) {
+	 * f.setHour(hourOfDay); if (min <= 7) { f.setMinute(0); } else if (min > 7
+	 * && min <= 22) { f.setMinute(15); } else if (min > 22 && min <= 37) {
+	 * f.setMinute(30); } else if (min > 37 && min <= 52) { f.setMinute(45); }
+	 * else { f.setMinute(0); f.setHour(hourOfDay + 1); } }
+	 */
 
 	public void save() {
 

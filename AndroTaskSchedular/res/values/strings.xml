@@ -8,9 +8,9 @@
     
     <string name="hint_title">Title</string>
     <string name="hint_body">Task Description</string>
-    <string name="dvu_header">Task Manager - Day View</string>
-    <string name="wvu_header">Task Manager - Week View</string>
-    <string name="mvu_header">Task Manager - Month View</string>
+    <string name="dvu_header">Day View</string>
+    <string name="wvu_header">Week View</string>
+    <string name="mvu_header">Month View</string>
     
     <string name="quarter_past">15</string>
     <string name="half_past">30</string>

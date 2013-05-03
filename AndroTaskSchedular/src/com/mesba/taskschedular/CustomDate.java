@@ -21,16 +21,27 @@ public class CustomDate {
 		this.month = month;
 		this.year = year;
 		this.year_str = Integer.toString(year);
-		this.month_str = Integer.toString(month);
-		this.day_str = Integer.toString(day);
+		this.month_str = padDate(month+1);
+		this.day_str = padDate(day);
 	}
 	public CustomDate(String date){
 		this.year_str = date.substring(0, 4);
 		this.month_str = date.substring(5, 7);
 		this.day_str = date.substring(8, 10);
 		this.year = Integer.parseInt(date.substring(0, 4));
-		this.month = Integer.parseInt(removeZero(date.substring(5, 7)));
+		this.month = Integer.parseInt(removeZero(date.substring(5, 7))) - 1;
 		this.day = Integer.parseInt(removeZero(date.substring(8, 10)));
+	}
+
+	public void setYearStr(){
+		this.year_str = Integer.toString(year);
+	}
+	
+	public void setMonthStr(){
+		this.month_str = padDate(month+1);
+	}
+	public void setDayStr(){
+		this.day_str = padDate(day);
 	}
 
 	public String removeZero(String str){
@@ -47,18 +58,19 @@ public class CustomDate {
 	public String getDate(){
 		
 		//Log.v("day in class", day_str);
-		if (day_str.equals("0")){
-		//	Log.v("day in class", day_str);
+	/*	if (day_str.equals("0")){
+			
 			getDay_str();
 		}
 		if (month_str.equals("0")){
+			
 			getMonth_str();
 		}
 
 		if (year_str.equals("0")){
 			getYear_str();
 		}
-
+*/
 		StringBuilder strBuilder = new StringBuilder();
 		strBuilder.append(day_str);
 		strBuilder.append("-");
@@ -102,6 +114,7 @@ public class CustomDate {
 	}
 	public void setMonth(int month) {
 		this.month = month;
+		
 	}
 	public int getDay() {
 		return day;

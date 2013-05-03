@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/week_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    style="@style/BasicLayout" >
 
     <LinearLayout
         android:id="@+id/weekHeader"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" >
 
         <ImageButton
-        	android:id="@+id/prevWeek"
+            android:id="@+id/prevWeek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_media_previous" />
 
         <ImageButton
-	        android:id="@+id/nextWeek"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:src="@android:drawable/ic_media_next" />
+            android:id="@+id/nextWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_next" />
 
         <TextView
             android:id="@+id/weekHeaderTxt"
@@ -31,33 +30,30 @@
             android:text="@string/wvu_header"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="bold" />
-
     </LinearLayout>
-    
+
     <LinearLayout
         android:id="@+id/weekDays"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_below="@+id/weekHeader"
+        android:orientation="horizontal"
         android:weightSum="100" >
-        
-        
     </LinearLayout>
-    
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/weekDays"
-        android:layout_above="@+id/footer1" >
+        android:layout_above="@+id/footer1"
+        android:layout_below="@+id/weekDays" >
+
         <LinearLayout
-        	android:id="@+id/weekDaysDetails"
-        	android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:orientation="vertical"        
-        	android:weightSum="100" >
-        
-        
-    	</LinearLayout>
+            android:id="@+id/weekDaysDetails"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="100" >
+        </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>

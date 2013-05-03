@@ -48,30 +48,30 @@ public class MainActivity extends Activity {
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		// initiating both tabs and set text to it.
-		ActionBar.Tab DayTab = actionbar.newTab().setText("Day View");
-		ActionBar.Tab WeekTab = actionbar.newTab().setText("Week View");
-		ActionBar.Tab MonthTab = actionbar.newTab().setText("Month View");
-		ActionBar.Tab TaskListTab = actionbar.newTab().setText("Tasks List");
+		ActionBar.Tab dayTab = actionbar.newTab().setText("Day");
+		ActionBar.Tab weekTab = actionbar.newTab().setText("Week");
+		ActionBar.Tab monthTab = actionbar.newTab().setText("Month");
+		ActionBar.Tab taskListTab = actionbar.newTab().setText("Tasks List");
 
 		// create the two fragments we want to use for display content
-		Fragment DayFragment = new DayViewFragment();
-		Fragment WeekFragment = new WeekViewFragment();
-		Fragment MonthFragment = new MonthViewFragment();
-		Fragment TasksFragment = new TaskListViewFragment();
+		Fragment dayFragment = new DayViewFragment();
+		Fragment weekFragment = new WeekViewFragment();
+		Fragment monthFragment = new MonthViewFragment();
+		Fragment tasksFragment = new TaskListViewFragment();
 
-		// set the Tab listener. Now we can listen for clicks.
-		DayTab.setTabListener(new MyTabsListener(DayFragment));
-		WeekTab.setTabListener(new MyTabsListener(WeekFragment));
-		MonthTab.setTabListener(new MyTabsListener(MonthFragment));
-		TaskListTab.setTabListener(new MyTabsListener(TasksFragment));
+		// set the Tab Listener. Now we can listen for clicks.
+		dayTab.setTabListener(new MyTabsListener(dayFragment));
+		weekTab.setTabListener(new MyTabsListener(weekFragment));
+		monthTab.setTabListener(new MyTabsListener(monthFragment));
+		taskListTab.setTabListener(new MyTabsListener(tasksFragment));
 
-		// add the two tabs to the actionbar
-		actionbar.addTab(DayTab);
-		actionbar.addTab(WeekTab);
-		actionbar.addTab(MonthTab);
-		actionbar.addTab(TaskListTab);
+		// add tabs to the ActionBar
+		actionbar.addTab(dayTab);
+		actionbar.addTab(weekTab);
+		actionbar.addTab(monthTab);
+		actionbar.addTab(taskListTab);
 
-		// set the app icon as an action to go home
+		// set the app icon as an action to go Home
 		actionbar.setDisplayHomeAsUpEnabled(false);
 	}
 
@@ -121,7 +121,7 @@ public class MainActivity extends Activity {
 			break;
 		case R.id.action_about:
 			showAbout();
-//			Toast.makeText(this, "About us...", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, "About us", Toast.LENGTH_SHORT).show();
 			break;
 		}
 
@@ -129,7 +129,7 @@ public class MainActivity extends Activity {
 	}
 
 	/**
-	 * ???
+	 * initialize global configuration
 	 */
 	public void initializeGlobalConfigWithDefaultValues() {
 		dbAdapter.Open();
@@ -140,7 +140,7 @@ public class MainActivity extends Activity {
 	public void showAbout() {
 		final Dialog dialog = new Dialog(MainActivity.this);
 		dialog.setContentView(R.layout.layout_about);
-		dialog.setTitle("About Task Schedular");
+		dialog.setTitle("About Task Scheduler");
 
 		// set the custom dialog components - text, image and button
 		TextView text = (TextView) dialog.findViewById(R.id.text);
@@ -169,14 +169,22 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void onTabReselected(Tab tab, FragmentTransaction ft) {
-			Toast.makeText(getApplicationContext(), "Reselected!",
-					Toast.LENGTH_LONG).show();
+		//	Toast.makeText(getApplicationContext(), "Reselected!",
+		//			Toast.LENGTH_LONG).show();
+			
 		}
 
 		@SuppressLint("NewApi")
 		@Override
 		public void onTabSelected(Tab tab, FragmentTransaction ft) {
+	
+				// / If it exists, simply attach it in order to show it
+			//	ft.attach(fragment);
+				
+			
+			
 			ft.replace(R.id.fragment_container, fragment);
+			//ft.show(fragment);
 		}
 
 		@SuppressLint("NewApi")
