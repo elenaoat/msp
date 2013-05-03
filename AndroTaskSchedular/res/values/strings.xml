@@ -17,8 +17,8 @@
     <string name="quarter_to">45</string>
     <string name="noon">12</string>
     <string name="meeting">msp meeting</string>
-    <string name="from">From</string>
-    <string name="to">To</string>
+    <string name="from">Task Starting Time</string>
+    <string name="to">Task Ending Time</string>
     <string name="title_activity_new_task">NewTaskActivity</string>
     <string name="pick_time">Pick time</string>
     <string name="aboutus">About Us</string>

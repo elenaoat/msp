@@ -65,8 +65,8 @@ public class AddNewTaskActivity extends Activity {
 			// times and dates for "From" and "To" are equal
 			time_DT_from = new CustomTime(time_sent, 0);
 			date_DT_from = new CustomDate(date_sent);
-
-			time_DT_to = new CustomTime(time_sent, 0);
+			
+			time_DT_to = new CustomTime(time_sent+1, 0);
 			date_DT_to = new CustomDate(date_sent);
 		} else if (intent.getStringExtra("tag").equals("edit")) {
 			if (intent.hasExtra("com.taskmanager.ID")) {

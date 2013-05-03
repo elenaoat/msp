@@ -26,16 +26,22 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" >
             </TextView>
-
+         </LinearLayout>
+         
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dip" >
             <Button
                 android:id="@+id/from_date_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
                 android:layout_weight="1"
-                android:background="#CBA"
+                android:background="@android:color/black"
                 android:focusable="true"
                 android:onClick="chooseDateFrom"
+                android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
 
@@ -44,9 +50,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#CBA"
+                android:background="@android:color/black"
                 android:focusable="true"
                 android:onClick="chooseTimeFrom"
+                android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
         </LinearLayout>
@@ -65,15 +72,23 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold" >
             </TextView>
-
+		 </LinearLayout>
+            
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dip" > 
+            
             <Button
                 android:id="@+id/to_date_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#CBA"
+                android:background="@android:color/black"
                 android:focusable="true"
                 android:onClick="chooseDateTo"
+                android:textColor="@android:color/white"
                 android:textStyle="bold" >
             </Button>
 
@@ -82,8 +97,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#CBA"
+                android:background="@android:color/black"
                 android:onClick="chooseTimeTo"
+                android:textColor="@android:color/white"
                 android:textStyle="bold" />
         </LinearLayout>
 
