@@ -19,6 +19,7 @@ public class TaskListViewFragment extends Fragment {
 	private TextView eventList;
 	private String[] dateTimeSplitStart;
 	private String[] dateTimeSplitEnd;
+	private int counter=0;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -33,31 +34,42 @@ public class TaskListViewFragment extends Fragment {
 		
 		return taskListView;
 	}
-	
-	public void getAllEvents()
-	{
-		String name, description, start, end = "";
+
+	public void getAllEvents(){
+		String distinctDate, name, description, start, end = "";
 		dbAdapter.Open();
 		
-		Cursor c = dbAdapter.getAllEvents();
+		Cursor c = dbAdapter.getDistinctEventDates();
 		
 		if (c.moveToFirst()) {
 			do {
-//				c.getString(c.getColumnIndex("id"));
-				name = c.getString(c.getColumnIndex("name"));
-				description = c.getString(c.getColumnIndex("description"));
-				start = c.getString(c.getColumnIndex("eventStartDayTime"));
-				end = c.getString(c.getColumnIndex("eventEndDayTime"));
-				
-				dateTimeSplitStart = start.split(" ");
-				dateTimeSplitEnd = end.split(" ");
-				eventList.append("\n"+"------\n"+ name + "-" + description + "\nDate: " + dateTimeSplitStart[0]
-						+ "\nTime:  " + dateTimeSplitStart[1]+ "-"+ dateTimeSplitEnd[1]+ "\n\n");
+				distinctDate = c.getString(0);
+				eventList.append(distinctDate + "\n-----------\n");
+				Cursor tasklistByDate = dbAdapter.getEventByDate(distinctDate);
+				if (tasklistByDate.moveToFirst()) {
+						do{
+							
+							name = tasklistByDate.getString(tasklistByDate.getColumnIndex("name"));
+							description = tasklistByDate.getString(tasklistByDate.getColumnIndex("description"));
+							start = tasklistByDate.getString(tasklistByDate.getColumnIndex("eventStartDayTime"));
+							end = tasklistByDate.getString(tasklistByDate.getColumnIndex("eventEndDayTime"));
+							
+							dateTimeSplitStart = start.split(" ");
+							dateTimeSplitEnd = end.split(" ");
+							eventList.append(""+ ++counter +":\t"+name + "-" + description
+									+ "\n\t"+"   Time:  " + dateTimeSplitStart[1]+ "-"+ dateTimeSplitEnd[1]+ "\n\n");
+							
+						}while(tasklistByDate.moveToNext());
+						tasklistByDate.close();
+				}
+				counter=0;
 			} while (c.moveToNext());
 
 		}
 			
 		c.close();
+		
 		dbAdapter.Close();
+		
 	}
 }

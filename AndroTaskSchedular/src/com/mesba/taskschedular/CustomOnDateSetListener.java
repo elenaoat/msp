@@ -16,7 +16,7 @@ public class CustomOnDateSetListener implements DatePickerDialog.OnDateSetListen
 	@Override
 	public void onDateSet(DatePicker view, int year, int month, int day) {		
 		date.setDay(day);
-		date.setMonth(month);
+		date.setMonth(month+1);
 		date.setYear(year);
 		Log.v("date inside the method", Integer.toString(date.getYear()));
 		btn.setText(date.getDate());

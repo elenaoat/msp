@@ -79,6 +79,18 @@ public class DatabaseAdapter extends Activity{
 		}
 		cursor.close();
 	}
+	
+	/**
+	  * @param id
+	  * @return
+	  */
+		public Cursor getDistinctEventDates() {
+			Cursor cursor;
+			cursor = database.rawQuery("SELECT distinct substr(eventStartDayTime,1,10) FROM master_event where date(eventStartDayTime)>= date('now')", null);
+			return cursor;
+		}
+	
+	
  /**
   * @param id
   * @return
