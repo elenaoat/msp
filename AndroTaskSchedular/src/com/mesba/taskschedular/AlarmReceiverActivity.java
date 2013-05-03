@@ -38,7 +38,7 @@ public class AlarmReceiverActivity extends Activity {
             String description = extras.getString("description");
             String eventStartDayTime = extras.getString("eventStartDayTime");
             
-            message = "Task Name: " + title + "\nDescription: " + description + "\n At:" + eventStartDayTime;
+            message = "\n \n Notification for Task : \n " + title + "\n Description: " + description + "\n Time:" + eventStartDayTime;
         }
         
         TextView item = (TextView) findViewById(R.id.AlarmMessage);
@@ -51,10 +51,7 @@ public class AlarmReceiverActivity extends Activity {
             public void onClick(View arg0) {
                 //mMediaPlayer.stop();
                 finish();
-                //Intent i = new Intent(getApplicationContext(), MainActivity.class);
-        		//startActivity(i);
-                
-            }
+          }
         });
  
         playSound(this, getAlarmUri());

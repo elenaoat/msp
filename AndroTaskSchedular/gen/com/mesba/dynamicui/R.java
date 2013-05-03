@@ -118,7 +118,8 @@ public final class R {
         public static final int menu_new_task=0x7f0a0001;
     }
     public static final class string {
-        public static final int aboutUsDetail=0x7f080015;
+        public static final int OK=0x7f080015;
+        public static final int aboutUsDetail=0x7f080016;
         public static final int aboutus=0x7f080012;
         public static final int action_about=0x7f080002;
         public static final int action_settings=0x7f080001;
@@ -137,7 +138,7 @@ public final class R {
         public static final int quarter_past=0x7f080009;
         public static final int quarter_to=0x7f08000b;
         public static final int settings=0x7f080013;
-        public static final int title_activity_edit_task=0x7f080016;
+        public static final int title_activity_edit_task=0x7f080017;
         public static final int title_activity_new_task=0x7f080010;
         public static final int to=0x7f08000f;
         public static final int wvu_header=0x7f080007;
