@@ -51,8 +51,8 @@ public class TaskListViewFragment extends Fragment {
 				
 				dateTimeSplitStart = start.split(" ");
 				dateTimeSplitEnd = end.split(" ");
-				eventList.append("Task: \n"+"------\n"+ name + "-" + description + "\nDate: " + dateTimeSplitStart[0]
-						+ "\nTime:  " + dateTimeSplitStart[1]+ "-"+ dateTimeSplitEnd[1]+ "\n");
+				eventList.append("\n"+"------\n"+ name + "-" + description + "\nDate: " + dateTimeSplitStart[0]
+						+ "\nTime:  " + dateTimeSplitStart[1]+ "-"+ dateTimeSplitEnd[1]+ "\n\n");
 			} while (c.moveToNext());
 
 		}
