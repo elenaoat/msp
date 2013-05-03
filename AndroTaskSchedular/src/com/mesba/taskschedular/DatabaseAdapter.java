@@ -236,7 +236,6 @@ public class DatabaseAdapter extends Activity{
 			if (!executeSql(sql))
 				return 0;
 			else
-				//createAlarm(c,notificationB4);
 				alarmCreator.createAlarm(c, notificationB4int, name, description, eventStartDayTime);
 		} else if (recurrenceFlag.equals("daily")
 				|| recurrenceFlag.equals("weekly")) {
@@ -262,7 +261,7 @@ public class DatabaseAdapter extends Activity{
 			if (parentId == -1)
 				return 0;
 			//else
-				//createAlarm(c,notificationB4);
+				//alarmCreator.createAlarm(c, notificationB4int, name, description, eventStartDayTime);
 
 
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -320,8 +319,8 @@ public class DatabaseAdapter extends Activity{
 
 				if (!executeSql(sql))
 					return 0;
-				//else
-				//createAlarm(c,notificationB4);
+				else
+					alarmCreator.createAlarm(c, notificationB4int, name, description, eventStartDayTime);
 				
 				c.add(Calendar.DATE, incr);
 				startDate = (Date) c.getTime();
@@ -410,8 +409,8 @@ public class DatabaseAdapter extends Activity{
 
 				if (!executeSql(sql))
 					return 0;
-				//else
-					//createAlarm(c,notificationB4);
+				else
+					alarmCreator.createAlarm(c, notificationB4int, name, description, eventStartDayTime);
 				
 				c.add(Calendar.MONTH, 1);
 				startDate = (Date) c.getTime();
