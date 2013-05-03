@@ -57,11 +57,9 @@ public class AlarmReceiverActivity extends Activity {
             }
         });
  
-        //playSound(this, getAlarmUri());
+        playSound(this, getAlarmUri());
     }
-	
-	
-	
+		
     private void playSound(Context context, Uri alert) {
         mMediaPlayer = new MediaPlayer();
         try {
@@ -78,8 +76,8 @@ public class AlarmReceiverActivity extends Activity {
         }
     }
  
-        //Get an alarm sound. Try for an alarm. If none set, try notification,
-        //Otherwise, ringtone.
+   /*Get an alarm sound. Try for an alarm. If none set, try notification,
+    Otherwise, ringtone.*/
     private Uri getAlarmUri() {
         Uri alert = RingtoneManager
                 .getDefaultUri(RingtoneManager.TYPE_ALARM);

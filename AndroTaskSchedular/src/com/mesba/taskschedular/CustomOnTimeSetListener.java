@@ -14,15 +14,8 @@ public class CustomOnTimeSetListener implements
 		this.btn = v;
 		this.dtime = dtime;
 	}
-
 	@Override
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-		// dtime = new CustomTime(hourOfDay, minute);
-		/*
-		 * roundMinute(hourOfDay, minute, dtime); StringBuffer sb = new
-		 * StringBuffer(); sb.append(padTime(dtime.getHour())); sb.append(":");
-		 * sb.append(padTime(dtime.getMinute()));
-		 */
 		dtime.setHour(hourOfDay);
 		dtime.setMinute(minute);
 		Log.v("saved minutes", dtime.getTimeStr());

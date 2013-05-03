@@ -36,7 +36,6 @@ import android.widget.TextView;
 public class MonthViewFragment extends Fragment implements OnClickListener {
 	private static final String tag = "MonthViewActivity";
 	private View monthView;
-
 	private Button selectedDayMonthYearText;
 	private Button currentMonth;
 	private ImageButton prevMonth;
@@ -44,7 +43,6 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 	private GridView calendarView;
 	private Calendar _calendar;
 	private int month, year;
-	// private final DateFormat dateFormatter = new DateFormat();
 	private static final String dateTemplate = "MMMM yyyy";
 	public SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -157,11 +155,7 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 		Log.d(tag, "Destroying View ...");
 		super.onDestroy();
 	}
-
-
-
-	// ///////////////////////////////////////////////////////////////////////////////////////
-	// Inner Class
+/* inner class*/
 	public class GridCellAdapter extends BaseAdapter implements OnClickListener {
 		private static final String tag = "GridCellAdapter";
 		private final Context _context;
@@ -231,10 +225,7 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 		 */
 		private void printMonth(int mm, int yy) {
 			Log.d(tag, "==> printMonth: mm: " + mm + " " + "yy: " + yy);
-			// The number of days to leave blank at
-			// the start of this month.
 			int trailingSpaces = 0;
-			// int leadSpaces = 0;
 			int daysInPrevMonth = 0;
 			int prevMonth = 0;
 			int prevYear = 0;
@@ -355,19 +346,6 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 		private HashMap<String, Integer> findNumberOfEventsPerMonth(int year,
 				int month) {
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
-			// DateFormat dateFormatter2 = new DateFormat();
-			//
-			// String day = dateFormatter2.format("dd", dateCreated).toString();
-			//
-			// if (map.containsKey(day))
-			// {
-			// Integer val = (Integer) map.get(day) + 1;
-			// map.put(day, val);
-			// }
-			// else
-			// {
-			// map.put(day, 1);
-			// }
 			return map;
 		}
 
@@ -464,7 +442,7 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 			}
 
 			Log.v("in the month view", date_month_year);
-			String[] selectedDate = date_month_year.split("-");
+			//String[] selectedDate = date_month_year.split("-");
 
 		}
 		
@@ -480,7 +458,7 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 			if (curs.moveToFirst()) {
 				do {
 
-					int id = curs.getInt(curs.getColumnIndex("id"));
+					//int id = curs.getInt(curs.getColumnIndex("id"));
 					String name = curs.getString(curs.getColumnIndex("name"));
 					String description = curs.getString(curs
 							.getColumnIndex("description"));

@@ -77,7 +77,7 @@ public class DayViewFragment extends Fragment {
 		currentDateTimeString = DateFormat.getDateInstance(DateFormat.LONG)
 				.format(new Date());
 		currentDate_YYYY_mm_dd = new String(dateFormat.format(today.getTime()));
-
+		System.out.println(currentDate_YYYY_mm_dd);
 		currentDate.setText(currentDateTimeString);
 	}
 

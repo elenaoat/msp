@@ -345,13 +345,15 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 		loadData(weekNumber);
 	}
 
-	// this function will load data in a Arraylist of hash map
+	/*
+	 * this function will load data in a Arraylist of hash map
+	 */
 	public void loadData(int weekNum) {
 		allTasks.clear();
 		DatabaseAdapter dbAdapter = new DatabaseAdapter(getActivity());
 
 		dbAdapter.Open();
-		// //////////////
+	
 		c1.set(Calendar.WEEK_OF_YEAR, weekNum);
 		c1.get(Calendar.WEEK_OF_YEAR);
 
@@ -368,8 +370,6 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 			monthStr = (month < 10) ? "0" + month : "" + month;
 			dayStr = (day < 10) ? "0" + day : "" + day;
 
-			// Cursor curs =
-			// dbAdapter.getEventByDate(dateFormat.format(today.getTime()));
 			Cursor curs = dbAdapter.getEventByDate(year + "-" + monthStr + "-"
 					+ dayStr);
 

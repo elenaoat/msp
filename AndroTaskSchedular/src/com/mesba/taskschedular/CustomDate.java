@@ -4,18 +4,16 @@
 
 package com.mesba.taskschedular;
 
-
 public class CustomDate {
-
 	public String year_str;
 	public String month_str;
 	public String day_str;
 	public int year;
 	public int month;
 	public int day;
-	public CustomDate(){
-		
-	}
+	
+	public CustomDate(){}
+	
 	public CustomDate(int day, int month, int year){
 		this.day = day;
 		this.month = month;
@@ -24,6 +22,7 @@ public class CustomDate {
 		this.month_str = Integer.toString(month);
 		this.day_str = Integer.toString(day);
 	}
+	
 	public CustomDate(String date){
 		this.year_str = date.substring(0, 4);
 		this.month_str = date.substring(5, 7);
@@ -43,9 +42,10 @@ public class CustomDate {
 		}
 		return str_edited;
 	}
-	//for UI
+	/*
+	 * for UI date
+	 */
 	public String getDate(){
-		
 		//Log.v("day in class", day_str);
 		if (day_str.equals("0")){
 		//	Log.v("day in class", day_str);
@@ -78,37 +78,45 @@ public class CustomDate {
 		return strBuilder.toString();
 	}
 
-
 	public String getYear_str() {
 		year_str = Integer.toString(year);
 		return year_str;
 	}
+
 	public String getMonth_str() {
 		month_str = padDate(month);
 		return month_str;
 	}
+
 	public String getDay_str() {
 		day_str = padDate(day);
 		return day_str;
 	}
+
 	public int getYear() {
 		return year;
 	}
+
 	public void setYear(int year) {
 		this.year = year;
 	}
+
 	public int getMonth() {
 		return month;
 	}
+
 	public void setMonth(int month) {
 		this.month = month;
 	}
+
 	public int getDay() {
 		return day;
 	}
+
 	public void setDay(int day) {
 		this.day = day;
 	}
+
 	public String padDate(int d) {
 		StringBuffer strBuff = new StringBuffer();
 		
@@ -118,6 +126,4 @@ public class CustomDate {
 		strBuff.append(d);
 		return strBuff.toString();
 	}
-
-
 }
