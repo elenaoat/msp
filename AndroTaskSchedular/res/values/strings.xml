@@ -19,6 +19,7 @@
     <string name="meeting">msp meeting</string>
     <string name="from">Task Starting Time</string>
     <string name="to">Task Ending Time</string>
+    <string name="rec">Recurrence Ending Time :  </string>
     <string name="title_activity_new_task">NewTaskActivity</string>
     <string name="pick_time">Pick time</string>
     <string name="aboutus">About Us</string>
@@ -27,6 +28,21 @@
     <string name="OK">Notified</string>
     <string name="aboutUsDetail">Team Members: Hasan, Mesba, Feroz, Elena &amp; Robin</string>
     <string name="title_activity_edit_task">EditTaskActivity</string>
+    <string name="rec_prompt">Recurrence Type :</string>
+    <string-array name="rec_arrays">
+        <item>none</item>
+        <item>daily</item>
+        <item>weekly</item>
+        <item>monthly</item>
+        
+    </string-array>
+    <string name="not_prompt">Notification Type :</string>
+    <string-array name="not_arrays">
+        <item>none</item>
+        <item>Bar</item>
+        <item>Alarm</item>
+        
+    </string-array>
     
 
 </resources>

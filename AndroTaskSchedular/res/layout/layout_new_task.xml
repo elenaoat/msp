@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:background="#CBA"
+    android:orientation="vertical"
     android:padding="10dip" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:padding="10dip" >
-
-        <LinearLayout
+		
+		<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -23,38 +17,37 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/from"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold" >
+                android:textAppearance="?android:attr/textAppearanceSmall" >
             </TextView>
-         </LinearLayout>
+		 </LinearLayout>
          
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="38dp"
             android:orientation="horizontal"
-            android:padding="10dip" >
+            android:padding="5dip" >
+
             <Button
                 android:id="@+id/from_date_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.74"
                 android:background="@android:color/black"
                 android:focusable="true"
                 android:onClick="chooseDateFrom"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" >
+                android:textColor="@android:color/white" >
+
             </Button>
 
             <Button
                 android:id="@+id/from_time_picker"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.63"
                 android:background="@android:color/black"
                 android:focusable="true"
                 android:onClick="chooseTimeFrom"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" >
+                android:textColor="@android:color/white" >
             </Button>
         </LinearLayout>
 
@@ -69,16 +62,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/to"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold" >
+                android:textAppearance="?android:attr/textAppearanceSmall" >
             </TextView>
 		 </LinearLayout>
             
          <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dip" > 
+             android:layout_width="match_parent"
+             android:layout_height="38dp"
+             android:orientation="horizontal"
+             android:padding="5dip" >
             
             <Button
                 android:id="@+id/to_date_picker"
@@ -88,8 +80,7 @@
                 android:background="@android:color/black"
                 android:focusable="true"
                 android:onClick="chooseDateTo"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" >
+                android:textColor="@android:color/white" >
             </Button>
 
             <Button
@@ -99,8 +90,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/black"
                 android:onClick="chooseTimeTo"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
+                android:textColor="@android:color/white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -124,6 +114,77 @@
                 android:hint="@string/hint_body"
                 android:inputType="textNoSuggestions" />
         </LinearLayout>
-    </LinearLayout>
+               <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dip" >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/not_prompt"
+                android:textAppearance="?android:attr/textAppearanceSmall">
+            </TextView>
 
-</RelativeLayout>
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:entries="@array/not_arrays"
+                android:gravity="center" />
+
+        </LinearLayout>
+        
+        
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dip" >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/rec_prompt"
+                android:textAppearance="?android:attr/textAppearanceSmall">
+            </TextView>
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:entries="@array/rec_arrays"
+                android:gravity="center" />
+
+        </LinearLayout>
+        
+  
+        
+         <LinearLayout
+             android:layout_width="338dp"
+             android:layout_height="34dp"
+             android:orientation="horizontal"
+             android:padding="5dip" >
+            
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:text="@string/rec"
+                 android:textAppearance="?android:attr/textAppearanceSmall" >
+
+            </TextView>
+
+             <Button
+                 android:id="@+id/rec_date_picker"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="0.83"
+                 android:background="@android:color/black"
+                 android:focusable="true"
+                 android:onClick="chooseDateRec"
+                 android:textColor="@android:color/white" />
+
+        </LinearLayout>
+ </LinearLayout>
+
