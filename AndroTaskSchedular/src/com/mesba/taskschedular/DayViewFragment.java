@@ -34,6 +34,7 @@ import com.mesba.dynamicui.R;
 @SuppressLint({ "NewApi", "SimpleDateFormat" })
 public class DayViewFragment extends Fragment {
 	private View dayView;
+	private int position;
 	private ActionMode mActionMode;
 	private ActionMode.Callback mActionModeCallback;
 	private DatabaseAdapter dbAdapter;
@@ -208,6 +209,15 @@ public class DayViewFragment extends Fragment {
 		                mode.finish(); // Action picked, so close the CAB
 		                return true;
 		            case R.id.delete:
+						if (hours.get(position).id == -1) {
+							Log.v("the task doesnt exist", "id = -1");
+	
+						} else if (hours.get(position).getId() != -1) {							
+							dbAdapter.Open();
+							dbAdapter.deleteEvents(hours.get(position).getId());
+							dbAdapter.Close();
+							mode.finish();
+						}
 		            	
 		            default:
 		                return false;
@@ -225,6 +235,7 @@ public class DayViewFragment extends Fragment {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int pos, long id) {
 				//Log.v("long clicked", "pos" + " " + pos);
+				position = pos;
 				mActionMode = getActivity().startActionMode(mActionModeCallback);
 				return true;
 			}

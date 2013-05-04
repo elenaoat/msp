@@ -26,7 +26,7 @@ public class AddNewTaskActivity extends Activity {
 	private EditText etTitle, etBody;
 	private Button fromTimeBtn, toTimeBtn, fromDateBtn, toDateBtn, recDateBtn;
 	private String date_sent;
-	private int time_sent;
+	private int time_sent, id;
 	public CustomDate date_DT_from, date_DT_to, date_DT_rec, date_save_from,
 			date_save_to, date_save_rec;
 	public CustomTime time_DT_from, time_DT_to, time_save_from, time_save_to;
@@ -35,7 +35,6 @@ public class AddNewTaskActivity extends Activity {
 
 	private Spinner spinner;
 
-	private int id;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -86,7 +85,7 @@ public class AddNewTaskActivity extends Activity {
 				getDataFromDatabase(id);
 				etTitle.setText(name);
 				etBody.setText(description);
-				Log.v("ID obtained from another activity", Integer.toString(id));
+				//Log.v("ID obtained from another activity", Integer.toString(id));
 			} else {
 				Log.v("Error", "obtaining ID");
 			}
@@ -177,10 +176,10 @@ public class AddNewTaskActivity extends Activity {
 	public void chooseDateTo(View v) {
 		if (date_save_to != null) {
 			date_DT_to = date_save_to;
-			Log.v("date DT to", date_DT_to.getDate());
+			//Log.v("date DT to", date_DT_to.getDate());
 		} else {
 			date_save_to = new CustomDate(0, 0, 0);
-			Log.v("date DT to", date_save_to.getDate());
+			//Log.v("date DT to", date_save_to.getDate());
 
 		}
 
@@ -283,11 +282,11 @@ public class AddNewTaskActivity extends Activity {
 
 		Log.v("if its not null", date_save_from.getDate());
 		if (date_save_from == null) {
-			Log.v("date is null too", "");
+			//Log.v("date is null too", "");
 		}
 
-		Log.v("date for DB", date_save_from.getDateForDB());
-		Log.v("time for DB", time_save_from.getTimeStr());
+		//Log.v("date for DB", date_save_from.getDateForDB());
+		//Log.v("time for DB", time_save_from.getTimeStr());
 		/* workaround in case the date/time pickers werent selected at all */
 
 		long inserted = 0;
@@ -300,8 +299,13 @@ public class AddNewTaskActivity extends Activity {
 							+ time_save_from.getTimeStr(),
 					date_save_to.getDateForDB() + " "
 							+ time_save_to.getTimeStr(), "", "", "",
-					String.valueOf(spinner.getSelectedItem()),
-					date_save_rec.getDateForDB() + " 1:00");
+					"",		
+					//String.valueOf(spinner.getSelectedItem()),
+					"");
+					//date_save_rec.getDateForDB());
+					Log.v("String.valueOf(spinner.getSelectedItem())", String.valueOf(spinner.getSelectedItem()));
+					Log.v("date_save_rec.getDateForDB());",  date_save_rec.getDateForDB());
+
 			if (inserted > 0) {
 				HelperMethods.displayToast("Successfully Saved", this);
 				etTitle.setText("");
@@ -324,7 +328,7 @@ public class AddNewTaskActivity extends Activity {
 		dbAdapter.Close();
 
 		if (date_save_from != null) {
-			Log.v("get date", date_save_from.getDate());
+			//Log.v("get date", date_save_from.getDate());
 		}
 
 		Intent i = new Intent(this, MainActivity.class);

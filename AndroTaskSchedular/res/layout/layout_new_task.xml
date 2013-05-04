@@ -130,7 +130,8 @@
             android:text="@string/not_prompt"
             android:textAppearance="?android:attr/textAppearanceSmall" >
         </TextView>
-
+        <!-- Notification type spinner -->
+        
         <Spinner
             android:id="@+id/spinner2"
             android:layout_width="118dp"
@@ -153,6 +154,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" >
         </TextView>
 
+        <!-- Recurrence type spinner -->
         <Spinner
             android:id="@+id/spinner1"
             android:layout_width="118dp"
