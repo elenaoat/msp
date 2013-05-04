@@ -18,7 +18,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -60,6 +64,7 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		setHasOptionsMenu(true);
 		weekView = inflater
 				.inflate(R.layout.layout_week_view, container, false);
 
@@ -81,6 +86,33 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 
 		return weekView;
 	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	    // TODO Add your menu entries here
+		Log.i("OptionsMenu", "Menu Item is override in Week Fragment");
+	    super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		
+		// When today button is clicked, the view will set to current week
+		case R.id.item_today:
+			Log.i("OptionsMenu", "option 1 selected from Week Fragment");
+			c1 = Calendar.getInstance();
+			weekNumber = c1.get(Calendar.WEEK_OF_YEAR);
+			
+			refreshWeekView();
+			weekView(weekNumber);
+			break;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+
 
 	/**
 	 * This function will draw the week view.
