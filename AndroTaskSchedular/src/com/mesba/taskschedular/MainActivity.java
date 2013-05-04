@@ -12,6 +12,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +20,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mesba.dynamicui.R;
 
@@ -66,6 +66,7 @@ public class MainActivity extends Activity {
 		taskListTab.setTabListener(new MyTabsListener(tasksFragment));
 
 		// add tabs to the ActionBar
+		// If you want to change the tab order change in following order of adding
 		actionbar.addTab(dayTab);
 		actionbar.addTab(weekTab);
 		actionbar.addTab(monthTab);
@@ -112,9 +113,11 @@ public class MainActivity extends Activity {
 			intent.putExtra("tag", "add");
 			startActivity(intent);
 			break;
-		case R.id.item_today:
-			Toast.makeText(this, "Today...", Toast.LENGTH_SHORT).show();
-			break;
+//		case R.id.item_today:
+//			Log.i("OptionsMenu", "option 1 selected from activity");
+//			return false;
+//			Toast.makeText(this, "Today...", Toast.LENGTH_SHORT).show();
+//			break;
 		case R.id.action_settings:
 			Intent setting = new Intent(MainActivity.this,
 					SettingsPrefs.class);

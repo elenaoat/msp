@@ -21,6 +21,9 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -58,6 +61,7 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		setHasOptionsMenu(true);
 		monthView = inflater.inflate(R.layout.layout_month_view, container, false);
 		
 		dbAdapter = new DatabaseAdapter(getActivity());
@@ -109,6 +113,30 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 
 		return monthView;
 		// return super.onCreateView(inflater, container, savedInstanceState);
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	    // TODO Add your menu entries here
+		Log.i("OptionsMenu", "Menu Item is override in Month Fragment");
+	    super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		
+		// When today button is clicked, the view will set to current month
+		case R.id.item_today:
+			Log.i("OptionsMenu", "option 1 selected from Month Fragment");
+			_calendar = Calendar.getInstance(Locale.getDefault());
+			month = _calendar.get(Calendar.MONTH) + 1;
+			year = _calendar.get(Calendar.YEAR);
+			setGridCellAdapterToDate(month, year);
+			break;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
