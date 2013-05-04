@@ -41,7 +41,9 @@ public class DatabaseAdapter extends Activity{
 				null, null, null, null);
 	}
 
-	// initialize global configuration table
+	/**
+	 *  initialize global configuration table
+	 */
 	public void initializeGConfig() {
 		Cursor cursor;
 		cursor = database.rawQuery("SELECT count(1) FROM global_config", null);
@@ -77,12 +79,25 @@ public class DatabaseAdapter extends Activity{
 		}
 		cursor.close();
 	}
-
+	
+	/**
+	  * @param id
+	  * @return
+	  */
+		public Cursor getDistinctEventDates() {
+			Cursor cursor;
+			cursor = database.rawQuery("SELECT distinct substr(eventStartDayTime,1,10) FROM master_event where date(eventStartDayTime)>= date('now')", null);
+			return cursor;
+		}
+	
+	
+ /**
+  * @param id
+  * @return
+  */
 	public Cursor viewEventByID(long id) {
-
 		return database.query("master_event", null, "id=" + id, null, null,
 				null, null);
-
 	}
 
 	/**
@@ -110,10 +125,7 @@ public class DatabaseAdapter extends Activity{
 	public Cursor getAllEvents() {
 		String sql = "SELECT id,name,description,eventStartDayTime,eventEndDayTime FROM master_event ORDER BY eventStartDayTime DESC";
 		return database.rawQuery(sql, null);
-//		return database.query("master_event", new String[] { "id",
-//				"recurrenceFlag", "name", "description","eventStartDayTime","eventEndDayTime" }, null, null, null,
-//				null, null);
-	}
+    }
 
 	public Cursor getOneEvent(long id) {
 		return database.query("master_event", null, "id=" + id, null, null,
@@ -224,7 +236,6 @@ public class DatabaseAdapter extends Activity{
 			if (!executeSql(sql))
 				return 0;
 			else
-				//createAlarm(c,notificationB4);
 				alarmCreator.createAlarm(c, notificationB4int, name, description, eventStartDayTime);
 		} else if (recurrenceFlag.equals("daily")
 				|| recurrenceFlag.equals("weekly")) {
@@ -250,7 +261,7 @@ public class DatabaseAdapter extends Activity{
 			if (parentId == -1)
 				return 0;
 			//else
-				//createAlarm(c,notificationB4);
+				//alarmCreator.createAlarm(c, notificationB4int, name, description, eventStartDayTime);
 
 
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -259,12 +270,9 @@ public class DatabaseAdapter extends Activity{
 				startDate = format.parse(eventStartDayTime);
 				endDate = format.parse(recurrenceEndDay);
 				endDayTime = format.parse(eventEndDayTime);
-				// System.out.println(date);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (java.text.ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -311,8 +319,8 @@ public class DatabaseAdapter extends Activity{
 
 				if (!executeSql(sql))
 					return 0;
-				//else
-				//createAlarm(c,notificationB4);
+				else
+					alarmCreator.createAlarm(c, notificationB4int, name, description, eventStartDayTime);
 				
 				c.add(Calendar.DATE, incr);
 				startDate = (Date) c.getTime();
@@ -401,8 +409,8 @@ public class DatabaseAdapter extends Activity{
 
 				if (!executeSql(sql))
 					return 0;
-				//else
-					//createAlarm(c,notificationB4);
+				else
+					alarmCreator.createAlarm(c, notificationB4int, name, description, eventStartDayTime);
 				
 				c.add(Calendar.MONTH, 1);
 				startDate = (Date) c.getTime();
@@ -422,8 +430,11 @@ public class DatabaseAdapter extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
 	}
-	
-	
+/**
+ * 
+ * @param id
+ * @return
+ */
 	public String getRecurrenceFlag(long id) {
 
 		Cursor cursor;
@@ -433,7 +444,11 @@ public class DatabaseAdapter extends Activity{
 		return cursor.getString(0);
 
 	}
-
+/**
+ * 
+ * @param id
+ * @return
+ */
 	public long getParentId(int id) {
 
 		Cursor cursor;
@@ -442,7 +457,11 @@ public class DatabaseAdapter extends Activity{
 		cursor.moveToFirst();
 		return cursor.getInt(0);
 	}
-
+/**
+ * 
+ * @param id
+ * @return
+ */
 	public boolean deleteEvents(int id) {
 		// TODO delete all rows that has the perentID equal to given ID
 
@@ -461,7 +480,20 @@ public class DatabaseAdapter extends Activity{
 		}
 
 	}
-
+/**
+ * 
+ * @param sId
+ * @param name
+ * @param description
+ * @param eventStartDayTime
+ * @param eventEndDayTime
+ * @param notificationFreq
+ * @param notificationB4
+ * @param notificationType
+ * @param recurrenceFlag
+ * @param recurrenceEndDay
+ * @return
+ */
 	public boolean editEvent(int sId, String name, String description,
 			String eventStartDayTime, String eventEndDayTime,
 			String notificationFreq, String notificationB4,
@@ -518,7 +550,11 @@ public class DatabaseAdapter extends Activity{
 		return false;
 
 	}
-
+  /**
+   * 
+   * @param newValue
+   * @return
+   */
 	public boolean setNotificationFreq(int newValue) {
 
 		String sql = "UPDATE global_config SET integerValue = '" + newValue
@@ -528,7 +564,11 @@ public class DatabaseAdapter extends Activity{
 		return false;
 
 	}
-
+/**
+ * 
+ * @param txt
+ * @return
+ */
 	public boolean setNotificationType(String txt) {
 
 		String sql = "UPDATE global_config SET textValue = '" + txt
@@ -538,7 +578,11 @@ public class DatabaseAdapter extends Activity{
 		return false;
 
 	}
-
+/**
+ * 
+ * @param txt
+ * @return
+ */
 	public boolean setRecurrenceFlag(String txt) {
 
 		String sql = "UPDATE global_config SET textValue = '" + txt
@@ -548,7 +592,11 @@ public class DatabaseAdapter extends Activity{
 		return false;
 
 	}
-
+/**
+ * 
+ * @param txt
+ * @return
+ */
 	public boolean setRecurrenceEndTime(String txt) {
 
 		String sql = "UPDATE global_config SET TextValue = " + txt
@@ -558,8 +606,12 @@ public class DatabaseAdapter extends Activity{
 		return false;
 
 	}
-
-	
+/**
+ * 	
+ * @param id
+ * @param title
+ * @param body
+ */
 
 	public void updateEvent(long id, String title, String body) {
 		ContentValues editCon = new ContentValues();

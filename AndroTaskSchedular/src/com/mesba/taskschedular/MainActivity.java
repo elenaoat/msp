@@ -72,6 +72,7 @@ public class MainActivity extends Activity {
 		actionbar.addTab(taskListTab);
 
 		// set the app icon as an action to go Home
+
 		actionbar.setDisplayHomeAsUpEnabled(false);
 	}
 

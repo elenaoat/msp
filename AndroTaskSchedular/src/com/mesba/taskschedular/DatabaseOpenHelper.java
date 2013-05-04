@@ -11,7 +11,6 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 	public static final String TABLE_GCONFIG = "global_config";
 	public static final int DATABASE_VERSION = 1 ;
 	public Context context;
-	//public static DatabaseAdapter dAdapter;
 	
 	public static final String CREATE_TABLE_MASTER = "CREATE TABLE " + TABLE_MASTER
 			+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, "

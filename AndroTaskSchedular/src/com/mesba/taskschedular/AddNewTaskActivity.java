@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.mesba.dynamicui.R;
 
@@ -22,13 +24,16 @@ public class AddNewTaskActivity extends Activity {
 
 	private DatabaseAdapter dbAdapter;
 	private EditText etTitle, etBody;
-	private Button fromTimeBtn, toTimeBtn, fromDateBtn, toDateBtn;
+	private Button fromTimeBtn, toTimeBtn, fromDateBtn, toDateBtn, recDateBtn;
 	private String date_sent;
 	private int time_sent;
-	public CustomDate date_DT_from, date_DT_to, date_save_from, date_save_to;
+	public CustomDate date_DT_from, date_DT_to, date_DT_rec, date_save_from,
+			date_save_to, date_save_rec;
 	public CustomTime time_DT_from, time_DT_to, time_save_from, time_save_to;
 
 	private String tag, name, description;
+
+	private Spinner spinner;
 
 	private int id;
 
@@ -48,6 +53,9 @@ public class AddNewTaskActivity extends Activity {
 		toTimeBtn = (Button) findViewById(R.id.to_time_picker);
 		fromDateBtn = (Button) findViewById(R.id.from_date_picker);
 		toDateBtn = (Button) findViewById(R.id.to_date_picker);
+		recDateBtn = (Button) findViewById(R.id.rec_date_picker);
+
+		recDateBtn.setText("Click if not 'none'");
 
 		etTitle = (EditText) findViewById(R.id.etTitle);
 		etBody = (EditText) findViewById(R.id.etNote);
@@ -65,8 +73,12 @@ public class AddNewTaskActivity extends Activity {
 			// times and dates for "From" and "To" are equal
 			time_DT_from = new CustomTime(time_sent, 0);
 			date_DT_from = new CustomDate(date_sent);
-			time_DT_to = new CustomTime(time_sent+1, 0);
-			//time_DT_to = HelperMethods.addHour(time_DT_from);
+
+			time_DT_to = new CustomTime(time_sent + 1, 0);
+			// time_DT_to = HelperMethods.addHour(time_DT_from);
+
+			date_DT_rec = new CustomDate(date_sent);
+
 			date_DT_to = new CustomDate(date_sent);
 		} else if (intent.getStringExtra("tag").equals("edit")) {
 			if (intent.hasExtra("com.taskmanager.ID")) {
@@ -82,6 +94,14 @@ public class AddNewTaskActivity extends Activity {
 
 		setReceivedTime();
 		setReceivedDate();
+		addListenerOnSpinnerItemSelection();
+	}
+
+	private void addListenerOnSpinnerItemSelection() {
+
+		spinner = (Spinner) findViewById(R.id.spinner1);
+		spinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+
 	}
 
 	@Override
@@ -162,12 +182,20 @@ public class AddNewTaskActivity extends Activity {
 			date_save_to = new CustomDate(0, 0, 0);
 			Log.v("date DT to", date_save_to.getDate());
 
-		} 
+		}
 
+		new DatePickerDialog(this, new CustomOnDateSetListener((Button) v,
+				date_save_to), date_DT_to.getYear(), date_DT_to.getMonth(),
+				date_DT_to.getDay()).show();
+	}
 
-		new DatePickerDialog(this, new CustomOnDateSetListener(
-				(Button) v, date_save_to), date_DT_to.getYear(),
-				date_DT_to.getMonth(), date_DT_to.getDay()).show();
+	public void chooseDateRec(View v) {
+
+		date_save_rec = new CustomDate(0, 0, 0);
+		CustomOnDateSetListener customDateListener = new CustomOnDateSetListener(
+				(Button) v, date_save_rec);
+		new DatePickerDialog(this, customDateListener, date_DT_rec.getYear(),
+				date_DT_rec.getMonth(), date_DT_rec.getDay()).show();
 	}
 
 	public void chooseDateFrom(View v) {
@@ -175,9 +203,9 @@ public class AddNewTaskActivity extends Activity {
 			date_DT_from = date_save_from;
 		} else {
 			date_save_from = new CustomDate(0, 0, 0);
-		} 
-		new DatePickerDialog(this, new CustomOnDateSetListener(
-				(Button) v, date_save_from), date_DT_from.getYear(),
+		}
+		new DatePickerDialog(this, new CustomOnDateSetListener((Button) v,
+				date_save_from), date_DT_from.getYear(),
 				date_DT_from.getMonth(), date_DT_from.getDay()).show();
 	}
 
@@ -208,6 +236,10 @@ public class AddNewTaskActivity extends Activity {
 		}
 		if (date_save_to == null) {
 			date_save_to = date_DT_to;
+		}
+
+		if (date_save_rec == null) {
+			date_save_rec = date_DT_rec;
 		}
 
 		if (time_save_from == null) {
@@ -246,6 +278,7 @@ public class AddNewTaskActivity extends Activity {
 
 	/* Insert data chosen by user into database */
 	public void insertIntoDB(String taskTag) {
+		spinner = (Spinner) findViewById(R.id.spinner1);
 		dbAdapter.Open();
 
 		Log.v("if its not null", date_save_from.getDate());
@@ -266,7 +299,9 @@ public class AddNewTaskActivity extends Activity {
 					date_save_from.getDateForDB() + " "
 							+ time_save_from.getTimeStr(),
 					date_save_to.getDateForDB() + " "
-							+ time_save_to.getTimeStr(), "", "", "", "", "");
+							+ time_save_to.getTimeStr(), "", "", "",
+					String.valueOf(spinner.getSelectedItem()),
+					date_save_rec.getDateForDB() + " 1:00");
 			if (inserted > 0) {
 				HelperMethods.displayToast("Successfully Saved", this);
 				etTitle.setText("");
