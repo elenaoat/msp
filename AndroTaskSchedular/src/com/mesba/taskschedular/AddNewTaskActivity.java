@@ -35,7 +35,6 @@ public class AddNewTaskActivity extends Activity {
 
 	private Spinner spinner;
 
-
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +84,8 @@ public class AddNewTaskActivity extends Activity {
 				getDataFromDatabase(id);
 				etTitle.setText(name);
 				etBody.setText(description);
-				//Log.v("ID obtained from another activity", Integer.toString(id));
+				// Log.v("ID obtained from another activity",
+				// Integer.toString(id));
 			} else {
 				Log.v("Error", "obtaining ID");
 			}
@@ -176,10 +176,10 @@ public class AddNewTaskActivity extends Activity {
 	public void chooseDateTo(View v) {
 		if (date_save_to != null) {
 			date_DT_to = date_save_to;
-			//Log.v("date DT to", date_DT_to.getDate());
+			// Log.v("date DT to", date_DT_to.getDate());
 		} else {
 			date_save_to = new CustomDate(0, 0, 0);
-			//Log.v("date DT to", date_save_to.getDate());
+			// Log.v("date DT to", date_save_to.getDate());
 
 		}
 
@@ -249,21 +249,50 @@ public class AddNewTaskActivity extends Activity {
 			time_save_to = time_DT_to;
 		}
 
+		
+		// if ((time_save_from.getHour() > time_save_to.getHour()
+		// && date_save_from.getYear() >= date_save_to.getYear()
+		// && date_save_from.getMonth() >= date_save_to.getMonth() &&
+		// date_save_from
+		// .getDay() >= date_save_to.getDay())
+		// || (time_save_from.getHour() == time_save_to.getHour() &&
+		// time_save_from
+		// .getMinute() >= time_save_to.getMinute())
+		// && date_save_from.getYear() >= date_save_to.getYear()
+		// && date_save_from.getMonth() >= date_save_to.getMonth()
+		// && date_save_from.getDay() >= date_save_to.getDay()) {
+		//
+		// HelperMethods.displayToast("You have inserted incorrect times",
+		// this);
+		// // return to MainActivity ???
+		//
+		// }
+		
 		// Validating input inserted by user: hourFrom < hourTo, Title not empty
-		if ((time_save_from.getHour() > time_save_to.getHour()
-				&& date_save_from.getYear() >= date_save_to.getYear()
-				&& date_save_from.getMonth() >= date_save_to.getMonth() && date_save_from
-				.getDay() >= date_save_to.getDay())
-				|| (time_save_from.getHour() == time_save_to.getHour() && time_save_from
-						.getMinute() >= time_save_to.getMinute())
-				&& date_save_from.getYear() >= date_save_to.getYear()
-				&& date_save_from.getMonth() >= date_save_to.getMonth()
-				&& date_save_from.getDay() >= date_save_to.getDay()) {
+		// Validation logic updated
 
+		int from_yr = date_save_from.getYear();
+		int to_yr = date_save_to.getYear();
+
+		int from_mth = date_save_from.getMonth();
+		int to_mth = date_save_to.getMonth();
+
+		int from_day = date_save_from.getDay();
+		int to_day = date_save_to.getDay();
+
+		int from_hr = time_save_from.getHour();
+		int to_hr = time_save_from.getHour();
+
+		int from_min = time_save_from.getMinute();
+		int to_min = time_save_from.getMinute();
+
+		if (!((to_yr > from_yr) 
+				|| (to_yr == from_yr && to_mth > from_mth)
+				|| (to_mth == from_mth && to_day > from_day)
+				|| (to_day == from_day && to_hr > from_hr) 
+				|| (to_hr == from_hr && to_min > from_min))) {
 			HelperMethods.displayToast("You have inserted incorrect times",
 					this);
-			// return to MainActivity ???
-
 		} else if (etTitle.getText().toString().equals("")) {
 			HelperMethods.displayToast("Please insert task title", this);
 			// return to MainActivity ???
@@ -282,11 +311,11 @@ public class AddNewTaskActivity extends Activity {
 
 		Log.v("if its not null", date_save_from.getDate());
 		if (date_save_from == null) {
-			//Log.v("date is null too", "");
+			// Log.v("date is null too", "");
 		}
 
-		//Log.v("date for DB", date_save_from.getDateForDB());
-		//Log.v("time for DB", time_save_from.getTimeStr());
+		// Log.v("date for DB", date_save_from.getDateForDB());
+		// Log.v("time for DB", time_save_from.getTimeStr());
 		/* workaround in case the date/time pickers werent selected at all */
 
 		long inserted = 0;
@@ -298,13 +327,14 @@ public class AddNewTaskActivity extends Activity {
 					date_save_from.getDateForDB() + " "
 							+ time_save_from.getTimeStr(),
 					date_save_to.getDateForDB() + " "
-							+ time_save_to.getTimeStr(), "", "",
-					"",		
+							+ time_save_to.getTimeStr(), "", "", "",
 					String.valueOf(spinner.getSelectedItem()),
-					date_save_rec.getDateForDB()+ "00:00");
-					//date_save_rec.getDateForDB());
-					Log.v("String.valueOf(spinner.getSelectedItem())", String.valueOf(spinner.getSelectedItem()));
-					Log.v("date_save_rec.getDateForDB());",  date_save_rec.getDateForDB());
+					date_save_rec.getDateForDB() + "00:00");
+			// date_save_rec.getDateForDB());
+			Log.v("String.valueOf(spinner.getSelectedItem())",
+					String.valueOf(spinner.getSelectedItem()));
+			Log.v("date_save_rec.getDateForDB());",
+					date_save_rec.getDateForDB());
 
 			if (inserted > 0) {
 				HelperMethods.displayToast("Successfully Saved", this);
@@ -328,7 +358,7 @@ public class AddNewTaskActivity extends Activity {
 		dbAdapter.Close();
 
 		if (date_save_from != null) {
-			//Log.v("get date", date_save_from.getDate());
+			// Log.v("get date", date_save_from.getDate());
 		}
 
 		Intent i = new Intent(this, MainActivity.class);
