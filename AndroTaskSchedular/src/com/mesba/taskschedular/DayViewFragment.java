@@ -1,11 +1,13 @@
 package com.mesba.taskschedular;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -42,6 +44,8 @@ public class DayViewFragment extends Fragment {
 
 	private String currentDateTimeString;
 	private String currentDate_YYYY_mm_dd;
+	
+	private int selectedModeFlag=0;
 
 	public SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	public Calendar today = Calendar.getInstance();
@@ -51,6 +55,8 @@ public class DayViewFragment extends Fragment {
 	
 	private ListView listView;
 	private TaskListAdapter adapter;
+	
+	private String receivedDateFromMonth;
 
 	public final static String ID = "com.taskmanager.ID";
 	public final static String DATE = "com.taskmanager.DATE";
@@ -58,22 +64,65 @@ public class DayViewFragment extends Fragment {
 	public final static String MINUTE = "com.taskmanager.MINUTE";
 	public final static String NAME = "com.taskmanager.NAME";
 	public final static String DESCRIPTION = "com.taskmanager.DESCRIPTION";
-
-	@Override
+	private String day_month_year;
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		dayView = inflater.inflate(R.layout.layout_day_view, container, false);
 
 		dbAdapter = new DatabaseAdapter(getActivity());
-
+		
+		Bundle bundle = this.getArguments();
 		currentDate = (TextView) dayView.findViewById(R.id.dvu_header);
+		if(bundle!=null){
+			selectedModeFlag=1;
+			day_month_year = bundle.getString("selectedDate");
+		
+			System.out.print("selectedDate" + day_month_year);
+			showPassingtDate(day_month_year);
+			formatReceivedStringFromMonthview(day_month_year);
+		}else{
+		
 		showCurrentDate();
-
+		}
 		dbAdapter.Open();
 		showTasks();
 		dbAdapter.Close();
 
 		return dayView;
+	}
+
+	private void formatReceivedStringFromMonthview(String day_month_year) {
+		// TODO Auto-generated method stub
+		
+		
+		try {
+			Date d = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(day_month_year.split("-")[1]);
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(d);
+			int month = cal.get(Calendar.MONTH);
+		
+
+			String yearStr = day_month_year.split("-")[2];
+			String dateStr = day_month_year.split("-")[0];
+			String monthStr = "" + (month + 1);
+
+			if(dateStr.length() == 1) dateStr = "0" + dateStr;
+			if(monthStr.length() == 1) monthStr = "0" + monthStr;
+
+			receivedDateFromMonth = yearStr + "-" + monthStr + "-" + dateStr;
+
+		   } catch (ParseException e) {
+			      e.printStackTrace();
+		   }
+		
+	}
+
+	private void showPassingtDate(String p) {
+		// TODO Auto-generated method stub
+		System.out.println(currentDate_YYYY_mm_dd);
+		currentDate.setText(p);
+		
 	}
 
 	/**
@@ -90,7 +139,11 @@ public class DayViewFragment extends Fragment {
 
 	public void showTasks() {
 		t_array = new ArrayList<Task>();
-		Cursor curs = dbAdapter.getEventByDate(dateFormat.format(today
+		Cursor curs;
+		if(selectedModeFlag==1){			
+			curs = dbAdapter.getEventByDate(receivedDateFromMonth);
+		}else
+		 curs = dbAdapter.getEventByDate(dateFormat.format(today
 				.getTime()));
 
 		if (curs.moveToFirst()) {
@@ -155,10 +208,14 @@ public class DayViewFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				if (hours.get(position).id == -1) {
-
+					String date="";
 					Intent intent = new Intent(getActivity(),
 							AddNewTaskActivity.class);
-					String date = dateFormat.format(today.getTime());
+					if(selectedModeFlag==0)
+					   date = dateFormat.format(today.getTime());
+					else
+						date=receivedDateFromMonth;
+					System.out.print(date);
 					int time = hours.get(position).time;
 					intent.putExtra(DATE, date);
 					intent.putExtra(HOUR, time);

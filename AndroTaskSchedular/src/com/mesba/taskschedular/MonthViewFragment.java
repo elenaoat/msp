@@ -18,6 +18,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -203,8 +205,7 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 		private Button gridcell;
 		private TextView num_events_per_day;
 		private final HashMap<String, Integer> eventsPerMonthMap;
-		private final SimpleDateFormat dateFormatter = new SimpleDateFormat(
-				"dd-MMM-yyyy");
+		//private final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
 
 		// Days in Current Month
 		public GridCellAdapter(Context context, int textViewResourceId,
@@ -441,7 +442,7 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 			String date_month_year = (String) view.getTag();
 			selectedDayMonthYearText.setText("Selected: " + date_month_year);
 			// TODO implement the task by date when clicked a date
-
+			/*
 			try {
 				Date parsedDate = dateFormatter.parse(date_month_year);
 				Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(date_month_year.split("-")[1]);
@@ -458,19 +459,36 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 			    if(monthStr.length() == 1) monthStr = "0" + monthStr;
 			    
 			    String dateString = yearStr + "-" + monthStr + "-" + dateStr;
+			   
 			    
 			    dbAdapter.Open();
 			    showTaskList(dateString);
 			    dbAdapter.Close();
+			   
 			    
 //				String newDate = dateFormat.format(parsedDate);
 				Log.d(tag, "Parsed Date: " + parsedDate.toString());
 			} catch (ParseException e) {
 				e.printStackTrace();
-			}
+			} */
 
 			Log.v("in the month view", date_month_year);
 			//String[] selectedDate = date_month_year.split("-");
+			
+			Bundle data = new Bundle();
+			data.putString("selectedDate", date_month_year);
+			
+			Fragment fragment = new DayViewFragment();
+			fragment.setArguments(data);
+			
+			android.app.FragmentManager fragmentManager = getFragmentManager();
+			android.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+			
+			transaction.replace(R.id.fragment_container, fragment);
+			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+			transaction.addToBackStack(null);
+			transaction.commit();
+			
 
 		}
 		
