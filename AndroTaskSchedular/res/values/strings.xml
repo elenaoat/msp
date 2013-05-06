@@ -30,7 +30,7 @@
     <string name="title_activity_edit_task">EditTaskActivity</string>
     <string name="rec_prompt">Recurrence Type:</string>
     <string name="notify_before">Notify before (mins):</string>
-   
+
     <string-array name="rec_arrays">
         <item>none</item>
         <item>daily</item>
@@ -45,5 +45,7 @@
         <item>Bar</item>
         <item>Alarm</item>
     </string-array>
+
+    <string name="title_activity_delete_task">Delete Task</string>
 
 </resources>

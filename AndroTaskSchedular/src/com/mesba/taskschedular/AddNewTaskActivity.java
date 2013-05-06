@@ -332,7 +332,7 @@ public class AddNewTaskActivity extends Activity {
 					date_save_to.getDateForDB() + " "
 							+ time_save_to.getTimeStr(), "", "", "",
 					String.valueOf(spinner.getSelectedItem()),
-					date_save_rec.getDateForDB());
+					date_save_rec.getDateForDB()+" 00:00");
 			// date_save_rec.getDateForDB());
 			Log.v("String.valueOf(spinner.getSelectedItem())",
 					String.valueOf(spinner.getSelectedItem()));

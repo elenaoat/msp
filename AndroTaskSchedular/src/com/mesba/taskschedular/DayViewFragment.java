@@ -25,18 +25,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mesba.dynamicui.R;
 
-
 @SuppressLint({ "NewApi", "SimpleDateFormat" })
 public class DayViewFragment extends Fragment {
 	private View dayView;
-	private int position;
+	public int pos;
 	private ActionMode mActionMode;
 	private ActionMode.Callback mActionModeCallback;
 	private DatabaseAdapter dbAdapter;
@@ -44,18 +42,18 @@ public class DayViewFragment extends Fragment {
 
 	private String currentDateTimeString;
 	private String currentDate_YYYY_mm_dd;
-	
-	private int selectedModeFlag=0;
+
+	private int selectedModeFlag = 0;
 
 	public SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	public Calendar today = Calendar.getInstance();
 
 	private List<Slot> hours;
 	private List<Task> t_array;
-	
+
 	private ListView listView;
 	private TaskListAdapter adapter;
-	
+
 	private String receivedDateFromMonth;
 
 	public final static String ID = "com.taskmanager.ID";
@@ -65,25 +63,25 @@ public class DayViewFragment extends Fragment {
 	public final static String NAME = "com.taskmanager.NAME";
 	public final static String DESCRIPTION = "com.taskmanager.DESCRIPTION";
 	private String day_month_year;
-	
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		dayView = inflater.inflate(R.layout.layout_day_view, container, false);
 
 		dbAdapter = new DatabaseAdapter(getActivity());
-		
+
 		Bundle bundle = this.getArguments();
 		currentDate = (TextView) dayView.findViewById(R.id.dvu_header);
-		if(bundle!=null){
-			selectedModeFlag=1;
+		if (bundle != null) {
+			selectedModeFlag = 1;
 			day_month_year = bundle.getString("selectedDate");
-		
+
 			System.out.print("selectedDate" + day_month_year);
 			showPassingtDate(day_month_year);
 			formatReceivedStringFromMonthview(day_month_year);
-		}else{
-		
-		showCurrentDate();
+		} else {
+
+			showCurrentDate();
 		}
 		dbAdapter.Open();
 		showTasks();
@@ -94,35 +92,36 @@ public class DayViewFragment extends Fragment {
 
 	private void formatReceivedStringFromMonthview(String day_month_year) {
 		// TODO Auto-generated method stub
-		
-		
+
 		try {
-			Date d = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(day_month_year.split("-")[1]);
+			Date d = new SimpleDateFormat("MMM", Locale.ENGLISH)
+					.parse(day_month_year.split("-")[1]);
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(d);
 			int month = cal.get(Calendar.MONTH);
-		
 
 			String yearStr = day_month_year.split("-")[2];
 			String dateStr = day_month_year.split("-")[0];
 			String monthStr = "" + (month + 1);
 
-			if(dateStr.length() == 1) dateStr = "0" + dateStr;
-			if(monthStr.length() == 1) monthStr = "0" + monthStr;
+			if (dateStr.length() == 1)
+				dateStr = "0" + dateStr;
+			if (monthStr.length() == 1)
+				monthStr = "0" + monthStr;
 
 			receivedDateFromMonth = yearStr + "-" + monthStr + "-" + dateStr;
 
-		   } catch (ParseException e) {
-			      e.printStackTrace();
-		   }
-		
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	private void showPassingtDate(String p) {
 		// TODO Auto-generated method stub
 		System.out.println(currentDate_YYYY_mm_dd);
 		currentDate.setText(p);
-		
+
 	}
 
 	/**
@@ -140,11 +139,10 @@ public class DayViewFragment extends Fragment {
 	public void showTasks() {
 		t_array = new ArrayList<Task>();
 		Cursor curs;
-		if(selectedModeFlag==1){			
+		if (selectedModeFlag == 1) {
 			curs = dbAdapter.getEventByDate(receivedDateFromMonth);
-		}else
-		 curs = dbAdapter.getEventByDate(dateFormat.format(today
-				.getTime()));
+		} else
+			curs = dbAdapter.getEventByDate(dateFormat.format(today.getTime()));
 
 		if (curs.moveToFirst()) {
 			do {
@@ -187,7 +185,9 @@ public class DayViewFragment extends Fragment {
 					// Log.v("hour in slot ", hours.get(j).hourStr());
 					if ((t_array.get(i).eventStartDayTime.substring(11, 13))
 							.equals(hours.get(j).hourStr())) {
-						hours.get(j).setName(t_array.get(i).name + "-" + t_array.get(i).description);
+						hours.get(j).setName(
+								t_array.get(i).name + "-"
+										+ t_array.get(i).description);
 						hours.get(j).setId(t_array.get(i).id);
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
@@ -207,35 +207,35 @@ public class DayViewFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				
-				
-				mActionMode = getActivity().startActionMode(mActionModeCallback);
 
-//				if (hours.get(position).id == -1) {
-//					String date="";
-//					Intent intent = new Intent(getActivity(),
-//							AddNewTaskActivity.class);
-//					if(selectedModeFlag==0)
-//					   date = dateFormat.format(today.getTime());
-//					else
-//						date=receivedDateFromMonth;
-//					System.out.print(date);
-//					int time = hours.get(position).time;
-//					intent.putExtra(DATE, date);
-//					intent.putExtra(HOUR, time);
-//					intent.putExtra("tag", "add");
-//					startActivity(intent);
-//
-//				} else if (hours.get(position).getId() != -1) {
-//					// Send only ID, all the others will be extracted from the
-//					// DB
-//					// TODO need to fix this part
-//					Intent intent = new Intent(getActivity(),
-//							AddNewTaskActivity.class);
-//					intent.putExtra("tag", "edit");
-//					intent.putExtra(ID, hours.get(position).getId());
-//					startActivity(intent);
-//				}
+				mActionMode = getActivity()
+						.startActionMode(mActionModeCallback);
+				pos = position;
+				// if (hours.get(position).id == -1) {
+				// String date="";
+				// Intent intent = new Intent(getActivity(),
+				// AddNewTaskActivity.class);
+				// if(selectedModeFlag==0)
+				// date = dateFormat.format(today.getTime());
+				// else
+				// date=receivedDateFromMonth;
+				// System.out.print(date);
+				// int time = hours.get(position).time;
+				// intent.putExtra(DATE, date);
+				// intent.putExtra(HOUR, time);
+				// intent.putExtra("tag", "add");
+				// startActivity(intent);
+				//
+				// } else if (hours.get(position).getId() != -1) {
+				// // Send only ID, all the others will be extracted from the
+				// // DB
+				// // TODO need to fix this part
+				// Intent intent = new Intent(getActivity(),
+				// AddNewTaskActivity.class);
+				// intent.putExtra("tag", "edit");
+				// intent.putExtra(ID, hours.get(position).getId());
+				// startActivity(intent);
+				// }
 
 			}
 
@@ -243,64 +243,98 @@ public class DayViewFragment extends Fragment {
 
 		mActionModeCallback = new ActionMode.Callback() {
 
-		    // Called when the action mode is created; startActionMode() was called
-		    @Override
-		    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-		        // Inflate a menu resource providing context menu items
-		        MenuInflater inflater = mode.getMenuInflater();
-		        inflater.inflate(R.menu.menu_dayview, menu);
-		        return true;
-		    }
+			// Called when the action mode is created; startActionMode() was
+			// called
+			@Override
+			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				// Inflate a menu resource providing context menu items
+				MenuInflater inflater = mode.getMenuInflater();
+				inflater.inflate(R.menu.menu_dayview, menu);
+				return true;
+			}
 
-		    // Called each time the action mode is shown. Always called after onCreateActionMode, but
-		    // may be called multiple times if the mode is invalidated.
-		    @Override
-		    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-		        return false; // Return false if nothing is done
-		    }
+			// Called each time the action mode is shown. Always called after
+			// onCreateActionMode, but
+			// may be called multiple times if the mode is invalidated.
+			@Override
+			public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+				return false; // Return false if nothing is done
+			}
 
-		    // Called when the user selects a contextual menu item
-		    @Override
-		    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-		        switch (item.getItemId()) {
-		            case R.id.edit:
-		            //    shareCurrentItem();
-		            	
-		            	//Log.v("on Long Click", "picked");
-		                mode.finish(); // Action picked, so close the CAB
-		                return true;
-		            case R.id.delete:
-						if (hours.get(position).id == -1) {
-							Log.v("the task doesnt exist", "id = -1");
-	
-						} else if (hours.get(position).getId() != -1) {							
-							dbAdapter.Open();
-							dbAdapter.deleteEvents(hours.get(position).getId());
-							dbAdapter.Close();
-							mode.finish();
-						}
-		            	
-		            default:
-		                return false;
-		        }
-		    }
+			// Called when the user selects a contextual menu item
+			@Override
+			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+				switch (item.getItemId()) {
+				case R.id.edit:
+					// shareCurrentItem();
+
+					if (hours.get(pos).id == -1) {
+						String date = "";
+						Intent intent = new Intent(getActivity(),
+								AddNewTaskActivity.class);
+						if (selectedModeFlag == 0)
+							date = dateFormat.format(today.getTime());
+						else
+							date = receivedDateFromMonth;
+						int time = hours.get(pos).time;
+						intent.putExtra(DATE, date);
+						intent.putExtra(HOUR, time);
+						intent.putExtra("tag", "add");
+						startActivity(intent);
+
+					} else if (hours.get(pos).getId() != -1) {
+						// Send only ID, all the others will be extracted from
+						// the
+						// DB
+						// TODO need to fix this part
+						Intent intent = new Intent(getActivity(),
+								AddNewTaskActivity.class);
+						intent.putExtra("tag", "edit");
+						intent.putExtra(ID, hours.get(pos).getId());
+						startActivity(intent);
+					}
+
+					// Log.v("on Long Click", "picked");
+					mode.finish(); // Action picked, so close the CAB
+					return true;
+				case R.id.delete:
+					if (hours.get(pos).id == -1) {
+						Log.v("the task doesnt exist", "id = -1");
+						HelperMethods
+								.displayToast(
+										"You cannot delete an event that doesn't exist",
+										getActivity());
+
+					} else if (hours.get(pos).getId() != -1) {
+						Intent intent = new Intent(getActivity(), DeleteTaskActivity.class);
+						intent.putExtra("tag", "delete");
+						intent.putExtra(ID, hours.get(pos).getId());
+						startActivity(intent);
+
+//						mode.finish();
+					}
+
+				default:
+					return false;
+				}
+			}
 
 			@Override
 			public void onDestroyActionMode(ActionMode arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-		};    
-//		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
-//
-//			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-//					int pos, long id) {
-//				//Log.v("long clicked", "pos" + " " + pos);
-//				position = pos;
-//				mActionMode = getActivity().startActionMode(mActionModeCallback);
-//				return true;
-//			}
-//		});
+		};
+		// listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+		//
+		// public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+		// int pos, long id) {
+		// //Log.v("long clicked", "pos" + " " + pos);
+		// position = pos;
+		// mActionMode = getActivity().startActionMode(mActionModeCallback);
+		// return true;
+		// }
+		// });
 
 		curs.close();
 	}
