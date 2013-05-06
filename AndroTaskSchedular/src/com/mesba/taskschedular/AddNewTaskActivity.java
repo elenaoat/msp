@@ -255,47 +255,48 @@ public class AddNewTaskActivity extends Activity {
 		}
 
 		// Validating input inserted by user: hourFrom < hourTo, Title not empty
+		// if ((time_save_from.getHour() > time_save_to.getHour()
+		// && date_save_from.getYear() >= date_save_to.getYear()
+		// && date_save_from.getMonth() >= date_save_to.getMonth() &&
+		// date_save_from
+		// .getDay() >= date_save_to.getDay())
+		// || (time_save_from.getHour() == time_save_to.getHour() &&
+		// time_save_from
+		// .getMinute() >= time_save_to.getMinute())
+		// && date_save_from.getYear() >= date_save_to.getYear()
+		// && date_save_from.getMonth() >= date_save_to.getMonth()
+		// && date_save_from.getDay() >= date_save_to.getDay()) {
+		//
+		// HelperMethods.displayToast("You have inserted incorrect times",
+		// this);
+		// // return to MainActivity ???
+		//
+		// }
 
-//		int from_yr = date_save_from.getYear();
-//		int to_yr = date_save_to.getYear();
-//
-//		int from_mth = date_save_from.getMonth();
-//		int to_mth = date_save_to.getMonth();
-//
-//		int from_day = date_save_from.getDay();
-//		int to_day = date_save_to.getDay();
-//
-//		int from_hr = time_save_from.getHour();
-//		int to_hr = time_save_from.getHour();
-//
-//		int from_min = time_save_from.getMinute();
-//		int to_min = time_save_from.getMinute();
-//
-//		if (!((to_yr > from_yr) || (to_yr == from_yr && to_mth > from_mth)
-//				|| (to_mth == from_mth && to_day > from_day)
-//				|| (to_day == from_day && to_hr > from_hr) || (to_hr == from_hr && to_min > from_min))) {
-//			HelperMethods.displayToast("You have inserted incorrect times",
-//					this);
-//		}
+		// Validating input inserted by user: hourFrom < hourTo, Title not empty
 
-		 //Validating input inserted by user: hourFrom < hourTo, Title not empty
-		 if ((time_save_from.getHour() > time_save_to.getHour()
-		 && date_save_from.getYear() >= date_save_to.getYear()
-		 && date_save_from.getMonth() >= date_save_to.getMonth() &&
-		 date_save_from
-		 .getDay() >= date_save_to.getDay())
-		 || (time_save_from.getHour() == time_save_to.getHour() &&
-		 time_save_from
-		 .getMinute() >= time_save_to.getMinute())
-		 && date_save_from.getYear() >= date_save_to.getYear()
-		 && date_save_from.getMonth() >= date_save_to.getMonth()
-		 && date_save_from.getDay() >= date_save_to.getDay()) {
-		
-		 HelperMethods.displayToast("You have inserted incorrect times",
-		 this);
-		// return to MainActivity ???
+		int from_yr = date_save_from.getYear();
+		int to_yr = date_save_to.getYear();
 
-		 }
+		int from_mth = date_save_from.getMonth();
+		int to_mth = date_save_to.getMonth();
+
+		int from_day = date_save_from.getDay();
+		int to_day = date_save_to.getDay();
+
+		int from_hr = time_save_from.getHour();
+		int to_hr = time_save_to.getHour();
+
+		int from_min = time_save_from.getMinute();
+		int to_min = time_save_to.getMinute();
+
+		if (!((to_yr > from_yr) || (to_yr == from_yr && to_mth > from_mth)
+				|| (to_mth == from_mth && to_day > from_day)
+				|| (to_day == from_day && to_hr > from_hr) 
+				|| (to_hr == from_hr && to_min > from_min))) {
+			HelperMethods.displayToast("You have inserted incorrect times",
+					this);
+		}
 		else if (etTitle.getText().toString().equals("")) {
 			HelperMethods.displayToast("Please insert task title", this);
 			// return to MainActivity ???
