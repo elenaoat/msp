@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
 		ActionBar.Tab dayTab = actionbar.newTab().setText("Day");
 		ActionBar.Tab weekTab = actionbar.newTab().setText("Week");
 		ActionBar.Tab monthTab = actionbar.newTab().setText("Month");
-		ActionBar.Tab taskListTab = actionbar.newTab().setText("Tasks List");
+		ActionBar.Tab taskListTab = actionbar.newTab().setText("Tasks");
 
 		// create the two fragments we want to use for display content
 		Fragment dayFragment = new DayViewFragment();
