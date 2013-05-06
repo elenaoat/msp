@@ -207,10 +207,10 @@ public class DayViewFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-
+				pos = position;
 				mActionMode = getActivity()
 						.startActionMode(mActionModeCallback);
-				pos = position;
+				
 				// if (hours.get(position).id == -1) {
 				// String date="";
 				// Intent intent = new Intent(getActivity(),

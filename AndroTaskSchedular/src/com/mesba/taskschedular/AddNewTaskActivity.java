@@ -8,6 +8,8 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,6 +64,29 @@ public class AddNewTaskActivity extends Activity {
 		Intent intent = getIntent();
 		tag = intent.getStringExtra("tag");
 
+		etNotify.addTextChangedListener(new TextWatcher() {
+
+		        @Override
+		        public void afterTextChanged(Editable s) {
+
+		        }
+
+		        @Override
+		        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+		        }
+
+		        @Override
+		        public void onTextChanged(CharSequence s, int start, int before, int count) {
+		        	Log.v("modified s", s.toString());
+		        	Log.v("modified start", Integer.toString(start));
+		        	Log.v("modified before", Integer.toString(before));
+		        	Log.v("modified count", Integer.toString(count));
+
+		        } 
+
+		    });
 		if (tag.equals("add")) {
 			if (intent.hasExtra("com.taskmanager.DATE")) {
 				date_sent = intent.getStringExtra("com.taskmanager.DATE");
@@ -97,6 +122,8 @@ public class AddNewTaskActivity extends Activity {
 		setReceivedDate();
 		addListenerOnSpinnerItemSelection();
 	}
+	
+
 
 	private void addListenerOnSpinnerItemSelection() {
 
