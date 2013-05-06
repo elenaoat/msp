@@ -207,31 +207,35 @@ public class DayViewFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (hours.get(position).id == -1) {
-					String date="";
-					Intent intent = new Intent(getActivity(),
-							AddNewTaskActivity.class);
-					if(selectedModeFlag==0)
-					   date = dateFormat.format(today.getTime());
-					else
-						date=receivedDateFromMonth;
-					System.out.print(date);
-					int time = hours.get(position).time;
-					intent.putExtra(DATE, date);
-					intent.putExtra(HOUR, time);
-					intent.putExtra("tag", "add");
-					startActivity(intent);
+				
+				
+				mActionMode = getActivity().startActionMode(mActionModeCallback);
 
-				} else if (hours.get(position).getId() != -1) {
-					// Send only ID, all the others will be extracted from the
-					// DB
-					// TODO need to fix this part
-					Intent intent = new Intent(getActivity(),
-							AddNewTaskActivity.class);
-					intent.putExtra("tag", "edit");
-					intent.putExtra(ID, hours.get(position).getId());
-					startActivity(intent);
-				}
+//				if (hours.get(position).id == -1) {
+//					String date="";
+//					Intent intent = new Intent(getActivity(),
+//							AddNewTaskActivity.class);
+//					if(selectedModeFlag==0)
+//					   date = dateFormat.format(today.getTime());
+//					else
+//						date=receivedDateFromMonth;
+//					System.out.print(date);
+//					int time = hours.get(position).time;
+//					intent.putExtra(DATE, date);
+//					intent.putExtra(HOUR, time);
+//					intent.putExtra("tag", "add");
+//					startActivity(intent);
+//
+//				} else if (hours.get(position).getId() != -1) {
+//					// Send only ID, all the others will be extracted from the
+//					// DB
+//					// TODO need to fix this part
+//					Intent intent = new Intent(getActivity(),
+//							AddNewTaskActivity.class);
+//					intent.putExtra("tag", "edit");
+//					intent.putExtra(ID, hours.get(position).getId());
+//					startActivity(intent);
+//				}
 
 			}
 
@@ -287,16 +291,16 @@ public class DayViewFragment extends Fragment {
 				
 			}
 		};    
-		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					int pos, long id) {
-				//Log.v("long clicked", "pos" + " " + pos);
-				position = pos;
-				mActionMode = getActivity().startActionMode(mActionModeCallback);
-				return true;
-			}
-		});
+//		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+//
+//			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+//					int pos, long id) {
+//				//Log.v("long clicked", "pos" + " " + pos);
+//				position = pos;
+//				mActionMode = getActivity().startActionMode(mActionModeCallback);
+//				return true;
+//			}
+//		});
 
 		curs.close();
 	}
