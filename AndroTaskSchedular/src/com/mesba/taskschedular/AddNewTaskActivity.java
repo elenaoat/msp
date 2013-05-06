@@ -277,31 +277,33 @@ public class AddNewTaskActivity extends Activity {
 //			HelperMethods.displayToast("You have inserted incorrect times",
 //					this);
 //		}
-		
-		
-        // Validating input inserted by user: hourFrom < hourTo, Title not empty
-        if ((time_save_from.getHour() > time_save_to.getHour()
-                && date_save_from.getYear() >= date_save_to.getYear()
-                && date_save_from.getMonth() >= date_save_to.getMonth() && date_save_from
-                .getDay() >= date_save_to.getDay())
-                || (time_save_from.getHour() == time_save_to.getHour() && time_save_from
-                        .getMinute() >= time_save_to.getMinute())
-                && date_save_from.getYear() >= date_save_to.getYear()
-                && date_save_from.getMonth() >= date_save_to.getMonth()
-                && date_save_from.getDay() >= date_save_to.getDay()) {
 
-            HelperMethods.displayToast("You have inserted incorrect times",
-                    this);
-            // return to MainActivity ???
+		 //Validating input inserted by user: hourFrom < hourTo, Title not empty
+		 if ((time_save_from.getHour() > time_save_to.getHour()
+		 && date_save_from.getYear() >= date_save_to.getYear()
+		 && date_save_from.getMonth() >= date_save_to.getMonth() &&
+		 date_save_from
+		 .getDay() >= date_save_to.getDay())
+		 || (time_save_from.getHour() == time_save_to.getHour() &&
+		 time_save_from
+		 .getMinute() >= time_save_to.getMinute())
+		 && date_save_from.getYear() >= date_save_to.getYear()
+		 && date_save_from.getMonth() >= date_save_to.getMonth()
+		 && date_save_from.getDay() >= date_save_to.getDay()) {
+		
+		 HelperMethods.displayToast("You have inserted incorrect times",
+		 this);
+		// return to MainActivity ???
 
-        } else if (etTitle.getText().toString().equals("")) {
-            HelperMethods.displayToast("Please insert task title", this);
-            // return to MainActivity ???
-        }
-        // input OK
-        else {
-            insertIntoDB(tag);
-        }
+		 }
+		else if (etTitle.getText().toString().equals("")) {
+			HelperMethods.displayToast("Please insert task title", this);
+			// return to MainActivity ???
+		}
+		// input OK
+		else {
+			insertIntoDB(tag);
+		}
 
 	}
 
