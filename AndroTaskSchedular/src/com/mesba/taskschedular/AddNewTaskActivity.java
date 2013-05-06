@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -102,6 +103,11 @@ public class AddNewTaskActivity extends Activity {
 		spinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 
 	}
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	  super.onConfigurationChanged(newConfig);
+	  setContentView(R.layout.layout_new_task);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -130,23 +136,6 @@ public class AddNewTaskActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	@SuppressLint("NewApi")
-	@Override
-	protected void onRestoreInstanceState(Bundle savedInstanceState) {
-		super.onRestoreInstanceState(savedInstanceState);
-		if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-			getActionBar().setSelectedNavigationItem(
-					savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
-		}
-	}
-
-	@SuppressLint("NewApi")
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar()
-				.getSelectedNavigationIndex());
-	}
 
 	// Button click -> display TimePickerDialog
 	public void chooseTimeFrom(View v) {
@@ -329,7 +318,7 @@ public class AddNewTaskActivity extends Activity {
 					date_save_to.getDateForDB() + " "
 							+ time_save_to.getTimeStr(), "", "", "",
 					String.valueOf(spinner.getSelectedItem()),
-					date_save_rec.getDateForDB() + "00:00");
+					date_save_rec.getDateForDB() + " 00:00");
 			// date_save_rec.getDateForDB());
 			Log.v("String.valueOf(spinner.getSelectedItem())",
 					String.valueOf(spinner.getSelectedItem()));

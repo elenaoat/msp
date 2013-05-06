@@ -36,11 +36,7 @@ public class SettingsPrefs extends PreferenceActivity implements OnSharedPrefere
 	     dbAdapter= new DatabaseAdapter(getApplicationContext());
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_new_task, menu);
-		return true;
-	}
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -86,6 +82,9 @@ public class SettingsPrefs extends PreferenceActivity implements OnSharedPrefere
 			dbAdapter.setRecurrenceFlag(currValue);
 		}
 		dbAdapter.Close();
+		
+		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+		startActivity(intent);
 	}
 	
   
