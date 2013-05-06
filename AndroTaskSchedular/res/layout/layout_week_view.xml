@@ -15,6 +15,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_media_previous" />
+        
+        <TextView
+            android:id="@+id/weekHeaderTxt"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/wvu_header"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <ImageButton
             android:id="@+id/nextWeek"
@@ -22,13 +33,7 @@
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_media_next" />
 
-        <TextView
-            android:id="@+id/weekHeaderTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/wvu_header"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+        
     </LinearLayout>
 
     <LinearLayout
