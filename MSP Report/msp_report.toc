@@ -1,0 +1,38 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {1.1}Report Outline}{3}
+\contentsline {chapter}{\numberline {2}Evaluation of the Results}{5}
+\contentsline {section}{\numberline {2.1}What was our goal?}{5}
+\contentsline {section}{\numberline {2.2}Results}{5}
+\contentsline {subsection}{\numberline {2.2.1}Day view}{5}
+\contentsline {subsection}{\numberline {2.2.2}Week view}{5}
+\contentsline {subsection}{\numberline {2.2.3}Month view}{6}
+\contentsline {subsection}{\numberline {2.2.4}Preference Settings}{6}
+\contentsline {subsection}{\numberline {2.2.5}Action Bar}{7}
+\contentsline {subsection}{\numberline {2.2.6}Database}{7}
+\contentsline {subsection}{\numberline {2.2.7}Service Granularity in Database}{8}
+\contentsline {section}{\numberline {2.3}Prospective Development Ideas}{9}
+\contentsline {section}{\numberline {2.4}Challenging Technologies}{9}
+\contentsline {subsection}{\numberline {2.4.1}SQLiteDatabase}{9}
+\contentsline {subsection}{\numberline {2.4.2}Layout}{10}
+\contentsline {subsection}{\numberline {2.4.3}Preference Settings}{10}
+\contentsline {subsection}{\numberline {2.4.4}Alarm Manager}{11}
+\contentsline {subsection}{\numberline {2.4.5}Application Navigation}{11}
+\contentsline {subsection}{\numberline {2.4.6}XML Layouts}{12}
+\contentsline {subsection}{\numberline {2.4.7}Screen Orientation}{12}
+\contentsline {subsection}{\numberline {2.4.8}NotificationManager}{12}
+\contentsline {chapter}{\numberline {3}Metrics}{13}
+\contentsline {section}{\numberline {3.1}Used Resources}{13}
+\contentsline {section}{\numberline {3.2}Quality Metrics}{13}
+\contentsline {section}{\numberline {3.3}Software Size}{13}
+\contentsline {section}{\numberline {3.4}Analysis}{13}
+\contentsline {chapter}{\numberline {4}Work Practices and Tools}{15}
+\contentsline {section}{\numberline {4.1}Code Repository / Version System}{15}
+\contentsline {section}{\numberline {4.2}Issue Tracking}{15}
+\contentsline {section}{\numberline {4.3}Group Discussion}{15}
+\contentsline {section}{\numberline {4.4}Testing and Code Review}{16}
+\contentsline {chapter}{\numberline {5}Preliminary business model}{17}
+\contentsline {section}{\numberline {5.1}Service Design}{17}
+\contentsline {section}{\numberline {5.2}Technology Design}{18}
+\contentsline {section}{\numberline {5.3}Organization Design}{18}
+\contentsline {section}{\numberline {5.4}Finance Design}{18}
