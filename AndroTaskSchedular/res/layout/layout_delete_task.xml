@@ -16,18 +16,16 @@
             android:id="@+id/etTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
             android:hint="@string/hint_title"
- >
+            android:inputType="none" >
         </EditText>
 
         <EditText
             android:id="@+id/etNote"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
             android:hint="@string/hint_body"
-/>
+            android:inputType="none" />
     </LinearLayout>
 
     <LinearLayout
@@ -100,8 +98,7 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:inputType="none"
-/>
+            android:inputType="none" />
     </LinearLayout>
 
     <LinearLayout
@@ -126,11 +123,10 @@
             android:id="@+id/spinner1"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-                        android:inputType="none"
-            
             android:layout_weight="1"
             android:entries="@array/rec_arrays"
-            android:gravity="center" />
+            android:gravity="center"
+            android:inputType="none" />
     </LinearLayout>
 
     <LinearLayout
@@ -150,10 +146,10 @@
             style="@style/Buttons"
             android:layout_weight="2" />
 
-        <Button
-            android:id="@+id/rec_time_picker"
-            style="@style/Buttons"
-            android:layout_weight="1" />
+        <!-- <Button -->
+        <!-- android:id="@+id/rec_time_picker" -->
+        <!-- style="@style/Buttons" -->
+        <!-- android:layout_weight="1" /> -->
     </LinearLayout>
 
 </LinearLayout>

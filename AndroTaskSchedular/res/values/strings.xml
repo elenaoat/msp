@@ -32,10 +32,10 @@
     <string name="notify_before">Notify before (mins):</string>
 
     <string-array name="rec_arrays">
-        <item>none</item>
-        <item>daily</item>
-        <item>weekly</item>
-        <item>monthly</item>
+        <item>Once</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
     </string-array>
 
     <string name="not_prompt">Notification Type :</string>

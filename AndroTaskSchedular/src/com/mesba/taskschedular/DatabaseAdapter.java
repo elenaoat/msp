@@ -96,8 +96,18 @@ public class DatabaseAdapter extends Activity{
   * @return
   */
     public Cursor viewEventByID(long id) {
-        return database.query("master_event", null, "id=" + id, null, null,
+    	Cursor cursor;
+    	Log.v("gets here", "gets to viewEventById");
+    	cursor = database.query("master_event", null, "id=" + id, null, null,
                 null, null);
+    	if (cursor.moveToFirst() && cursor != null){
+    		return cursor;
+
+    	} else 
+    	{
+    		Log.v("null cursor", "Cursor is null");
+    		return null;
+    	}
     }
 
     /**
@@ -187,7 +197,7 @@ public class DatabaseAdapter extends Activity{
            
        
        
-        if (recurrenceFlag.equals("none")) {           
+        if (recurrenceFlag.equals("Once") || recurrenceFlag.equals("")) {           
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
             try {
@@ -235,9 +245,9 @@ public class DatabaseAdapter extends Activity{
                 return 0;
             else
                 alarmCreator.createAlarm(c, notificationB4int, name, description, eventStartDayTime);
-        } else if (recurrenceFlag.equals("daily")
-                || recurrenceFlag.equals("weekly")) {
-            if (recurrenceFlag.equals("daily"))
+        } else if (recurrenceFlag.equals("Daily")
+                || recurrenceFlag.equals("Weekly")) {
+            if (recurrenceFlag.equals("Daily"))
                 incr = 1;
             else
                 incr = 7;
@@ -328,7 +338,7 @@ public class DatabaseAdapter extends Activity{
 
             }// end while
 
-        } else if (recurrenceFlag.equals("monthly")) {
+        } else if (recurrenceFlag.equals("Monthly")) {
 
             ContentValues values = new ContentValues();
 
@@ -513,14 +523,15 @@ public class DatabaseAdapter extends Activity{
     }
 
     /**/
-    public int getNotificationB4() {
-        int var = 15;
+    public String getNotificationB4() {
+        String var = "15";
         Cursor cursor;
         cursor = database.rawQuery("SELECT integerValue FROM global_config "
                 + "WHERE property = 'NotificationB4' ", null);
        
         if (cursor.moveToFirst()){
-            var = Integer.parseInt(cursor.getString(cursor.getColumnIndex("integerValue")));
+           // var = Integer.parseInt(cursor.getString(cursor.getColumnIndex("integerValue")));
+        	var = cursor.getString(cursor.getColumnIndex("integerValue"));
         }
         Log.v("var", cursor.getString(cursor.getColumnIndex("integerValue")));
         cursor.close();
@@ -650,9 +661,9 @@ public class DatabaseAdapter extends Activity{
         String sql = "insert into master_event (name,description,eventStartDayTime,"
                 + "eventEndDayTime)"
                 + "values('"
-                + name
+                + '?'
                 + "','"
-                + description
+                + '?'
                 + "','" + eventStartDayTime + "','" + eventEndDayTime + "')";
 
         database.beginTransaction();

@@ -25,12 +25,11 @@ public class AddNewTaskActivity extends Activity {
 
 	private DatabaseAdapter dbAdapter;
 	private EditText etTitle, etBody, etNotify;
-	private Button fromTimeBtn, toTimeBtn, fromDateBtn, toDateBtn, recDateBtn,
-			recTimeBtn;
-	private String date_sent, reccurence_type, end_date;
-	private int time_sent, id, notification_before;
+	private Button fromTimeBtn, toTimeBtn, fromDateBtn, toDateBtn, recDateBtn;
+	private String date_sent, reccurence_type, notification_before;
+	private int time_sent, id;
 	public CustomDate date_DT_from, date_DT_to, date_DT_rec, date_save_from,
-			date_save_to, date_save_rec;
+			date_save_to, date_save_rec, date_end;
 	public CustomTime time_DT_from, time_DT_to, time_save_from, time_save_to;
 
 	private String tag, name, description;
@@ -54,7 +53,6 @@ public class AddNewTaskActivity extends Activity {
 		fromDateBtn = (Button) findViewById(R.id.from_date_picker);
 		toDateBtn = (Button) findViewById(R.id.to_date_picker);
 		recDateBtn = (Button) findViewById(R.id.rec_date_picker);
-		recTimeBtn = (Button) findViewById(R.id.rec_time_picker);
 
 		// recDateBtn.setText("Click if not 'none'");
 
@@ -66,30 +64,40 @@ public class AddNewTaskActivity extends Activity {
 
 		etNotify.addTextChangedListener(new TextWatcher() {
 
-		        @Override
-		        public void afterTextChanged(Editable s) {
+			//save a new value for notification before 
+			@Override
+			public void afterTextChanged(Editable s) {
+				Log.v("text changed", s.toString());
+				notification_before = s.toString();
+			}
 
-		        }
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+//				Log.v("before s", s.toString());
+//				Log.v("before start", Integer.toString(start));
+//				Log.v("before before", Integer.toString(after));
+//				Log.v("before count", Integer.toString(count));
 
-		        @Override
-		        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+			}
 
-		        }
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+//				Log.v("modified s", s.toString());
+//				Log.v("modified start", Integer.toString(start));
+//				Log.v("modified before", Integer.toString(before));
+//				Log.v("modified count", Integer.toString(count));
 
-		        @Override
-		        public void onTextChanged(CharSequence s, int start, int before, int count) {
-		        	Log.v("modified s", s.toString());
-		        	Log.v("modified start", Integer.toString(start));
-		        	Log.v("modified before", Integer.toString(before));
-		        	Log.v("modified count", Integer.toString(count));
+			}
 
-		        } 
-
-		    });
+		});
 		if (tag.equals("add")) {
+			
 			if (intent.hasExtra("com.taskmanager.DATE")) {
 				date_sent = intent.getStringExtra("com.taskmanager.DATE");
+				Log.v("date sent", date_sent);
 			}
 			if (intent.hasExtra("com.taskmanager.HOUR")) {
 				time_sent = intent.getIntExtra("com.taskmanager.HOUR", 0);
@@ -105,12 +113,14 @@ public class AddNewTaskActivity extends Activity {
 
 			date_DT_to = new CustomDate(date_sent);
 			getDefaultSettingsFromDatabase();
+			
 		} else if (intent.getStringExtra("tag").equals("edit")) {
 			if (intent.hasExtra("com.taskmanager.ID")) {
 				id = intent.getIntExtra("com.taskmanager.ID", 0);
 				getDataFromDatabase(id);
 				etTitle.setText(name);
 				etBody.setText(description);
+				etNotify.setText(notification_before);
 				// Log.v("ID obtained from another activity",
 				// Integer.toString(id));
 			} else {
@@ -122,8 +132,6 @@ public class AddNewTaskActivity extends Activity {
 		setReceivedDate();
 		addListenerOnSpinnerItemSelection();
 	}
-	
-
 
 	private void addListenerOnSpinnerItemSelection() {
 
@@ -219,10 +227,14 @@ public class AddNewTaskActivity extends Activity {
 
 	public void chooseDateRec(View v) {
 
-		date_save_rec = new CustomDate(0, 0, 0);
-		CustomOnDateSetListener customDateListener = new CustomOnDateSetListener(
-				(Button) v, date_save_rec);
-		new DatePickerDialog(this, customDateListener, date_DT_rec.getYear(),
+		if (date_save_rec == null){
+			date_save_rec = new CustomDate(0, 0, 0);
+			Log.v("date_save_rec", "null");
+		}
+//		date_save_rec = new CustomDate(0, 0, 0);
+
+		new DatePickerDialog(this, new CustomOnDateSetListener(
+				(Button) v, date_save_rec), date_DT_rec.getYear(),
 				date_DT_rec.getMonth(), date_DT_rec.getDay()).show();
 	}
 
@@ -240,25 +252,19 @@ public class AddNewTaskActivity extends Activity {
 	public void setReceivedTime() {
 		fromTimeBtn.setText(time_DT_from.getTimeStr());
 		toTimeBtn.setText(time_DT_to.getTimeStr());
-		recTimeBtn.setText(time_DT_to.getTimeStr());
 	}
 
 	public void setReceivedDate() {
 
+		if (date_save_rec == null){
+			date_save_rec = new CustomDate(date_sent);
+		}
 		fromDateBtn.setText(date_DT_from.getDate());
 		toDateBtn.setText(date_DT_to.getDate());
-		recDateBtn.setText(date_DT_to.getDate());
-		Log.v("date received", date_DT_to.getDate());
+		recDateBtn.setText(date_DT_rec.getDate());
+	//	Log.v("date received", date_DT_to.getDate());
 	}
 
-	// Needed?
-	/*
-	 * public void roundMinute(int hourOfDay, int min, CustomTime f) {
-	 * f.setHour(hourOfDay); if (min <= 7) { f.setMinute(0); } else if (min > 7
-	 * && min <= 22) { f.setMinute(15); } else if (min > 22 && min <= 37) {
-	 * f.setMinute(30); } else if (min > 37 && min <= 52) { f.setMinute(45); }
-	 * else { f.setMinute(0); f.setHour(hourOfDay + 1); } }
-	 */
 
 	public void save() {
 
@@ -282,25 +288,6 @@ public class AddNewTaskActivity extends Activity {
 		}
 
 		// Validating input inserted by user: hourFrom < hourTo, Title not empty
-		// if ((time_save_from.getHour() > time_save_to.getHour()
-		// && date_save_from.getYear() >= date_save_to.getYear()
-		// && date_save_from.getMonth() >= date_save_to.getMonth() &&
-		// date_save_from
-		// .getDay() >= date_save_to.getDay())
-		// || (time_save_from.getHour() == time_save_to.getHour() &&
-		// time_save_from
-		// .getMinute() >= time_save_to.getMinute())
-		// && date_save_from.getYear() >= date_save_to.getYear()
-		// && date_save_from.getMonth() >= date_save_to.getMonth()
-		// && date_save_from.getDay() >= date_save_to.getDay()) {
-		//
-		// HelperMethods.displayToast("You have inserted incorrect times",
-		// this);
-		// // return to MainActivity ???
-		//
-		// }
-
-		// Validating input inserted by user: hourFrom < hourTo, Title not empty
 
 		int from_yr = date_save_from.getYear();
 		int to_yr = date_save_to.getYear();
@@ -319,12 +306,10 @@ public class AddNewTaskActivity extends Activity {
 
 		if (!((to_yr > from_yr) || (to_yr == from_yr && to_mth > from_mth)
 				|| (to_mth == from_mth && to_day > from_day)
-				|| (to_day == from_day && to_hr > from_hr) 
-				|| (to_hr == from_hr && to_min > from_min))) {
+				|| (to_day == from_day && to_hr > from_hr) || (to_hr == from_hr && to_min > from_min))) {
 			HelperMethods.displayToast("You have inserted incorrect times",
 					this);
-		}
-		else if (etTitle.getText().toString().equals("")) {
+		} else if (etTitle.getText().toString().equals("")) {
 			HelperMethods.displayToast("Please insert task title", this);
 			// return to MainActivity ???
 		}
@@ -358,9 +343,12 @@ public class AddNewTaskActivity extends Activity {
 					date_save_from.getDateForDB() + " "
 							+ time_save_from.getTimeStr(),
 					date_save_to.getDateForDB() + " "
-							+ time_save_to.getTimeStr(), "", "", "",
+							+ time_save_to.getTimeStr(), 
+					"", 
+					notification_before, 
+					"",
 					String.valueOf(spinner.getSelectedItem()),
-					date_save_rec.getDateForDB()+" 00:00");
+					date_save_rec.getDateForDB() + " 00:00");
 			// date_save_rec.getDateForDB());
 			Log.v("String.valueOf(spinner.getSelectedItem())",
 					String.valueOf(spinner.getSelectedItem()));
@@ -375,10 +363,20 @@ public class AddNewTaskActivity extends Activity {
 				HelperMethods.displayToast("Insertion failed", this);
 			}
 		} else if (taskTag.equals("edit")) {
-			if (dbAdapter.editEvent(id, etTitle.getText().toString(), etBody
-					.getText().toString(), date_save_from.getDateForDB() + " "
-					+ time_save_from.getTimeStr(), date_save_to.getDateForDB()
-					+ " " + time_save_to.getTimeStr(), "", "", "", "", "")) {
+			if (dbAdapter.editEvent(
+					id, 
+					etTitle.getText().toString(), 
+					etBody.getText().toString(), 
+					date_save_from.getDateForDB() + " " + time_save_from.getTimeStr(), 
+					date_save_to.getDateForDB() + " " + time_save_to.getTimeStr(), 
+					"", 
+					//NotificationB4, takes String
+					notification_before,
+					//notification type, not implemented -> do not change
+					"", 
+					String.valueOf(spinner.getSelectedItem()),
+					date_save_rec.getDateForDB() + " 00:00")) 
+			{
 				HelperMethods.displayToast("Successfully Saved", this);
 
 			} else {
@@ -401,7 +399,7 @@ public class AddNewTaskActivity extends Activity {
 		dbAdapter.Open();
 		notification_before = dbAdapter.getNotificationB4();
 		// Log.v("notifi_befre", Integer.toString(notification_before));
-		etNotify.setText(Integer.toString(notification_before));
+		etNotify.setText(notification_before);
 
 		dbAdapter.Close();
 	}
@@ -419,9 +417,12 @@ public class AddNewTaskActivity extends Activity {
 				.getColumnIndex("eventStartDayTime")));
 		time_DT_to = new CustomTime(cursor.getString(cursor
 				.getColumnIndex("eventEndDayTime")));
+		date_DT_rec = new CustomDate(cursor.getString(cursor.getColumnIndex(("recurrenceEndDay"))));
+		date_save_rec = new CustomDate(cursor.getString(cursor.getColumnIndex("recurrenceEndDay")));
 		name = cursor.getString(cursor.getColumnIndex("name"));
 		description = cursor.getString(cursor.getColumnIndex("description"));
-
+		notification_before = cursor.getString(cursor.getColumnIndex("notificationB4"));
+		
 		dbAdapter.Close();
 	}
 

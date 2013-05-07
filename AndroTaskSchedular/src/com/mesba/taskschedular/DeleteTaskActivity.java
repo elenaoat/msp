@@ -21,10 +21,9 @@ public class DeleteTaskActivity extends Activity {
 
 	private DatabaseAdapter dbAdapter;
 	private EditText etTitle, etBody, etNotify;
-	private Button fromTimeBtn, toTimeBtn, fromDateBtn, toDateBtn, recDateBtn,
-			recTimeBtn;
-	private String date_sent, reccurence_type, end_date;
-	private int time_sent, id, notification_before;
+	private Button fromTimeBtn, toTimeBtn, fromDateBtn, toDateBtn, recDateBtn;
+	private String date_sent, reccurence_type, end_date, notification_before;
+	private int time_sent, id;
 	public CustomDate date_DT_from, date_DT_to, date_DT_rec, date_save_from,
 			date_save_to, date_save_rec;
 	public CustomTime time_DT_from, time_DT_to, time_save_from, time_save_to;
@@ -50,7 +49,6 @@ public class DeleteTaskActivity extends Activity {
 		fromDateBtn = (Button) findViewById(R.id.from_date_picker);
 		toDateBtn = (Button) findViewById(R.id.to_date_picker);
 		recDateBtn = (Button) findViewById(R.id.rec_date_picker);
-		recTimeBtn = (Button) findViewById(R.id.rec_time_picker);
 
 		// recDateBtn.setText("Click if not 'none'");
 
@@ -129,7 +127,6 @@ public class DeleteTaskActivity extends Activity {
 	public void setReceivedTime() {
 		fromTimeBtn.setText(time_DT_from.getTimeStr());
 		toTimeBtn.setText(time_DT_to.getTimeStr());
-		recTimeBtn.setText(time_DT_to.getTimeStr());
 	}
 
 	public void setReceivedDate() {
@@ -144,7 +141,7 @@ public class DeleteTaskActivity extends Activity {
 		dbAdapter.Open();
 		notification_before = dbAdapter.getNotificationB4();
 		// Log.v("notifi_befre", Integer.toString(notification_before));
-		etNotify.setText(Integer.toString(notification_before));
+		etNotify.setText(notification_before);
 
 		dbAdapter.Close();
 	}
