@@ -31,7 +31,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mesba.dynamicui.R;
 
@@ -292,11 +291,12 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 					showTaskDataDialog(Integer.parseInt(data));
 				} else {
 					allTvs.get(viewId - 1).setBackgroundResource(R.drawable.rect_shape_blue);
-					Toast.makeText(
-							getActivity(),
-							"Selected ID: " + viewId + "\n"
-									+ v.getTag().toString(), Toast.LENGTH_SHORT)
-							.show();
+					HelperMethods.displayToast("Press one more time to create a task", getActivity());
+//					Toast.makeText(
+//							getActivity(),
+//							"Selected ID: " + viewId + "\n"
+//									+ v.getTag().toString(), Toast.LENGTH_SHORT)
+//							.show();
 				}
 
 			} else {
@@ -349,11 +349,12 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 						}
 
 						allTvs.get(viewId - 1).setBackgroundResource(R.drawable.rect_shape_blue);
-						Toast.makeText(
-								getActivity(),
-								"Selected ID: " + viewId + "\n"
-										+ v.getTag().toString(),
-								Toast.LENGTH_SHORT).show();
+						HelperMethods.displayToast("Press one more time to create a task", getActivity());
+//						Toast.makeText(
+//								getActivity(),
+//								"Selected ID: " + viewId + "\n"
+//										+ v.getTag().toString(),
+//								Toast.LENGTH_SHORT).show();
 					}
 
 				}
@@ -517,11 +518,13 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 			        	DatabaseAdapter dbAdapter = new DatabaseAdapter(getActivity());
 			        	dbAdapter.Open();
 			        	
-			        	if(dbAdapter.deleteEvents(taskId))
-			        		Toast.makeText(getActivity(), "Deleted Task" + taskId, Toast.LENGTH_LONG).show();
-			        	else
-			        		Toast.makeText(getActivity(), "Failed to delete Task" + taskId, Toast.LENGTH_LONG).show();
-			        	
+			        	if(dbAdapter.deleteEvents(taskId)){
+			        	//	Toast.makeText(getActivity(), "Deleted Task" + taskId, Toast.LENGTH_LONG).show();
+			        	}
+			        	else {
+			        		//Toast.makeText(getActivity(), "Failed to delete Task" + taskId, Toast.LENGTH_LONG).show();
+			        		HelperMethods.displayToast("Delete failed", getActivity());
+			        	}
 			        	dbAdapter.Close();
 			        	
 			        	dialogTask.dismiss();
