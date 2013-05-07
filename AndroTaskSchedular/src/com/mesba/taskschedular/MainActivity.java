@@ -26,6 +26,7 @@ import com.mesba.dynamicui.R;
 public class MainActivity extends Activity {
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private DatabaseAdapter dbAdapter;
+	private CreateNotification cn;
 
 	public final static String DATE = "com.taskmanager.DATE";
 	public final static String HOUR = "com.taskmanager.HOUR";
@@ -45,6 +46,7 @@ public class MainActivity extends Activity {
 		actionbar.show();
 
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		
 
 		// initiating both tabs and set text to it.
 		ActionBar.Tab dayTab = actionbar.newTab().setText("Day");
