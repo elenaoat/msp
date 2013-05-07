@@ -25,7 +25,7 @@ import com.mesba.dynamicui.R;
 public class AlarmReceiverActivity extends Activity {
 
 	private MediaPlayer mMediaPlayer;
-	//private CreateNotification cn;
+	private CreateNotification cn;
 
 	
 	@Override
@@ -38,7 +38,7 @@ public class AlarmReceiverActivity extends Activity {
 
 		String message = "";
 		String title = "", description = "", eventStartDayTime = "";
-		//cn=new CreateNotification(getApplicationContext());
+		cn=new CreateNotification(getApplicationContext());
 		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -50,7 +50,7 @@ public class AlarmReceiverActivity extends Activity {
 					+ "\n Description: " + description + "\n Time:"
 					+ eventStartDayTime;
 		}
-		//cn.createNotification(title, description, eventStartDayTime);
+		cn.createNotification(title, description, eventStartDayTime);
 
 		TextView item = (TextView) findViewById(R.id.AlarmMessage);
 		item.setText(message);
