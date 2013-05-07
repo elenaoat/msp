@@ -187,7 +187,7 @@ public class DatabaseAdapter extends Activity{
            
        
        
-        if (recurrenceFlag.equals("none")) {           
+        if (recurrenceFlag.equals("none") || recurrenceFlag.equals("")) {           
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
             try {
