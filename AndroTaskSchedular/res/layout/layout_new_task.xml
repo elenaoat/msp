@@ -151,14 +151,14 @@
         <Button
             android:id="@+id/rec_date_picker"
             style="@style/Buttons"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:onClick="chooseDateRec" />
 
-        <Button
-            android:id="@+id/rec_time_picker"
-            style="@style/Buttons"
-            android:layout_weight="1"
-            android:onClick="chooseTimeRec" />
+<!--         <Button -->
+<!--             android:id="@+id/rec_time_picker" -->
+<!--             style="@style/Buttons" -->
+<!--             android:layout_weight="1" -->
+<!--             android:onClick="chooseTimeRec" /> -->
 
     </LinearLayout>
 
