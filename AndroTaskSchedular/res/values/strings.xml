@@ -26,11 +26,15 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="OK">Notified</string>
-    <string name="aboutUsDetail">Team Members: Hasan, Mesba, Feroz, Elena &amp; Robin</string>
+    <string name="aboutUsDetail">Team Members: Hasan, Nahin, Feroz, Elena &amp; Robin</string>
     <string name="title_activity_edit_task">EditTaskActivity</string>
     <string name="rec_prompt">Recurrence Type:</string>
     <string name="notify_before">Notify before (mins):</string>
-
+    <string name="okay">  OK  </string>
+        <string name="task_description">Task description</string>
+    <string name="task_duration">Task duration</string>
+    <string name="cancel">Cancel</string>
+  
     <string-array name="rec_arrays">
         <item>Once</item>
         <item>Daily</item>

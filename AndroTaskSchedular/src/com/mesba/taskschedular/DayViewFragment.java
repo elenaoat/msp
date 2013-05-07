@@ -35,7 +35,7 @@ import com.mesba.dynamicui.R;
 public class DayViewFragment extends Fragment {
 	private View dayView;
 	public int pos;
-	private ActionMode mActionMode;
+	//private ActionMode mActionMode;
 	private ActionMode.Callback mActionModeCallback;
 	private DatabaseAdapter dbAdapter;
 	private TextView currentDate;
@@ -186,8 +186,9 @@ public class DayViewFragment extends Fragment {
 					if ((t_array.get(i).eventStartDayTime.substring(11, 13))
 							.equals(hours.get(j).hourStr())) {
 						hours.get(j).setName(
-								t_array.get(i).name + "-"
-										+ t_array.get(i).description);
+								t_array.get(i).name);
+								//+ "-"
+									//	+ t_array.get(i).description);
 						hours.get(j).setId(t_array.get(i).id);
 					}
 				} catch (ArrayIndexOutOfBoundsException e) {
@@ -208,35 +209,9 @@ public class DayViewFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				pos = position;
-				mActionMode = getActivity()
-						.startActionMode(mActionModeCallback);
-				
-				// if (hours.get(position).id == -1) {
-				// String date="";
-				// Intent intent = new Intent(getActivity(),
-				// AddNewTaskActivity.class);
-				// if(selectedModeFlag==0)
-				// date = dateFormat.format(today.getTime());
-				// else
-				// date=receivedDateFromMonth;
-				// System.out.print(date);
-				// int time = hours.get(position).time;
-				// intent.putExtra(DATE, date);
-				// intent.putExtra(HOUR, time);
-				// intent.putExtra("tag", "add");
-				// startActivity(intent);
-				//
-				// } else if (hours.get(position).getId() != -1) {
-				// // Send only ID, all the others will be extracted from the
-				// // DB
-				// // TODO need to fix this part
-				// Intent intent = new Intent(getActivity(),
-				// AddNewTaskActivity.class);
-				// intent.putExtra("tag", "edit");
-				// intent.putExtra(ID, hours.get(position).getId());
-				// startActivity(intent);
-				// }
-
+				//mActionMode = 
+				getActivity().startActionMode(mActionModeCallback);
+			
 			}
 
 		});

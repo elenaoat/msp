@@ -10,9 +10,7 @@ import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.mesba.dynamicui.R;
 
@@ -66,7 +64,7 @@ public class SettingsPrefs extends PreferenceActivity implements OnSharedPrefere
 		@SuppressWarnings("deprecation")
 		ListPreference listPreference = (ListPreference) findPreference(key);
 		String currValue = listPreference.getValue();
-		Toast.makeText(getApplicationContext(),currValue.substring(0, 2),Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getApplicationContext(),currValue.substring(0, 2),Toast.LENGTH_SHORT).show();
 		Log.v(TAG, "settings change key = "+key);
 		dbAdapter.Open();
 		if(key.equals("reminder")){

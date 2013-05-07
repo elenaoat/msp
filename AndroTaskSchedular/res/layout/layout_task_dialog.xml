@@ -9,7 +9,7 @@
         android:id="@+id/task_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task Description"
+        android:text="@string/task_description"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/man_red" />
 
@@ -17,7 +17,7 @@
         android:id="@+id/task_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task duration"
+        android:text="@string/task_duration"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/man_gray" />
 
@@ -31,21 +31,24 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit" />
+            android:layout_weight="1"
+            android:text="@string/edit" />
 
         <Button
             android:id="@+id/delete_btn"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete" />
+            android:layout_weight="1"
+            android:text="@string/delete" />
 
         <Button
             android:id="@+id/cancel_btn"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel" />
+            android:layout_weight="1"
+            android:text="@string/cancel" />
     </LinearLayout>
 
 </LinearLayout>

@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import com.mesba.dynamicui.R;
 
@@ -22,15 +21,14 @@ public class DeleteTaskActivity extends Activity {
 	private DatabaseAdapter dbAdapter;
 	private EditText etTitle, etBody, etNotify;
 	private Button fromTimeBtn, toTimeBtn, fromDateBtn, toDateBtn, recDateBtn;
-	private String date_sent, reccurence_type, end_date, notification_before;
-	private int time_sent, id;
+	private String notification_before;
+	private int id;
 	public CustomDate date_DT_from, date_DT_to, date_DT_rec, date_save_from,
 			date_save_to, date_save_rec;
 	public CustomTime time_DT_from, time_DT_to, time_save_from, time_save_to;
 
-	private String tag, name, description;
+	private String name, description;
 
-	private Spinner spinner;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -56,7 +54,7 @@ public class DeleteTaskActivity extends Activity {
 		etBody = (EditText) findViewById(R.id.etNote);
 		etNotify = (EditText) findViewById(R.id.notify_before);
 		Intent intent = getIntent();
-		tag = intent.getStringExtra("tag");
+		//tag = intent.getStringExtra("tag");
 
 		if (intent.getStringExtra("tag").equals("delete")) {
 			if (intent.hasExtra("com.taskmanager.ID")) {

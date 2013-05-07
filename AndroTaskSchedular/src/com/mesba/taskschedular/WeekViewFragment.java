@@ -471,7 +471,7 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 
 		String description = allTasks.get(index).get("description");
 		String duration = "From: " + allTasks.get(index).get("startDate") + " "
-				+ allTasks.get(index).get("startHour") + " To: "
+				+ allTasks.get(index).get("startHour") + "\nTo: "
 				+ allTasks.get(index).get("endDate") + " "
 				+ allTasks.get(index).get("endHour");
 		

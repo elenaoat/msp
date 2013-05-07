@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -53,6 +55,7 @@ public class AddNewTaskActivity extends Activity {
 		fromDateBtn = (Button) findViewById(R.id.from_date_picker);
 		toDateBtn = (Button) findViewById(R.id.to_date_picker);
 		recDateBtn = (Button) findViewById(R.id.rec_date_picker);
+		spinner = (Spinner) findViewById(R.id.spinner1);
 
 		// recDateBtn.setText("Click if not 'none'");
 
@@ -130,15 +133,33 @@ public class AddNewTaskActivity extends Activity {
 
 		setReceivedTime();
 		setReceivedDate();
-		addListenerOnSpinnerItemSelection();
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+			public void onItemSelected(AdapterView<?> parent, View view, 
+	            int pos, long id) {
+	        
+	         reccurence_type = parent.getItemAtPosition(pos).toString();
+	         Log.v("reccurence_type", reccurence_type);
+	    }
+			
+	    public void onNothingSelected(AdapterView<?> parent) {
+	        // Another interface callback
+	    }
+	    
+		});
+		//addListenerOnSpinnerItemSelection();
 	}
 
-	private void addListenerOnSpinnerItemSelection() {
+
+
+
+	
+/*	private void addListenerOnSpinnerItemSelection() {
 
 		spinner = (Spinner) findViewById(R.id.spinner1);
 		spinner.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 
-	}
+	}*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -262,6 +283,15 @@ public class AddNewTaskActivity extends Activity {
 		fromDateBtn.setText(date_DT_from.getDate());
 		toDateBtn.setText(date_DT_to.getDate());
 		recDateBtn.setText(date_DT_rec.getDate());
+		
+
+		ArrayAdapter<String> myAdap = (ArrayAdapter<String>) spinner.getAdapter(); //cast to an ArrayAdapter
+
+		int spinnerPosition = myAdap.getPosition(reccurence_type);
+
+		//set the default according to value
+		spinner.setSelection(spinnerPosition);
+		
 	//	Log.v("date received", date_DT_to.getDate());
 	}
 
@@ -347,7 +377,8 @@ public class AddNewTaskActivity extends Activity {
 					"", 
 					notification_before, 
 					"",
-					String.valueOf(spinner.getSelectedItem()),
+					reccurence_type,
+					//String.valueOf(spinner.getSelectedItem()),
 					date_save_rec.getDateForDB() + " 00:00");
 			// date_save_rec.getDateForDB());
 			Log.v("String.valueOf(spinner.getSelectedItem())",
@@ -373,8 +404,9 @@ public class AddNewTaskActivity extends Activity {
 					//NotificationB4, takes String
 					notification_before,
 					//notification type, not implemented -> do not change
-					"", 
-					String.valueOf(spinner.getSelectedItem()),
+					"",
+					reccurence_type,
+					//String.valueOf(spinner.getSelectedItem()),
 					date_save_rec.getDateForDB() + " 00:00")) 
 			{
 				HelperMethods.displayToast("Successfully Saved", this);
@@ -397,6 +429,11 @@ public class AddNewTaskActivity extends Activity {
 
 	private void getDefaultSettingsFromDatabase() {
 		dbAdapter.Open();
+		
+		reccurence_type = dbAdapter.getRecurrenceFlag();
+		if (reccurence_type == ""){
+			reccurence_type = "Once";
+		}
 		notification_before = dbAdapter.getNotificationB4();
 		// Log.v("notifi_befre", Integer.toString(notification_before));
 		etNotify.setText(notification_before);
@@ -422,7 +459,8 @@ public class AddNewTaskActivity extends Activity {
 		name = cursor.getString(cursor.getColumnIndex("name"));
 		description = cursor.getString(cursor.getColumnIndex("description"));
 		notification_before = cursor.getString(cursor.getColumnIndex("notificationB4"));
-		
+		reccurence_type = cursor.getString(cursor.getColumnIndex("recurrenceFlag"));
+
 		dbAdapter.Close();
 	}
 

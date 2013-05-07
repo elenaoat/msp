@@ -23,7 +23,7 @@
         android:entryValues="@array/type"/>
     
     <ListPreference 
-        android:title="Repitition"
+        android:title="Repetition"
         android:key="repetition"
         android:summary="One time/Repetition"
         android:entries="@array/repetition"

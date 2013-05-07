@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.mesba.dynamicui.R;
 
@@ -146,8 +145,8 @@ public class MainActivity extends Activity {
 		dialog.setTitle("About Task Scheduler");
 
 		// set the custom dialog components - text, image and button
-		TextView text = (TextView) dialog.findViewById(R.id.text);
-		text.append("\n" + "Android custom dialog example!");
+	//	TextView text = (TextView) dialog.findViewById(R.id.text);
+	//	text.append("\n" + "Android custom dialog example!");
 		ImageView image = (ImageView) dialog.findViewById(R.id.image);
 		image.setImageResource(R.drawable.ic_launcher_task);
 
