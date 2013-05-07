@@ -141,15 +141,15 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 		tView = new TextView(getActivity());
 		tView = (TextView) weekView.findViewById(R.id.weekHeaderTxt);
 		// setting the TOP text
-		tView.setText("Week " + c1.get(Calendar.WEEK_OF_YEAR) + " : " + day1
-				+ "/" + month1 + "/" + year1 + " - " + day7 + "/" + month7
-				+ "/" + year7);
+		tView.setText("W" + c1.get(Calendar.WEEK_OF_YEAR) + " : " + day1
+				+ "." + month1 + "." + year1 + " - " + day7 + "." + month7
+				+ "." + year7);
 		lLayout = new LinearLayout(getActivity());
 		lLayout = (LinearLayout) weekView.findViewById(R.id.weekDays);
 		lLayout.setOrientation(LinearLayout.HORIZONTAL);
 
 		tView = new TextView(getActivity());
-		tView.setText("Times of\nDay");
+		tView.setText("Times");
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.weight = 11;

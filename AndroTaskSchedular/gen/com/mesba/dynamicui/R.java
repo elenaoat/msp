@@ -84,7 +84,7 @@ public final class R {
         public static final int month_layout=0x7f0b0017;
         public static final int name=0x7f0b0010;
         public static final int nextMonth=0x7f0b001b;
-        public static final int nextWeek=0x7f0b002a;
+        public static final int nextWeek=0x7f0b002b;
         public static final int notify_before=0x7f0b0006;
         public static final int num_events_per_day=0x7f0b000e;
         public static final int prevMonth=0x7f0b0019;
@@ -105,7 +105,7 @@ public final class R {
         public static final int weekDaysDetails=0x7f0b002e;
         public static final int weekHeader=0x7f0b0028;
         public static final int weekHeaderNames=0x7f0b001c;
-        public static final int weekHeaderTxt=0x7f0b002b;
+        public static final int weekHeaderTxt=0x7f0b002a;
         public static final int week_cell=0x7f0b0026;
         public static final int week_layout=0x7f0b0027;
     }

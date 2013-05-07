@@ -8,7 +8,7 @@
     <string name="hint_title">Title</string>
     <string name="hint_body">Task Description</string>
     <string name="dvu_header">Day</string>
-    <string name="wvu_header">Week</string>
+    <string name="wvu_header">W</string>
     <string name="mvu_header">Month</string>
     <string name="quarter_past">15</string>
     <string name="half_past">30</string>
