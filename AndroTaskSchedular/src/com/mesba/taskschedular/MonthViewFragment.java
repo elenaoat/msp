@@ -396,6 +396,8 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 
 				if (c.getCount() > 0)
 					map.put("" + day, c.getCount());
+					
+				c.close();
 			}
 
 			adapter.Close();
