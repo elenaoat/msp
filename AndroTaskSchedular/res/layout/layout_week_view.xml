@@ -25,7 +25,8 @@
             android:gravity="center"
             android:text="@string/wvu_header"
             android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:typeface="serif" />
 
         <ImageButton
             android:id="@+id/nextWeek"

@@ -4,6 +4,8 @@
  */
 package com.mesba.taskschedular;
 
+import java.awt.font.TextAttribute;
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,8 +19,10 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -85,24 +89,24 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 
 		return weekView;
 	}
-	
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-	    // TODO Add your menu entries here
+		// TODO Add your menu entries here
 		Log.i("OptionsMenu", "Menu Item is override in Week Fragment");
-	    super.onCreateOptionsMenu(menu, inflater);
+		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		
+
 		// When today button is clicked, the view will set to current week
 		case R.id.item_today:
 			Log.i("OptionsMenu", "option 1 selected from Week Fragment");
 			c1 = Calendar.getInstance();
 			weekNumber = c1.get(Calendar.WEEK_OF_YEAR);
-			
+
 			refreshWeekView();
 			weekView(weekNumber);
 			break;
@@ -110,8 +114,6 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 
 		return super.onOptionsItemSelected(item);
 	}
-
-
 
 	/**
 	 * This function will draw the week view.
@@ -139,16 +141,32 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 
 		tView = new TextView(getActivity());
 		tView = (TextView) weekView.findViewById(R.id.weekHeaderTxt);
+		String weekHeaderText = "";
+		String yearString = "";
+
+		if (month1 == month7) {
+			weekHeaderText = day1 + " - "
+					+ day7 + " "
+					+ new DateFormatSymbols().getMonths()[month7 - 1];
+		} else {
+			weekHeaderText = day1 + " "
+					+ new DateFormatSymbols().getMonths()[month1 - 1] + " - "
+					+ day7 + " "
+					+ new DateFormatSymbols().getMonths()[month7 - 1];
+		}
+		
+		if(year1 == year7)
+			yearString = "" + year1;
+//		else
+//			yearString = "" + year1 + "/" + year7;
 		// setting the TOP text
-		tView.setText("W" + c1.get(Calendar.WEEK_OF_YEAR) + " : " + day1
-				+ "." + month1 + "." + year1 + " - " + day7 + "." + month7
-				+ "." + year7);
+		tView.setText("[W" + c1.get(Calendar.WEEK_OF_YEAR) + "] " + weekHeaderText + ", " + yearString);
 		lLayout = new LinearLayout(getActivity());
 		lLayout = (LinearLayout) weekView.findViewById(R.id.weekDays);
 		lLayout.setOrientation(LinearLayout.HORIZONTAL);
 
 		tView = new TextView(getActivity());
-		tView.setText("Times");
+		tView.setText("");
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.weight = 11;
@@ -165,7 +183,9 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 
 			tView = new TextView(getActivity());
 			tView.setText(weekdays[i] + "\n" + day + "/" + month);
+			tView.setTypeface(Typeface.SERIF);
 			tView.setTag(c1.get(Calendar.YEAR));
+			tView.setGravity(Gravity.CENTER);
 			params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT);
 			params.weight = 13;
@@ -197,6 +217,9 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 				DayTime = p + ":00";
 
 			tView.setText(DayTime);
+			tView.setTypeface(Typeface.SERIF);
+			tView.setTextAlignment(4);
+//			tView.setGravity(Gravity.CENTER);
 
 			LinearLayout.LayoutParams tParams = new LinearLayout.LayoutParams(
 					LayoutParams.WRAP_CONTENT, 60);
@@ -287,16 +310,20 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 				String data = getTvData(busket[0].getTag().toString());
 
 				if (!data.equals("no data")) {
-					allTvs.get(viewId - 1).setBackgroundResource(R.drawable.rect_shape_blue);
+					allTvs.get(viewId - 1).setBackgroundResource(
+							R.drawable.rect_shape_blue);
 					showTaskDataDialog(Integer.parseInt(data));
 				} else {
-					allTvs.get(viewId - 1).setBackgroundResource(R.drawable.rect_shape_blue);
-					HelperMethods.displayToast("Press one more time to create a task", getActivity());
-//					Toast.makeText(
-//							getActivity(),
-//							"Selected ID: " + viewId + "\n"
-//									+ v.getTag().toString(), Toast.LENGTH_SHORT)
-//							.show();
+					allTvs.get(viewId - 1).setBackgroundResource(
+							R.drawable.rect_shape_blue);
+					HelperMethods.displayToast(
+							"Press one more time to create a task",
+							getActivity());
+					// Toast.makeText(
+					// getActivity(),
+					// "Selected ID: " + viewId + "\n"
+					// + v.getTag().toString(), Toast.LENGTH_SHORT)
+					// .show();
 				}
 
 			} else {
@@ -305,9 +332,10 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 				if (busket[0].getTag().toString() == v.getTag().toString()) {
 					String tagParts[] = v.getTag().toString().split(":");
 					String data = getTvData(busket[0].getTag().toString());
-					
+
 					if (!data.equals("no data")) {
-						int taskId = Integer.parseInt(allTasks.get(Integer.parseInt(data)).get("id"));
+						int taskId = Integer.parseInt(allTasks.get(
+								Integer.parseInt(data)).get("id"));
 						Intent intent = new Intent(getActivity(),
 								AddNewTaskActivity.class);
 						intent.putExtra("tag", "edit");
@@ -339,7 +367,8 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 						} else {
 							oldTv.setBackgroundResource(R.drawable.round_rect_shape);
 						}
-						allTvs.get(viewId - 1).setBackgroundResource(R.drawable.rect_shape_blue);
+						allTvs.get(viewId - 1).setBackgroundResource(
+								R.drawable.rect_shape_blue);
 						showTaskDataDialog(Integer.parseInt(data));
 					} else {
 						if (!dataOld.equals("no data")) {
@@ -348,13 +377,16 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 							oldTv.setBackgroundResource(R.drawable.round_rect_shape);
 						}
 
-						allTvs.get(viewId - 1).setBackgroundResource(R.drawable.rect_shape_blue);
-						HelperMethods.displayToast("Press one more time to create a task", getActivity());
-//						Toast.makeText(
-//								getActivity(),
-//								"Selected ID: " + viewId + "\n"
-//										+ v.getTag().toString(),
-//								Toast.LENGTH_SHORT).show();
+						allTvs.get(viewId - 1).setBackgroundResource(
+								R.drawable.rect_shape_blue);
+						HelperMethods.displayToast(
+								"Press one more time to create a task",
+								getActivity());
+						// Toast.makeText(
+						// getActivity(),
+						// "Selected ID: " + viewId + "\n"
+						// + v.getTag().toString(),
+						// Toast.LENGTH_SHORT).show();
 					}
 
 				}
@@ -386,7 +418,7 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 		DatabaseAdapter dbAdapter = new DatabaseAdapter(getActivity());
 
 		dbAdapter.Open();
-	
+
 		c1.set(Calendar.WEEK_OF_YEAR, weekNum);
 		c1.get(Calendar.WEEK_OF_YEAR);
 
@@ -459,27 +491,30 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 	public void showTaskDataDialog(int index) {
 		final Dialog dialogTask = new Dialog(getActivity());
 		dialogTask.setContentView(R.layout.layout_task_dialog);
-		
+
 		final int taskId = Integer.parseInt(allTasks.get(index).get("id"));
 		final int arrayIndex = index;
-		
+
 		String name = allTasks.get(index).get("name");
 		dialogTask.setTitle(name);
 
 		// set the custom dialog components - text, image and button
-		TextView textDescription = (TextView) dialogTask.findViewById(R.id.task_details);
-		TextView textDuration = (TextView) dialogTask.findViewById(R.id.task_time);
+		TextView textDescription = (TextView) dialogTask
+				.findViewById(R.id.task_details);
+		TextView textDuration = (TextView) dialogTask
+				.findViewById(R.id.task_time);
 
 		String description = allTasks.get(index).get("description");
 		String duration = "From: " + allTasks.get(index).get("startDate") + " "
 				+ allTasks.get(index).get("startHour") + "\nTo: "
 				+ allTasks.get(index).get("endDate") + " "
 				+ allTasks.get(index).get("endHour");
-		
+
 		textDescription.setText(description);
 		textDuration.setText(duration);
 
-		Button dialogEditButton = (Button) dialogTask.findViewById(R.id.edit_btn);
+		Button dialogEditButton = (Button) dialogTask
+				.findViewById(R.id.edit_btn);
 		Button dialogDeleteButton = (Button) dialogTask
 				.findViewById(R.id.delete_btn);
 		Button dialogCancelButton = (Button) dialogTask
@@ -510,35 +545,45 @@ public class WeekViewFragment extends Fragment implements OnClickListener {
 			@Override
 			public void onClick(View v) {
 				new AlertDialog.Builder(getActivity())
-			    .setTitle("Delete entry")
-			    .setMessage("Are you sure you want to delete this entry?")
-			    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-			        public void onClick(DialogInterface dialog, int which) { 
-			            // continue with delete
-			        	DatabaseAdapter dbAdapter = new DatabaseAdapter(getActivity());
-			        	dbAdapter.Open();
-			        	
-			        	if(dbAdapter.deleteEvents(taskId)){
-			        	//	Toast.makeText(getActivity(), "Deleted Task" + taskId, Toast.LENGTH_LONG).show();
-			        	}
-			        	else {
-			        		//Toast.makeText(getActivity(), "Failed to delete Task" + taskId, Toast.LENGTH_LONG).show();
-			        		HelperMethods.displayToast("Delete failed", getActivity());
-			        	}
-			        	dbAdapter.Close();
-			        	
-			        	dialogTask.dismiss();
-			        	
-			        	allTasks.remove(arrayIndex);
-			        	
-			        }
-			     })
-			    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-			        public void onClick(DialogInterface dialog, int which) { 
-			            // do nothing
-			        }
-			     })
-			     .show();
+						.setTitle("Delete entry")
+						.setMessage(
+								"Are you sure you want to delete this entry?")
+						.setPositiveButton("Yes",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// continue with delete
+										DatabaseAdapter dbAdapter = new DatabaseAdapter(
+												getActivity());
+										dbAdapter.Open();
+
+										if (dbAdapter.deleteEvents(taskId)) {
+											// Toast.makeText(getActivity(),
+											// "Deleted Task" + taskId,
+											// Toast.LENGTH_LONG).show();
+										} else {
+											// Toast.makeText(getActivity(),
+											// "Failed to delete Task" + taskId,
+											// Toast.LENGTH_LONG).show();
+											HelperMethods.displayToast(
+													"Delete failed",
+													getActivity());
+										}
+										dbAdapter.Close();
+
+										dialogTask.dismiss();
+
+										allTasks.remove(arrayIndex);
+
+									}
+								})
+						.setNegativeButton("No",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// do nothing
+									}
+								}).show();
 			}
 		});
 

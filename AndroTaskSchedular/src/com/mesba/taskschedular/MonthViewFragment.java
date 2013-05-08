@@ -54,15 +54,16 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 
 	private final String[] weekdays = new String[] { "Sun", "Mon", "Tue",
 			"Wed", "Thu", "Fri", "Sat" };
-	
+
 	private DatabaseAdapter dbAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		setHasOptionsMenu(true);
-		monthView = inflater.inflate(R.layout.layout_month_view, container, false);
-		
+		monthView = inflater.inflate(R.layout.layout_month_view, container,
+				false);
+
 		dbAdapter = new DatabaseAdapter(getActivity());
 
 		_calendar = Calendar.getInstance(Locale.getDefault());
@@ -106,25 +107,26 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 		}
 
 		// initialize
-		adapter = new GridCellAdapter(getActivity(), R.id.calendar_day_gridcell, month, year);
+		adapter = new GridCellAdapter(getActivity(),
+				R.id.calendar_day_gridcell, month, year);
 		adapter.notifyDataSetChanged();
 		calendarView.setAdapter(adapter);
 
 		return monthView;
 		// return super.onCreateView(inflater, container, savedInstanceState);
 	}
-	
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-	    // TODO Add your menu entries here
+		// TODO Add your menu entries here
 		Log.i("OptionsMenu", "Menu Item is override in Month Fragment");
-	    super.onCreateOptionsMenu(menu, inflater);
+		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		
+
 		// When today button is clicked, the view will set to current month
 		case R.id.item_today:
 			Log.i("OptionsMenu", "option 1 selected from Month Fragment");
@@ -162,27 +164,29 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 			setGridCellAdapterToDate(month, year);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param month
 	 * @param year
 	 */
-	private void setGridCellAdapterToDate(int month, int year)
-	{
-		adapter = new GridCellAdapter(getActivity(), R.id.calendar_day_gridcell, month, year);
+	private void setGridCellAdapterToDate(int month, int year) {
+		adapter = new GridCellAdapter(getActivity(),
+				R.id.calendar_day_gridcell, month, year);
 		_calendar.set(year, month - 1, _calendar.get(Calendar.DAY_OF_MONTH));
-		currentMonth.setText(DateFormat.format(dateTemplate, _calendar.getTime()));
+		currentMonth.setText(DateFormat.format(dateTemplate,
+				_calendar.getTime()));
 		adapter.notifyDataSetChanged();
 		calendarView.setAdapter(adapter);
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		Log.d(tag, "Destroying View ...");
 		super.onDestroy();
 	}
-/* inner class*/
+
+	/* inner class */
 	public class GridCellAdapter extends BaseAdapter implements OnClickListener {
 		private static final String tag = "GridCellAdapter";
 		private final Context _context;
@@ -202,7 +206,9 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 		private Button gridcell;
 		private TextView num_events_per_day;
 		private final HashMap<String, Integer> eventsPerMonthMap;
-		//private final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+
+		// private final SimpleDateFormat dateFormatter = new
+		// SimpleDateFormat("dd-MMM-yyyy");
 
 		// Days in Current Month
 		public GridCellAdapter(Context context, int textViewResourceId,
@@ -372,6 +378,27 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 		private HashMap<String, Integer> findNumberOfEventsPerMonth(int year,
 				int month) {
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			DatabaseAdapter adapter = new DatabaseAdapter(getActivity());
+			adapter.Open();
+
+			for (int day = 1; day < daysOfMonth[month] + 1; day++) {
+				String mthStr = "" + month;
+				if (mthStr.length() == 1)
+					mthStr = "0" + mthStr;
+
+				String dayStr = "" + day;
+				if (dayStr.length() == 1)
+					dayStr = "0" + dayStr;
+
+				String searchDate = year + "-" + mthStr + "-" + dayStr;
+
+				Cursor c = adapter.getEventByDate(searchDate);
+
+				if (c.getCount() > 0)
+					map.put("" + day, c.getCount());
+			}
+
+			adapter.Close();
 			return map;
 		}
 
@@ -440,68 +467,65 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 			selectedDayMonthYearText.setText("Selected: " + date_month_year);
 			// TODO implement the task by date when clicked a date
 			/*
-			try {
-				Date parsedDate = dateFormatter.parse(date_month_year);
-				Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(date_month_year.split("-")[1]);
-			    Calendar cal = Calendar.getInstance();
-			    cal.setTime(date);
-			    int month = cal.get(Calendar.MONTH);
-			    Log.d(tag, "Parsed Monthnumber: " + month);
-			    
-			    String yearStr = date_month_year.split("-")[2];
-			    String dateStr = date_month_year.split("-")[0];
-			    String monthStr = "" + (month + 1);
-			    
-			    if(dateStr.length() == 1) dateStr = "0" + dateStr;
-			    if(monthStr.length() == 1) monthStr = "0" + monthStr;
-			    
-			    String dateString = yearStr + "-" + monthStr + "-" + dateStr;
-			   
-			    
-			    dbAdapter.Open();
-			    showTaskList(dateString);
-			    dbAdapter.Close();
-			   
-			    
-//				String newDate = dateFormat.format(parsedDate);
-				Log.d(tag, "Parsed Date: " + parsedDate.toString());
-			} catch (ParseException e) {
-				e.printStackTrace();
-			} */
+			 * try { Date parsedDate = dateFormatter.parse(date_month_year);
+			 * Date date = new SimpleDateFormat("MMM",
+			 * Locale.ENGLISH).parse(date_month_year.split("-")[1]); Calendar
+			 * cal = Calendar.getInstance(); cal.setTime(date); int month =
+			 * cal.get(Calendar.MONTH); Log.d(tag, "Parsed Monthnumber: " +
+			 * month);
+			 * 
+			 * String yearStr = date_month_year.split("-")[2]; String dateStr =
+			 * date_month_year.split("-")[0]; String monthStr = "" + (month +
+			 * 1);
+			 * 
+			 * if(dateStr.length() == 1) dateStr = "0" + dateStr;
+			 * if(monthStr.length() == 1) monthStr = "0" + monthStr;
+			 * 
+			 * String dateString = yearStr + "-" + monthStr + "-" + dateStr;
+			 * 
+			 * 
+			 * dbAdapter.Open(); showTaskList(dateString); dbAdapter.Close();
+			 * 
+			 * 
+			 * // String newDate = dateFormat.format(parsedDate); Log.d(tag,
+			 * "Parsed Date: " + parsedDate.toString()); } catch (ParseException
+			 * e) { e.printStackTrace(); }
+			 */
 
 			Log.v("in the month view", date_month_year);
-			//String[] selectedDate = date_month_year.split("-");
-			
+			// String[] selectedDate = date_month_year.split("-");
+
 			Bundle data = new Bundle();
 			data.putString("selectedDate", date_month_year);
-			
+
 			Fragment fragment = new DayViewFragment();
 			fragment.setArguments(data);
-			
+
 			android.app.FragmentManager fragmentManager = getFragmentManager();
-			android.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
-			
+			android.app.FragmentTransaction transaction = fragmentManager
+					.beginTransaction();
+
 			transaction.replace(R.id.fragment_container, fragment);
-			transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+			transaction
+					.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 			transaction.addToBackStack(null);
 			transaction.commit();
-			
 
 		}
-		
-		public void showTaskList(String date)
-		{
+
+		public void showTaskList(String date) {
 			Cursor curs = dbAdapter.getEventByDate(date);
-			
-			TextView taskDataTv = (TextView) monthView.findViewById(R.id.task_by_date);
+
+			TextView taskDataTv = (TextView) monthView
+					.findViewById(R.id.task_by_date);
 			taskDataTv.setText("");
-			
+
 			int index = 1;
-			
+
 			if (curs.moveToFirst()) {
 				do {
 
-					//int id = curs.getInt(curs.getColumnIndex("id"));
+					// int id = curs.getInt(curs.getColumnIndex("id"));
 					String name = curs.getString(curs.getColumnIndex("name"));
 					String description = curs.getString(curs
 							.getColumnIndex("description"));
@@ -509,15 +533,17 @@ public class MonthViewFragment extends Fragment implements OnClickListener {
 							.getColumnIndex("eventStartDayTime"));
 					String eventEndDayTime = curs.getString(curs
 							.getColumnIndex("eventEndDayTime"));
-					String duration = "From: " + eventStartDayTime + " To: " + eventEndDayTime;
-					
-					taskDataTv.append(index + ". " + name + "-" + description + "\n" + duration + "\n");
-					
+					String duration = "From: " + eventStartDayTime + " To: "
+							+ eventEndDayTime;
+
+					taskDataTv.append(index + ". " + name + "-" + description
+							+ "\n" + duration + "\n");
+
 					index++;
 
 				} while (curs.moveToNext());
 			}
-			
+
 			curs.close();
 		}
 
