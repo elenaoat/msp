@@ -18,7 +18,7 @@
 \contentsline {subsection}{\numberline {2.4.3}Preference Settings}{10}
 \contentsline {subsection}{\numberline {2.4.4}Alarm Manager}{11}
 \contentsline {subsection}{\numberline {2.4.5}Application Navigation}{11}
-\contentsline {subsection}{\numberline {2.4.6}XML Layouts}{12}
+\contentsline {subsection}{\numberline {2.4.6}XML Layouts}{11}
 \contentsline {subsection}{\numberline {2.4.7}Screen Orientation}{12}
 \contentsline {subsection}{\numberline {2.4.8}NotificationManager}{12}
 \contentsline {chapter}{\numberline {3}Metrics}{13}
@@ -30,9 +30,9 @@
 \contentsline {section}{\numberline {4.1}Code Repository / Version System}{15}
 \contentsline {section}{\numberline {4.2}Issue Tracking}{15}
 \contentsline {section}{\numberline {4.3}Group Discussion}{15}
-\contentsline {section}{\numberline {4.4}Testing and Code Review}{16}
-\contentsline {chapter}{\numberline {5}Preliminary business model}{17}
-\contentsline {section}{\numberline {5.1}Service Design}{17}
-\contentsline {section}{\numberline {5.2}Technology Design}{18}
-\contentsline {section}{\numberline {5.3}Organization Design}{18}
-\contentsline {section}{\numberline {5.4}Finance Design}{18}
+\contentsline {section}{\numberline {4.4}Testing and Code Review}{15}
+\contentsline {chapter}{\numberline {5}Preliminary business model}{16}
+\contentsline {section}{\numberline {5.1}Service Design}{16}
+\contentsline {section}{\numberline {5.2}Technology Design}{17}
+\contentsline {section}{\numberline {5.3}Organization Design}{17}
+\contentsline {section}{\numberline {5.4}Finance Design}{17}

@@ -32,18 +32,17 @@ Tutor: Antero Juntunen
 \chapter{Introduction}
  
 
-Now-a-days, people are so busy with their daily activities and hence, it is more likely for one to forget a schedule that might be very important. In the present hi tech world, mobile phones could be a great medium to keep track of the all the things and notify the user in the right time to perform a task. We have developed a $'$Task Manager$'$ which is initially named as $'$AndroTaskScheduler$'$. The very first version of our Android Task Scheduler will be a typical one which would be able to maintain and keep track of all of our schedules of every moment. The user can give temporal input to our application and the app will be responsible to remind the user by means of alarm about the temporal events. The application will always be running in the background and the reminder will pop up in a small screen at the desired time. The application will also have a view screen which can be used as an widget in the desktop with the list of tasks. The main motivation behind choosing Android platform are the followings:
+Nowadays people are so busy with their daily activities and hence, it is more likely to forget about an import task. In the present hi tech world mobile phones could be a great medium to keep track of those and notify the user at the right time about a task. We have developed $'$Task Scheduler$'$ application specifically to manage these needs. The first version of our Task Scheduler is a typical one, which maintains and keeps track of all events. The user inputs some data to application and the app is responsible of reminding the user by means of alarm about the events. The alarm service is always running in the background and the reminder pops up as a small screen at the desired time. The application also has a view screen which can be used as an widget in the desktop with the list of tasks. The main motivation behind choosing Android platform are the following:
 
  \begin{itemize}
-   \item Android is the most widely used platform for mobile respecting the number of users and number of applications.
+   \item Android is the most widely used mobile platform from the perspective of the number of users and number of application
    \item Android app developers use the classic open source Linux OS. Any open source provides help for users to access its source code transparently and is available to any developer who wants to modify it or see how it works.
-   \item Google provides all Android developers with an open source software development kit for the Android OS. They can create applications for Android and then test them on an Android simulator before loading them onto an actual Droid phone.
+   \item Google provides all Android developers with an open source software development kit for the Android OS. They can create applications for Android and then test them on an Android simulator before loading them onto an actual Android phone.
    \item The future of the Android platform looks bright for Android application developers who love to have access to everything. We can expect to see some interesting innovations both from Google and from the public as Android gains popularity.
  \end{itemize}
 
 \section{Report Outline}
-
-Chapter 1 will evaluate the results of our implementation with prospective development ideas and list of all challenging technologies we used in our app. Summary of used resources, quality metrics, software size etc., will be outlined in chapter 2 with some analysis compared to standard Google Calendar. Work practices and tools, and preliminary business model will be explained in chapter 3 and 4 respectively.
+Chapter 1 will evaluate the results of our implementation with prospective development ideas and list of all challenging technologies we used in our app. Summary of used resources, quality metrics, software size, etc., will be outlined in chapter 2 with some comparison analysis to standard Google Calendar. Work practices and tools, as well as the preliminary business model will be presented in chapter 3 and 4, respectively.
 
  
 %-------------------------------------------------%
@@ -62,7 +61,7 @@ The primary goal of the project was to learn how to develop a mobile application
   \end{itemize}
   
   \item 2. Create New Events
-  \item 3. Edit Existing Events
+  \item 3. Edit/Delete Existing Events
   \item 4. Alarm and Bar notifications of the Events at the due time
 \end{description}
 
@@ -83,20 +82,17 @@ The primary goal of the project was to learn how to develop a mobile application
 
 
 \subsection{Day view}
-When user will click an empty cell on day view layout, it will redirected to create new task activity if the cell is empty. Otherwise, it will redirect to edit task activity.
-
-
-
+When user clicks on an empty slot on the day view layout, the application will ask user whether he or she wants to edit or delete the selected event. In case there is no event for the current time slot, user cannot delete it, but can enter task title, description, etc. to create a new task for the current slot. If the user clicks on the slot which has some data, he/she can edit or delete the event.
 
 \subsection{Week view}
 
-This view gives a snapshot of tasks of one week.
+This view gives a snapshot of tasks for one week. User can also navigate to following weeks using the arrows in the top part of the view.
 
 \begin{itemize}
 
- \item[$\bullet$] Initially the week view is loaded with current week days. There are two buttons, \textbf{\texttt{$'$prev$'$}} and \textbf{\texttt{$'$next$'$}}, for navigating to previous or next weeks respectively.
- \item[$\bullet$] The week days are partitioned into 24 hours. So, there are 168 (24*7) 'Cell's in this view. Each cell points an specific hour of a day. If there are saved tasks which are created for these week days then the corresponding cells are marked 'Green' when created.
- \item[$\bullet$] Each cell has two modes, \textbf{\texttt{$'$Selection$'$}} and \textbf{\texttt{$'$Navigation$'$}}. When a user touch a \textbf{\texttt{$'$Cell$'$}} first time, it will be in \textbf{\texttt{$'$Selection$'$}} mode. The cell will be in \textbf{\texttt{$'$Navigation$'$}} mode when same cell is touched again. If the Cell is empty then it will navigate to addNewTask view. Otherwise a dialog will pop-up with associated saved task data and there will be three buttons \textbf{\texttt{Edit, Delete and Cancel}}.
+ \item[$\bullet$] Initially the week view is loaded with the current week days. There are two buttons, \textbf{\texttt{$'$prev$'$}} and \textbf{\texttt{$'$next$'$}}, for navigating to previous or next weeks, respectively.
+ \item[$\bullet$] The week days are partitioned into 24 hours. Thus, there are 168 (24*7) 'Cell's in this view. Each cell points to a specific hour. If there are saved tasks which are created for these week days then the corresponding cells are marked 'Green' when created.
+ \item[$\bullet$] Each cell has two modes, \textbf{\texttt{$'$Selection$'$}} and \textbf{\texttt{$'$Navigation$'$}}. When a user touches a \textbf{\texttt{$'$Cell$'$}} for the first time, it goes into \textbf{\texttt{$'$Selection$'$}} mode. The cell will be in the \textbf{\texttt{$'$Navigation$'$}} mode when same cell is touched again. If the Cell is empty then it takes the user to the "Create new task" view. Otherwise, a dialog pops-up with associated saved task data and three action buttons \textbf{\texttt{Edit, Delete and Cancel}}.
   
 \end{itemize}
  
@@ -107,13 +103,11 @@ This view presents a month layout.
 
 \begin{itemize}
   \item[$\bullet$] Initially this view shows current month. A user can navigate to next or previous months through \textbf{\texttt{$'$next$'$}} and \textbf{\texttt{$'$prev$'$}} image buttons.
-  \item[$\bullet$] If user selects a date in the month view then the selection will redirect to corresponding Day View.
+  \item[$\bullet$] If user selects a date in the month view then the selection will redirect user to the corresponding day view.
 \end{itemize}
 
 \subsection{Preference Settings}
- Our application includes settings that allow users to modify app features and behaviors. For example, some apps allow users to specify preferences e.g., notificationB4, notificationFreq, notificationType. \\
-
-
+Our application includes settings feature that allows users to modify app's features and behaviour. For example, users could choose such preferences as when the user has to be reminded about a task, e.g. 30 minutes before, 45 minutes before, etc. The settings set are default for all new events. These can be modified individually for each task when creating the new event or when editing it.\\
 
 
 \begin{figure}[h!]
@@ -126,14 +120,14 @@ This view presents a month layout.
 
 \subsection{Action Bar}
 
-Action bar with Navigation has been implemented implemented with the following features:
+Action bar with Navigation has been implemented with the following features:
 \begin{itemize}
 
- \item[$\bullet$] Action bar \texttt{MODE} is TAB navigation. There are four \texttt{TABS}. Among these, three \texttt{TABS} are responsible for three different views and the fourth \texttt{TAB} is responsible for showing all saved data.
-\item[$\bullet$] There is a menu on top right corner, which includes \texttt{Settings} and \texttt{About}. Users can set own preferences through \texttt{Settings} that include the followings:
+ \item[$\bullet$] Action bar \texttt{MODE} is a TAB navigation. There are four \texttt{TABS}. Among these three \texttt{TABS} are responsible for three different views and the fourth \texttt{TAB} is responsible for showing all saved data.
+\item[$\bullet$] There is a menu on the top right corner, which includes \texttt{Settings} and \texttt{About}. Users can set own preferences through \texttt{Settings} that include the followings:
 
 	\begin{itemize}
-	   \item[$\bullet$] Reminder.
+	   \item[$\bullet$] Reminder
 	   \item[$\bullet$] Notification Before
 	   \item[$\bullet$] Repetition
 	   \item[$\bullet$] Type of Reminder
@@ -143,18 +137,18 @@ Action bar with Navigation has been implemented implemented with the following f
 
 \subsection{Database}
 
-The application uses an sqlite database to store information about all the tasks created by the user and to store some default values of some global properties of the application. To store these information, it maintains to database table and number of methods in the DatabaseAdapter classs to do operation on these two tables.
+The application uses an SQLite database to store information about all the tasks created by the user, as well as to store default values of the global properties of the application. Methods for database access and data modification can be found in DatabaseAdapter class.
 
-Name of the two database tables are:
+Table names are the following:
 
 	\begin{itemize}
-	  \item[$\bullet$]  master$\_$event  (To store all the events)
-	  \item[$\bullet$]  global$\_$config to store all the default values of the global properties of the application e.g., notificationB4, notificationFreq, notificationType. Whenever a new event is created, the values specified in this table for these properties will be used to create the new event, unless the user explicitly mention the value of this properties.
+	  \item[$\bullet$]  master$\_$event: to store all the events
+	  \item[$\bullet$]  global$\_$config: to store all the default values for the application settings: notification before (minutes), notification frequency, notification type. Whenever a new event is created, the values specified in this table will be used to create a new event, unless the user explicitly modifies these.
 	\end{itemize}
 	
  \subsection{Service Granularity in Database}
 
-   To integrate the above mentioned functionalities of our app at the front end with the database tables, it was required to implement some interface between front end and the database. The interface includes the following basic primitive services:
+   To integrate the above mentioned functionalities of our app at the front end with the database tables, we implemented an interface between the front end and the database. The interface includes the following basic primitive services:
    \begin{itemize}
    	  \item createEvent
       \item deleteEvent
@@ -168,24 +162,23 @@ Name of the two database tables are:
   \begin{description}
   
    
-  \item[\texttt{createEvent}] method is responsible for inserting task into database. Its processing details are as follows: 
+  \item[\texttt{createEvent}] method is responsible for inserting a task into the database. Its processing details are as follows: 
    
    \begin{itemize}
      \item  If the \texttt{recurrenceFlag} parameter received from front end is null, it inserts a new row in the \texttt{master$\_$event} table using all the other given inputs. The \texttt{id} column is automatically populated by the database. In this case the \texttt{parentID} column of this table is populated as \texttt{0}.
 
-\item If the \texttt{recurrenceFlag} is not null i.e., daily or weekly or monthly, it checks the \texttt{eventEndDayTime} and find/calculate all the child events and insert one row as parent event for the first occurrence and one row for each child event.
-
-In this case, it populates the \texttt{parentID} column of the parent event as 0 The value of \texttt{parentID} column of the child events are populated with the value of the id column of the parent event.
+\item If the \texttt{recurrenceFlag} is not equal to "Once", i.e. it is "Daily", "Weekly", or "Monthly", the responsible method will check the \texttt{eventEndDayTime} and will find/calculate all the child events. Then it will insert one row as a parent event for the first occurrence and one row for each child event.
+The method will also populate the \texttt{parentID} column of the parent event with 0. The value of \texttt{parentID} column of the child events are populated with the value of the id column of the parent event.
    \end{itemize}
    
- \item[\texttt{deleteEvent}] deletes all the rows from the \texttt{master$\_$event} table which has the value id(received as input) in their id column or in their \texttt{parentID}.   
+ \item[\texttt{deleteEvent}] deletes all the rows from the \texttt{master$\_$event} table which has the value id (received as input) in their id column or in their \texttt{parentID}.   
    
-    \item[\texttt{editEvent}] takes the help of \texttt{createEvent} to edit a task. 
+    \item[\texttt{editEvent}] uses \texttt{createEvent} method to edit a task. 
   \begin{itemize}
    
-   \item If the received event to be edited is a single event or a parent event of a recurrent event, it deletes the event by calling the \texttt{deleteEvent} method and create a new Event by calling the \texttt{createEvent} method
+   \item If the event that needs to be edited is a one-time event or a parent event of a recurrent event, it deletes the event by calling the \texttt{deleteEvent} method and creates a new Event by calling the \texttt{createEvent} method
 
-	\item If the received event to be edited is a child event of a recurrent event, then it deletes the event by calling the \texttt{deleteEvent} method and then create a new Event by calling the createEvent method. While calling the create event method,it sets the recurrence flag to null and sets the editparentID variable to the ID of its \texttt{parentID}. This \texttt{editParentID} ensures that the edited child event still remains as the child of its parent.
+	\item If the received event to be edited is a child event of a recurrent event, then it deletes the event by calling the \texttt{deleteEvent} method and then creates a new Event by calling the createEvent method. While calling the create event method,it sets the recurrence flag to null and sets the editparentID variable to the ID of its \texttt{parentID}. This \texttt{editParentID} ensures that the edited child event still remains the child of its parent.
    
      
 \end{itemize}
@@ -195,14 +188,14 @@ In this case, it populates the \texttt{parentID} column of the parent event as 0
  \section{Prospective Development Ideas}
 	
  \section{Challenging Technologies}
- List of all challenging technological and environment related aspects of our app will be briefly outlined in this section.
+ List of technologies used and challenges we had to undergo during development of our app are briefly outlined in this section.
   \subsection{SQLiteDatabase}
   
   \begin{description}
   
   
   
-\item[Trouble with properly setting up SQLiteDatabase] At the beginning of our database implementations we frequently face error like as follows:
+\item[Trouble with properly setting up SQLiteDatabase] At the beginning of our database implementation we frequently faced the following error:
 
 \begin{verbatim}
 ERROR/Database(234): Leak found
@@ -216,11 +209,11 @@ the cursor or database object t
 hat was opened here                  
 \end{verbatim}
 
-We come to realize that this exception is thrown when we have opened more SQLiteDatabase instances than we have closed. Same thing is also true for \texttt{Cursor} which is used for retrieving data from database. Managing the database can be complicated when first starting out with Android development, especially to those who are just beginning to understand the Activity lifecycle. Our learning is that the easiest solution is to make database instance a singleton instance across the entire application's lifecycle. This will ensure that no leaks occur, and will make your life a lot easier since it eliminates the possibility of forgetting to close your database as you code. Our application uses \texttt{DatabaseAdapter class} for the whole application.
+We realized that this exception is thrown when we have opened more SQLiteDatabase instances than we have closed. The same is true for \texttt{Cursor} which is used for retrieving data from the database. Managing the database can be complicated when first starting out with Android development, especially to those who are just beginning to understand the Activity lifecycle. Our learning experience tells us that the easiest solution would be to make a database instance as a singleton instance across the entire application's lifecycle. This will ensure that no leaks occur and will make your life a lot easier since it eliminates the possibility of forgetting to close your database in the code. Our application uses \texttt{DatabaseAdapter class} for the whole application.
 
-The approach we used for the Singleton Database is that we have created an Abstract Factory to instantiate the SQLiteOpenHelper.
+The approach we used for the Singleton Database is creating the Abstract Factory to instantiate the SQLiteOpenHelper.
 
-\item[Relief Using ADB shell]  ADB shell will work only after application will have been launched into our device or Emulator.
+\item[Using ADB shell]  ADB shell works only after application launch on the device or emulator.
  
  \begin{verbatim}
  
@@ -259,8 +252,7 @@ sqlite>
 
  \end{verbatim}
  
- When we came to familiar with the checking our app databases using ADB shell, it helped us a lot to check the queries there and finally put that into our code. We can remove database, insert, update and remove data from database through ADB shell. All kinds of experiments with the database can be performed through ADB.
-
+When we became familiar with checking our app database using ADB shell, it significantly simplified the task of running the queries on the database. A database and its data can be removed, inserted, updated using ADB shell. Thus, ADB shell is good for experimentation.
 
 \end{description}
 
@@ -270,38 +262,37 @@ sqlite>
 
 We have used Android's \texttt{Preference APIs} to build an interface that is consistent with the user experience in other Android apps (including the system settings). Each \texttt{Preference} appears as an item in a list and provides the appropriate UI for users to modify the setting. \\
 
-Our app requires to store the changes in preferences. For this, we had to use \texttt{SharedPreferences}. Each Preference you add has a corresponding key-value pair that the system uses to save the setting in a default \texttt{SharedPreferences} file for your app's settings. When the user changes a setting, the system updates the corresponding value in the \texttt{SharedPreferences} file. Apps need to directly interact with the associated \texttt{SharedPreferences} file is when it requires to read the value in order to determine your app's behavior based on the user's setting. \\
+Our app requires to store the changes in preferences. For this we had to use \texttt{SharedPreferences}. Each Preference you add has a corresponding key-value pair that the system uses to save the setting in a default \texttt{SharedPreferences} file for your app's settings. When the user changes a setting, the system updates the corresponding value in the \texttt{SharedPreferences} file. The app needs to directly interact with the associated \texttt{SharedPreferences} file, when it reads the preferences set in the settings of the application. \\
 
-
-In order to make use of the preferences framework, the first step is to extend the \texttt{PreferenceActivity} class. This is just a convenience class that derives from \texttt{ListActivity} and allows to bootstrap the preferences \texttt{UI} from an \texttt{XML} file. Additionally, it automatically saves to \texttt{SharedPreferences} behind the scenes. Note that \texttt{SharedPreferences} is the interface responsible for accessing and modifying preference data and that we can manually manipulate it by calling the \texttt{getSharedPreferences} method of an Activity. In order to tie together our \texttt{PreferenceActivity} class and the \texttt{XML} layout file, we use the \texttt{addPreferencesFromResource} method. 
+In order to make use of the preferences framework, the first step is to extend the \texttt{PreferenceActivity} class. This is just a convenience class that derives from \texttt{ListActivity} and allows to bootstrap the preferences \texttt{UI} from an \texttt{XML} file. Additionally, it automatically saves those to the \texttt{SharedPreferences} behind the scenes. Note that \texttt{SharedPreferences} is the interface responsible for accessing and modifying preference data and that we can manually manipulate it by calling the \texttt{getSharedPreferences} method of an Activity. In order to tie together our \texttt{PreferenceActivity} class and the \texttt{XML} layout file, we use the \texttt{addPreferencesFromResource} method. 
 
 \subsection{Alarm Manager}
 
-Prior to a set time of the start time of an event/task, the application notifies the user with an alarm. The user can set this prior time while creating an event/task. Otherwise the prior time will be set from the default settings of the application. When the alarm is generated, a new activity with a lay out is loaded and the default alarm ring tone of the application starts to play. In the lay out there is a button named “Notified”. When user taps this button, the phone gets back to the context where it was and the audio stops to play. \\
+Prior to a set time of the start time of an event/task, the application notifies the user with an alarm. The user can set this prior time while creating an event/task. Otherwise, the prior time will be set from the default settings of the application. When the alarm is generated, a new activity is loaded and the default alarm ringtone of the application starts to play. In the activity layout there is a button named “Notified”. When user taps this button, the phone gets back to the context where it was and the audio stops to play.\\
 
-
-The default AlarmManager class has been used to implement this functionality. Whenever an alarm is created in the database, a Peding Intent is created. This Pending Intent is created with a normal intent the that fires an activity. The activity loads the Alarm layout and plays the default ring tone. Then the Pending Intent is sent to the android system through the AlarmManager to be executed at the specified time. \\
-
+The default AlarmManager class has been used to implement this functionality. Whenever an alarm is created in the database, a Pending Intent is created. This Pending Intent is created with a normal intent the that fires an activity. The activity loads the Alarm layout and plays the default ring tone. Then the Pending Intent is sent to the Android system through the AlarmManager to be executed at the specified time. \\
 
 The Pending Intent remains in the system even if the application is not running and loads the activity when the specified time comes. It also does the same even if the phone is switched off. 
 
 \subsection{Application Navigation}
 
-ActionBar is a nice feature of Android which provides user actions and smooth navigation of an application. At the beginning of this application development we used only Activities and buttons to navigate between activities. But later we realized that ActionBar provides the navigation feature in a more smart way. It improves the UI also. But ActionBar works for API level 11 and above. So, we have to take decision for target devices and we agreed to work with ActionBar. We have also implemented 'Option Menu' for general 'Settings' and 'Action Items' to give users immediate action for specific situation. For example, 'Save' or 'Cancel' action item while creating new task or 'Edit' and 'Delete' action items in Day View.
+ActionBar is a very practical Android feature, which enriches the application with the actions bar and a smooth navigation between tabs. At the beginning of this application development we used only Activities and buttons to navigate between activities. But later we realized that ActionBar provides the navigation feature in a smarter way. It improves the UI also. But ActionBar works for API level 11 and above. There is also a support library which could be used to make the ActionBar compatible with older devices. \\
 
-The challenges we faced includes working with FragmentTransactions as we need to navigate and communicate between Tab fragments. Moreover we had to save the state of a TAB when a TAB is selected or re-selected.
+We have also implemented 'Option Menu' for general 'Settings' and 'Action Items' to give the user immediate action for a specific situation. For example, 'Save' or 'Cancel' action when creating  a new task or 'Edit' and 'Delete' actions in the Day View.
+
+The challenges we faced include working with FragmentTransactions as we need to navigate and communicate between Tab fragments. 
 
 \subsection{XML Layouts}
 
-We experimented different types of layout in our application. Most of the XML uses Linear layout. We have avoided more complex and nested layouts in our application. If the nested level is high then it will be a performance issue and the application will take time to render the view.
+We experimented with different layout types in our application. Most of the XML files use Linear Layout. We have avoided more complex and nested layouts in our application. If the nested level is high then it will be a performance issue and the application will take time to render the view.
 
-In Day View we used List View to show the hour slots of a Day. The Week View and Month View are created dynamically at the run time of the application.
+In tje Day View we used ListView to show the hour slots of a Day. The Week View and Month View are created dynamically at the run time of the application.
 
 \subsection{Screen Orientation}
 
-The activity actually stops and restarts every time the device orientation changes. To save the state of the application, Android calls the \texttt{OnSaveInstanceState(Bu- ndle bundle)} method before it destroys the Activity. The bundle object is passed in the \texttt{OnSaveInstanceState() callback} method to save small amount of data. Bundle is not designed to handle large amount of data. Restoring the saved state is done with the \texttt{onCreate() or onRestoreInstanceState ()} method.
+The activity stops and restarts every time the device orientation changes. To save the state of the application, Android calls the \texttt{OnSaveInstanceState(Bu- ndle bundle)} method before it destroys the Activity. The bundle object is passed in the \texttt{OnSaveInstanceState() callback} method to save small amount of data. Bundle is not designed to handle large amount of data. Restoring the saved state is done with the \texttt{onCreate() or onRestoreInstanceState ()} method.
 
-We can also handle screen orientation by the following way:
+We can also handle screen orientation in the following way:
 \begin{itemize}
  \item In  Activity's manifest node we need to add: 
   \begin{verbatim}
@@ -319,20 +310,17 @@ We can also handle screen orientation by the following way:
 \end{itemize}
 
 \subsection{NotificationManager}
-A notification is a message that is required to notify user outside of our application's normal UI. We need to set a timestamp to tell the system to issue a notification, it first appears as an icon in the notification area. Our application notify the user about task schedule through status bar notification and alarm manager. 
+A notification is a message that notifies the user when he or she is outside of our application's UI. We need to set a timestamp to tell the system to issue a notification, it first appears as an icon in the notification area. Our application notifies the user about a task through status bar notification and alarm manager. 
  
-
- 
-
 
 %-------------------------------------------------%
 \chapter{Metrics}
 
 \section{Used Resources}
 
-We have implemented our project in Eclipse and tested with Samsung phone and Tablet, HTC mobile phone and Emulator. Some of our team members build application in windows operating system and some in Unix operating system. \\
+We have implemented our project in Eclipse and tested with Samsung phone and Tablet, HTC mobile phone and Emulator. Some of our team members build application in windows operating system and some in Linux operating system. \\
 
-Every group member has an account on \texttt{Github}. A repository was created, which serves as a place for common development. All commits are accompanied by a message which states what changes have been made to the previous version.
+Every group member has an account on \texttt{Github}. A repository was created, which serves as a place for common development. All commits are accompanied by a message which states what changes have been made to the current version.
 
 \section{Quality Metrics}
 
@@ -346,35 +334,35 @@ Every group member has an account on \texttt{Github}. A repository was created, 
 
 \section{Software Size}
 
-Total lines of Java source code are approx. 3500. \textit{\color{red}(Please mention the application size in terms of Kbytes here. also mention how much memory space it needs to create a task.)}
+Total lines of Java source code are approx. 3500. The whole package weighs approximately 2.7 MB.)}
 
 \section{Analysis}
 
-We have compared our application with google calendar.\\
+We have compared our application with Google's Calendar.\\
 
-In google calendar user can create an event/task. Our application can do the same.
-Prior to a time the google calendar notifies the user through mail, our application generates an alarm with the phone's default ring tone \\
+In Google calendar a user can create an event/task. Our application can do the same.
+When a task approaches its due time, Google calendar notifies the user through an e-mail (as an option). In comparison, our application generates an alarm with the phone's default ringtone. \\
 
-In google calendar user can create a repeated event based on the day's of a week. For example, every Monday, Or every Tuesday or On Every Monday and Friday. In our application user can create repeated events based on the daily, weekly, monthly recurrence \\
+In Google calendar a user can create a repeated event based on the day's of a week. For example, every Monday, or every Tuesday or every Monday and Friday. In our application user can create repeated events based on the daily, weekly, monthly recurrence. \\
 
-In google calendar user can edit or delete an existing event. In our application user can do the same\\
+In Google calendar user can edit or delete an existing event. In our application user can do the same.\\
 
-In google calendar whenever the user edits the occurrence of a repeated event, it asks the user about editing only that particular event or the whole series. In our application, when the user edits the child event, only that event is edited. And when the user edits the parent event, the whole series is edited \\
+In Google calendar whenever the user edits the occurrence of a repeated event, it asks the user about editing only that particular event or the whole series. In our application, when the user edits the child event, only that event is edited. And when the user edits the parent event, the whole series is edited. \\
 
-In google calendar you can view your calendar from a day view or a month view. In the month view you can click on a week and it shows the events of that particular week. In our application, we have a separate pages for the day view, month view and week view.\\
+In Google calendar you can view your calendar from a day view or a month view. In the month view you can click on a week and it shows the events of that particular week. In our application, we have separate tabs for the day view, month view and week view.\\
 
-In google calendar from the month view you can click on a particular day and it opens the day view for that particular day. It is the same case in our application \\
+In Google calendar from the month view you can click on a particular day and it opens the day view for that particular day. It is the same case in our application. \\
 
-In google calendar if you click on a particular time slot in the day view it opens the create event dialogue to create a new task. Our application do the same
+In Google calendar if you click on a particular time slot in the day view it opens the create event dialogue to create a new task. Our application does the same.
 
 %-------------------------------------------------%
 \chapter{Work Practices and Tools}
 
 \section{Code Repository / Version System}
 
-{\color{red}THIS IS UNDER TOOLS.}
 
-As we have worked in a group, we have to save and share code among group members. Moreover, synchronization and code merging is needed after completion of a defined milestone. There are open source services/servers which provide a good way to maintain this practice.
+
+As we have worked in a group, we have to save and share code among group members. Moreover, synchronization and code merging is needed after completion of a defined milestone. There are open source services/servers which provide a good way for maintaining those.
 
 \begin{itemize}
 	\item Git
@@ -386,18 +374,16 @@ We have used github repository for version control and code synchronization. htt
 
 \section{Issue Tracking}
 
-{\color{red}THIS IS UNDER TOOLS.}
 
 Issue tracking is a way to create, monitor, manage and filter different issues throughout project development or maintenance of an application. There are different types of issues, for example, bugs, code enhancement, question, fixing etc. At first we were maintaining a shared Google Sheets for this purpose. But later we discovered the 'Issues' feature of github which is integrated with project repository.
 
 \section{Group Discussion}
-{\color{red}THIS IS UNDER WORK PRACTICES.}
+
 
 Knowledge, best practices and important notice sharing through WordPress wiki. Weekly meeting, bi-weekly day long code camp.
 
 \section{Testing and Code Review}
-
-{\color{red}THIS IS UNDER WORK PRACTICES.}
+Testing tasks have been performed to identify the bugs and correct them.
 
 
 %-------------------------------------------------%
@@ -491,4 +477,3 @@ Figure~\ref{hd} provides the core fundamental UI for our project. Different view
 We ideate the week view and month view as like Figure~\ref{wm}. User can store their task in our app. Android provides several options to save persistent application data. As app data should be \texttt{private}, we can utilize \texttt{Shared Preferences} and \texttt{SQLite Storage}. Our app should not require that much storage. Figure~\ref{hd} represents an imaginary figure with user's stored tasks. UI will use \texttt{GridView}  or\texttt{Listview} displaying items in a two-dimensional, scrollable grid. The grid items are automatically inserted to the layout using a \texttt{ListAdapter}.
 
 For testing purposes we use our own devices (Android smartphones), as this provides an easier and faster way to check the latest changes.
-

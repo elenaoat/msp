@@ -1,21 +1,20 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.11.18)  8 MAY 2013 01:07
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.3)  8 MAY 2013 11:56
 entering extended mode
+ %&-line parsing enabled.
 **msp_report.tex
-("D:\M.Sc Studies\Period 3\Mobile System Programming\msp\msp_report.tex"
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
-abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
-croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
-lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
-ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
-vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
-an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
-romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
-sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
-senglishmax, welsh, loaded.
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\report.cls"
+(./msp_report.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, farsi, arabic, croatian, bulgarian, ukrainian, russian, czech, slov
+ak, danish, dutch, finnish, french, basque, ngerman, german, german-x-2009-06-1
+9, ngerman-x-2009-06-19, ibycus, monogreek, greek, ancientgreek, hungarian, san
+skrit, italian, latin, latvian, lithuanian, mongolian2a, mongolian, bokmal, nyn
+orsk, romanian, irish, coptic, serbian, turkish, welsh, esperanto, uppersorbian
+, estonian, indonesian, interlingua, icelandic, kurmanji, slovenian, polish, po
+rtuguese, spanish, galician, catalan, swedish, ukenglish, pinyin, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/report.cls
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -31,19 +30,19 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+(/usr/share/texmf-texlive/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu
 File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -193,7 +192,7 @@ File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu
 File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -224,7 +223,7 @@ File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu
 File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -248,20 +247,14 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
-Package: babel 2008/07/08 v3.8m The Babel package
+(/var/lib/texmf/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
 
-*************************************
-* Local config file bblopts.cfg used
-*
-("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
-File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
-)
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\english.ldf"
+(/usr/share/texmf-texlive/tex/generic/babel/english.ldf
 Language: english 2005/03/30 v3.3o English support from the babel system
 
-("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def"
-File: babel.def 2008/07/08 v3.8m Babel common definitions
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen103
 )
@@ -269,24 +262,24 @@ File: babel.def 2008/07/08 v3.8m Babel common definitions
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsmath.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-("C:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amstext.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsgen.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks16
 \ex@=\dimen104
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsbsy.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen105
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsopn.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count89
@@ -327,61 +320,55 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+(/etc/texmf/tex/latex/config/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
 \Gread@gobject=\count101
 ))
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks21
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
-File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 )
 \Gin@req@height=\dimen113
 \Gin@req@width=\dimen114
-)
-("D:\M.Sc Studies\Period 3\Mobile System Programming\msp\msp_report.aux"
+) (./msp_report.aux
 
 LaTeX Warning: Label `hd' multiply defined.
 
 )
+\openout1 = `msp_report.aux'.
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
 LaTeX Font Info:    ... okay on input line 27.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
@@ -394,7 +381,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
 LaTeX Font Info:    ... okay on input line 27.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
 LaTeX Font Info:    ... okay on input line 27.
- ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+ (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count102
 \scratchdimen=\dimen115
@@ -405,29 +392,28 @@ LaTeX Font Info:    ... okay on input line 27.
 \MPscratchCnt=\count105
 \MPscratchDim=\dimen116
 \MPnumerator=\count106
-\makeMPintoPDFobject=\count107
 \everyMPtoPDFconversion=\toks23
 )
 LaTeX Font Info:    Try loading font information for U+msa on input line 28.
- ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+ (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 28.
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ) [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-("D:\M.Sc Studies\Period 3\Mobile System Programming\msp\msp_report.toc"
-[1
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./msp_report.toc [1
 
 ])
 \tf@toc=\write3
+\openout3 = `msp_report.toc'.
+
  [2]
 Chapter 1.
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 38.
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+(/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
@@ -439,10 +425,7 @@ Chapter 2.
 <daymonthweek.jpg, id=25, 752.8125pt x 351.3125pt>
 File: daymonthweek.jpg Graphic file (type jpg)
  <use daymonthweek.jpg>
-Package pdftex.def Info: daymonthweek.jpg used on input line 71.
-(pdftex.def)             Requested size: 376.40532pt x 175.6558pt.
-
-Overfull \hbox (31.40532pt too wide) in paragraph at lines 71--72
+Overfull \hbox (31.40532pt too wide) in paragraph at lines 70--71
  [] 
  []
 
@@ -450,66 +433,89 @@ Overfull \hbox (31.40532pt too wide) in paragraph at lines 71--72
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 97.
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 93.
 [5
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 114--115
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
 
  []
 
 <settings.jpg, id=30, 752.8125pt x 351.3125pt>
 File: settings.jpg Graphic file (type jpg)
  <use settings.jpg>
-Package pdftex.def Info: settings.jpg used on input line 121.
-(pdftex.def)             Requested size: 376.40532pt x 175.6558pt.
-
-Overfull \hbox (31.40532pt too wide) in paragraph at lines 121--122
+Overfull \hbox (31.40532pt too wide) in paragraph at lines 115--116
  [] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[6 <D:/M.Sc Studies/Period 3/Mobile System Programming/msp/daymonthweek.jpg>]
-[7 <D:/M.Sc Studies/Period 3/Mobile System Programming/msp/settings.jpg>]
+[6 <./daymonthweek.jpg>]
+Overfull \hbox (12.68594pt too wide) in paragraph at lines 146--147
+\OT1/cmr/m/n/10 no-ti-fi-ca-tion be-fore (min-utes), no-ti-fi-ca-tion fre-quenc
+y, no-ti-fi-ca-tion type. When-
+ []
+
+[7 <./settings.jpg>]
+Overfull \hbox (52.47206pt too wide) in paragraph at lines 170--172
+\OT1/cmr/m/n/10 "Weekly", or "Monthly", the re-spon-si-ble method will check th
+e \OT1/cmtt/m/n/10 eventEndDayTime
+ []
+
+
+Overfull \hbox (19.38821pt too wide) in paragraph at lines 179--180
+\OT1/cmtt/m/n/10 deleteEvent \OT1/cmr/m/n/10 method and cre-ates a new Event by
+ call-ing the \OT1/cmtt/m/n/10 createEvent
+ []
+
 [8]
-Overfull \hbox (15.9971pt too wide) in paragraph at lines 217--217
+Overfull \hbox (15.9971pt too wide) in paragraph at lines 210--210
  []\OT1/cmtt/m/n/10 ERROR/Database(234): Caused by: java.lang.IllegalStateExcep
 tion:[] 
  []
 
 
-Overfull \hbox (10.74715pt too wide) in paragraph at lines 260--260
+Overfull \hbox (10.74715pt too wide) in paragraph at lines 253--253
  []\OT1/cmtt/m/n/10 hasan@eliteworm:~/android-sdk-linux/platform-tools$ ./adb s
 hell[] 
  []
 
 [9]
-Overfull \hbox (42.24687pt too wide) in paragraph at lines 260--260
+Overfull \hbox (42.24687pt too wide) in paragraph at lines 253--253
  []\OT1/cmtt/m/n/10 CREATE TABLE global_config(property TEXT PRIMARY KEY, value
 Type TEXT,[] 
  []
 
 
-Overfull \hbox (10.74715pt too wide) in paragraph at lines 260--260
+Overfull \hbox (10.74715pt too wide) in paragraph at lines 253--253
  []\OT1/cmtt/m/n/10 CREATE TABLE master_event(id INTEGER PRIMARY KEY AUTOINCREM
 ENT,[] 
  []
 
 
-Overfull \hbox (47.49683pt too wide) in paragraph at lines 260--260
+Overfull \hbox (47.49683pt too wide) in paragraph at lines 253--253
  []\OT1/cmtt/m/n/10 recurrenceFlag TEXT, recurrenceEndDate TEXT, parentID TEXT,
  name TEXT,[] 
  []
 
 
-Overfull \hbox (42.24687pt too wide) in paragraph at lines 260--260
+Overfull \hbox (42.24687pt too wide) in paragraph at lines 253--253
  []\OT1/cmtt/m/n/10 description TEXT, createTime TEXT, dueDate TEXT, notificati
 onB4 TEXT,[] 
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 263--264
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--266
+
+ []
+
+[10]
 Underfull \hbox (badness 10000) in paragraph at lines 271--272
 
  []
@@ -519,30 +525,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 273--274
 
  []
 
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 280--281
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 283--284
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
  []
 
 [11]
-Overfull \hbox (3.16725pt too wide) in paragraph at lines 302--303
-\OT1/cmr/m/n/10 The ac-tiv-ity ac-tu-ally stops and restarts ev-ery time the de
--vice ori-en-ta-tion changes.
- []
-
-
-Overfull \hbox (4.49931pt too wide) in paragraph at lines 302--303
-\OT1/cmr/m/n/10 To save the state of the ap-pli-ca-tion, An-droid calls the \OT
-1/cmtt/m/n/10 OnSaveInstanceState(Bu-
- []
-
-
-Overfull \hbox (21.24706pt too wide) in paragraph at lines 318--318
+Overfull \hbox (21.24706pt too wide) in paragraph at lines 309--309
  []    \OT1/cmtt/m/n/10 public void onConfigurationChanged(Configuration newCon
 fig) {[] 
  []
@@ -550,44 +539,50 @@ fig) {[]
 [12]
 Chapter 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 333--334
+Underfull \hbox (badness 10000) in paragraph at lines 321--322
+
+ []
+
+! Too many }'s.
+l.337 ...le package weighs approximately 2.7 MB.)}
+                                                  
+You've closed more groups than you opened.
+Such booboos are generally harmless, so keep going.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 341--342
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 353--354
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 355--357
+Underfull \hbox (badness 10000) in paragraph at lines 343--345
 
  []
 
 [13
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 358--359
+Underfull \hbox (badness 10000) in paragraph at lines 346--347
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 360--361
+Underfull \hbox (badness 10000) in paragraph at lines 348--349
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 362--363
+Underfull \hbox (badness 10000) in paragraph at lines 350--351
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 364--365
+Underfull \hbox (badness 10000) in paragraph at lines 352--353
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 366--367
+Underfull \hbox (badness 10000) in paragraph at lines 354--355
 
  []
 
@@ -595,50 +590,49 @@ Underfull \hbox (badness 10000) in paragraph at lines 366--367
 Chapter 4.
 [15
 
-] [16]
+]
 Chapter 5.
 
-Underfull \hbox (badness 10000) in paragraph at lines 423--424
+Underfull \hbox (badness 10000) in paragraph at lines 409--410
 
  []
 
-[17
+[16
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 433--434
+Underfull \hbox (badness 10000) in paragraph at lines 419--420
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 435--436
+Underfull \hbox (badness 10000) in paragraph at lines 421--422
 
  []
 
-[18] ("D:\M.Sc Studies\Period 3\Mobile System Programming\msp\msp_report.aux")
+[17] (./msp_report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 2645 strings out of 494045
- 32145 string characters out of 3148386
- 93099 words of memory out of 3000000
- 5898 multiletter control sequences out of 15000+200000
- 13734 words of font info for 54 fonts, out of 3000000 for 9000
- 715 hyphenation exceptions out of 8191
- 27i,7n,22p,1042b,325s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmti10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10
-.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on msp_report.pdf (19 pages, 374157 bytes).
+ 2421 strings out of 493848
+ 28083 string characters out of 1152823
+ 88344 words of memory out of 3000000
+ 5666 multiletter control sequences out of 15000+50000
+ 13388 words of font info for 53 fonts, out of 3000000 for 9000
+ 714 hyphenation exceptions out of 8191
+ 27i,7n,22p,892b,323s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public
+/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share
+/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on msp_report.pdf (18 pages, 359386 bytes).
 PDF statistics:
- 106 PDF objects out of 1000 (max. 8388607)
+ 98 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
